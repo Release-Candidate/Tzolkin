@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2021 Roland Csaszar
 #
-# Project:  FSHARP_TEMPLATE
+# Project:  Tzolkin
 # File:     fsharplint.yml
 #
 ################################################################################
@@ -18,7 +18,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: 5.0.x
+          dotnet-version: 5.0.x
 
       - name: Setup Tools
         run: dotnet tool restore

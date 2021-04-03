@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2021 Roland Csaszar
 #
-# Project:  FSHARP_TEMPLATE
+# Project:  Tzolkin
 # File:     windows_test.yml
 #
 ################################################################################
@@ -33,16 +33,16 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: 5.0.x
+          dotnet-version: 5.0.x
 
       - name: Setup Tools
-        run:  |
-            dotnet tool restore
-            dotnet paket restore
+        run: |
+          dotnet tool restore
+          dotnet paket restore
 
       - name: Run Tests
         shell: cmd
-        run:  |
+        run: |
           dotnet fake run .\build.fsx target TestsCoverage
 
       - name: Upload coverage to Codecov
@@ -68,19 +68,19 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: 5.0.x
+          dotnet-version: 5.0.x
 
       - name: Setup Tools
-        run:  |
-            dotnet tool restore
-            dotnet paket restore
+        run: |
+          dotnet tool restore
+          dotnet paket restore
 
       - name: Run Tests
-        run:  |
+        run: |
           dotnet fake run .\build.fsx target Tests
 
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
-           name: Test Results
-           path: ./test_results/*.trx
+          name: Test Results
+          path: ./test_results/*.trx

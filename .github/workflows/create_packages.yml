@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2021 Roland Csaszar
 #
-# Project:  FSHARP_TEMPLATE
+# Project:  Tzolkin
 # File:     create_packages.yml
 #
 ################################################################################
@@ -14,7 +14,7 @@ on:
 
   push:
     tags:
-      - 'v*.*.*'
+      - "v*.*.*"
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -33,23 +33,23 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: 5.0.x
+          dotnet-version: 5.0.x
 
       - name: Cache pip
         uses: actions/cache@v2
         with:
-            path: ~/.cache/pip
-            key: ${{ runner.os }}-FSHARP_TEMPLATE-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
-            restore-keys: |
-                ${{ runner.os }}-FSHARP_TEMPLATE-pip-pipenv
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-Tzolkin-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-Tzolkin-pip-pipenv
 
       - name: Cache pipenv
         uses: actions/cache@v2
         with:
-            path: ~/.local/share/virtualenvs
-            key: ${{ runner.os }}-FSHARP_TEMPLATE-pipenv-${{ hashFiles('Pipfile.lock') }}
-            restore-keys: |
-                ${{ runner.os }}-FSHARP_TEMPLATE-pipenv-
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-Tzolkin-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-Tzolkin-pipenv-
 
       - name: Setup pipenv
         run: python -m pip install --upgrade pipenv
@@ -61,8 +61,8 @@ jobs:
 
       - name: Setup Tools
         run: |
-            dotnet tool restore
-            dotnet paket restore
+          dotnet tool restore
+          dotnet paket restore
 
       - uses: olegtarasov/get-tag@v2.1
         id: tagName
@@ -76,8 +76,8 @@ jobs:
 
       - name: Generate Changelog
         run: |
-            cd $GITHUB_WORKSPACE/scripts
-            ./get_changelog.sh > ../first_changelog.md
+          cd $GITHUB_WORKSPACE/scripts
+          ./get_changelog.sh > ../first_changelog.md
 
       - name: Release to GitHub
         uses: softprops/action-gh-release@v1
@@ -98,7 +98,7 @@ jobs:
       #    tag: ${{ github.ref }}
       #    file_glob: false
       #    asset_name: NuGet Package
-      #    file: ./packages/FSHARP_TEMPLATE.nupkg
+      #    file: ./packages/Tzolkin.nupkg
 
       - name: Upload
         run: |
@@ -114,8 +114,8 @@ jobs:
   executables:
     runs-on: ${{ matrix.os }}
     strategy:
-        matrix:
-            os: [ubuntu-20.04, macos-latest, windows-2019]
+      matrix:
+        os: [ubuntu-20.04, macos-latest, windows-2019]
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -127,23 +127,23 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: 5.0.x
+          dotnet-version: 5.0.x
 
       - name: Cache pip
         uses: actions/cache@v2
         with:
-            path: ~/.cache/pip
-            key: ${{ runner.os }}-FSHARP_TEMPLATE-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
-            restore-keys: |
-                ${{ runner.os }}-FSHARP_TEMPLATE-pip-pipenv
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-Tzolkin-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-Tzolkin-pip-pipenv
 
       - name: Cache pipenv
         uses: actions/cache@v2
         with:
-            path: ~/.local/share/virtualenvs
-            key: ${{ runner.os }}-FSHARP_TEMPLATE-pipenv-${{ hashFiles('Pipfile.lock') }}
-            restore-keys: |
-                ${{ runner.os }}-FSHARP_TEMPLATE-pipenv-
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}-Tzolkin-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-Tzolkin-pipenv-
 
       - name: Setup pipenv
         run: python -m pip install --upgrade pipenv
@@ -154,8 +154,8 @@ jobs:
 
       - name: Setup Tools
         run: |
-            dotnet tool restore
-            dotnet paket restore
+          dotnet tool restore
+          dotnet paket restore
 
       - uses: olegtarasov/get-tag@v2.1
         id: tagName
@@ -173,8 +173,8 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           tag: ${{ github.ref }}
           file_glob: false
-          asset_name: FSHARP_TEMPLATE-${{ runner.os }}.dll
-          file: ./bin/LibTemplate.dll
+          asset_name: Tzolkin-${{ runner.os }}.dll
+          file: ./bin/FSHARP_Tzolkin.dll
 
       #- name: Release Exes to GitHub
       #  uses: svenstaro/upload-release-action@v2
@@ -182,9 +182,9 @@ jobs:
       #  with:
       #    repo_token: ${{ secrets.GITHUB_TOKEN }}
       #    tag: ${{ github.ref }}
-      #    asset_name: FSHARP_TEMPLATE ${{ runner.os }}
+      #    asset_name: Tzolkin ${{ runner.os }}
       #    file_glob: False
-      #    file: ./bin/FSHARP_TEMPLATE.exe
+      #    file: ./bin/Tzolkin.exe
 
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}

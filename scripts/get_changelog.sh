@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2021 Roland Csaszar
 #
-# Project:  FSHARP_TEMPLATE
+# Project:  Tzolkin
 # File:     get_changelog.sh
 #
 ################################################################################

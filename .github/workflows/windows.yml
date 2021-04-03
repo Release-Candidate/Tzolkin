@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (C) 2021 Roland Csaszar
 #
-# Project:  FSHARP_TEMPLATE
+# Project:  Tzolkin
 # File:     windows.yml
 #
 ################################################################################
@@ -37,23 +37,23 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: 5.0.x
+          dotnet-version: 5.0.x
 
       - name: Cache pip
         uses: actions/cache@v2
         with:
-           path: ~\AppData\Local\pip\Cache
-           key: windows-2019-FSHARP_TEMPLATE-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
-           restore-keys: |
-             windows-2019-FSHARP_TEMPLATE-pip-pipenv-
+          path: ~\AppData\Local\pip\Cache
+          key: windows-2019-Tzolkin-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            windows-2019-Tzolkin-pip-pipenv-
 
       - name: Cache pipenv
         uses: actions/cache@v2
         with:
-           path: ~/.virtualenvs
-           key: windows-2019-pipenv-FSHARP_TEMPLATE-${{ hashFiles('Pipfile.lock') }}
-           restore-keys: |
-             windows-2019-FSHARP_TEMPLATE-pipenv-
+          path: ~/.virtualenvs
+          key: windows-2019-pipenv-Tzolkin-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            windows-2019-Tzolkin-pipenv-
 
       - name: Setup pipenv
         run: python -m pip install --upgrade pipenv
@@ -62,13 +62,13 @@ jobs:
         run: python -m pipenv install --dev
 
       - name: Setup Tools
-        run:  |
-            dotnet tool restore
-            dotnet paket restore
+        run: |
+          dotnet tool restore
+          dotnet paket restore
 
       - name: Build All
         shell: cmd
-        run:  |
+        run: |
           dotnet fake run .\build.fsx
 
       # - uses: actions/upload-artifact@v2
@@ -80,7 +80,6 @@ jobs:
   use-package:
     runs-on: windows-2019
 
-
     steps:
       - uses: actions/checkout@v2
       - name: Setup Python
@@ -90,23 +89,23 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
-            dotnet-version: 5.0.x
+          dotnet-version: 5.0.x
 
       - name: Cache pip
         uses: actions/cache@v2
         with:
-           path: ~\AppData\Local\pip\Cache
-           key: windows-2019-FSHARP_TEMPLATE-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
-           restore-keys: |
-             windows-2019-FSHARP_TEMPLATE-pip-pipenv-
+          path: ~\AppData\Local\pip\Cache
+          key: windows-2019-Tzolkin-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            windows-2019-Tzolkin-pip-pipenv-
 
       - name: Cache pipenv
         uses: actions/cache@v2
         with:
-           path: ~/.virtualenvs
-           key: windows-2019-pipenv-FSHARP_TEMPLATE-${{ hashFiles('Pipfile.lock') }}
-           restore-keys: |
-             windows-2019-FSHARP_TEMPLATE-pipenv-
+          path: ~/.virtualenvs
+          key: windows-2019-pipenv-Tzolkin-${{ hashFiles('Pipfile.lock') }}
+          restore-keys: |
+            windows-2019-Tzolkin-pipenv-
 
       - name: Setup pipenv
         run: python -m pip install --upgrade pipenv
@@ -115,15 +114,14 @@ jobs:
         run: python -m pipenv install --dev
 
       - name: Setup Tools
-        run:  |
-            dotnet tool restore
-            dotnet paket restore
+        run: |
+          dotnet tool restore
+          dotnet paket restore
 
       - name: Build All
         shell: cmd
-        run:  |
+        run: |
           dotnet fake run .\build.fsx
-
       # - uses: actions/upload-artifact@v2
       #  if: ${{ always() }}
       #   with:

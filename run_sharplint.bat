@@ -1,11 +1,11 @@
 :: SPDX-License-Identifier: MIT
 :: Copyright (C) 2021 Roland Csaszar
 ::
-:: Project:  FSHARP_TEMPLATE
+:: Project:  Tzolkin
 :: File:     run_sharplint.bat
 ::
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :: install dotnet tool install -g dotnet-fsharplint
 
-dotnet fsharplint lint FsharpTemplate.sln
+dotnet fsharplint lint FSHARP_Tzolkin.sln
