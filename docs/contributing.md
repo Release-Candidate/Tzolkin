@@ -212,11 +212,11 @@ Test sources:
   in [`build.fsx`](https://github.com/Release-Candidate/Tzolkin/blob/main/build.fsx).
 - The output of the `Publish` target is copied to the directory `bin`, set using the expression  `exeOutPath` in [`build.fsx`](https://github.com/Release-Candidate/Tzolkin/blob/main/build.fsx).
 
-Warning:
+!!! Warning
 
-All of these directories are cleaned - that means all files in them are deleted - using the target `clean`.
-Which is called as the first build step of all targets. In other words: all generated
-files (including Nuget packages) are deleted when calling any target.
+    All of these directories are cleaned - that means all files in them are deleted - using the target `clean`.
+    Which is called as the first build step of all targets. In other words: all generated
+    files (including Nuget packages) are deleted when calling any target.
 
 The Fake script [`build.fsx`](https://github.com/Release-Candidate/Tzolkin/blob/main/build.fsx) defines the following targets:
 
