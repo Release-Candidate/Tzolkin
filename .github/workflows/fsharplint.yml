@@ -1,0 +1,35 @@
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2021 Roland Csaszar
+#
+# Project:  FSHARP_TEMPLATE
+# File:     fsharplint.yml
+#
+################################################################################
+
+name: FsharpLint
+
+on: [push, pull_request]
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+            dotnet-version: 5.0.x
+
+      - name: Setup Tools
+        run: dotnet tool restore
+
+      - name: Run FsharpLint
+        run: |
+          cd $GITHUB_WORKSPACE
+          dotnet fsharplint lint *.sln > fsharplint_out.txt 2>&1
+
+      - uses: actions/upload-artifact@v2
+        if: ${{ always() }}
+        with:
+          name: FsharpLint Output
+          path: fsharplint_out.txt

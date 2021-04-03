@@ -1,0 +1,13 @@
+source https://api.nuget.org/v3/index.json
+
+storage: none
+framework: net5.0
+
+nuget AltCover
+nuget AltCover.Api
+nuget Expecto
+nuget Expecto.FsCheck
+nuget Expecto.VisualStudio.TestAdapter
+nuget Unquote
+nuget YoloDev.Expecto.TestSdk
+nuget fake-cli

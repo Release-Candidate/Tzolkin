@@ -1,0 +1,33 @@
+# Generated files
+**/bin
+**/obj
+**/.vs
+
+# PyPI lock file
+Pipfile.lock
+
+# Coverage data
+coverage.xml
+*.exn
+
+# Fake and Ionide directories
+.fake
+.ionide
+
+
+# Paket dependency manager
+.paket/
+paket-files/
+
+# Mkdocs generated HTML
+/site
+
+# ignore generated files
+/artifacts
+/test_results
+/packages
+*.cache
+/artifactsPublishOutputs.*.txt
+
+# Jupyter notebook checkpoints
+.ipynb_checkpoints/

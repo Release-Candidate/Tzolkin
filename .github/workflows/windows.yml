@@ -1,0 +1,131 @@
+# SPDX-License-Identifier: MIT
+# Copyright (C) 2021 Roland Csaszar
+#
+# Project:  FSHARP_TEMPLATE
+# File:     windows.yml
+#
+################################################################################
+
+name: Windows 2019
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_run:
+    workflows: ["Nuget Packages"]
+    types: [completed]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build-src:
+    runs-on: windows-2019
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+            dotnet-version: 5.0.x
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+           path: ~\AppData\Local\pip\Cache
+           key: windows-2019-FSHARP_TEMPLATE-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
+           restore-keys: |
+             windows-2019-FSHARP_TEMPLATE-pip-pipenv-
+
+      - name: Cache pipenv
+        uses: actions/cache@v2
+        with:
+           path: ~/.virtualenvs
+           key: windows-2019-pipenv-FSHARP_TEMPLATE-${{ hashFiles('Pipfile.lock') }}
+           restore-keys: |
+             windows-2019-FSHARP_TEMPLATE-pipenv-
+
+      - name: Setup pipenv
+        run: python -m pip install --upgrade pipenv
+
+      - name: Install dependencies using pipenv
+        run: python -m pipenv install --dev
+
+      - name: Setup Tools
+        run:  |
+            dotnet tool restore
+            dotnet paket restore
+
+      - name: Build All
+        shell: cmd
+        run:  |
+          dotnet fake run .\build.fsx
+
+      # - uses: actions/upload-artifact@v2
+      #  if: ${{ always() }}
+      #   with:
+      #     name: Windows Buildnis Debug Log
+      #     path: log_file.txt
+
+  use-package:
+    runs-on: windows-2019
+
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9"
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+            dotnet-version: 5.0.x
+
+      - name: Cache pip
+        uses: actions/cache@v2
+        with:
+           path: ~\AppData\Local\pip\Cache
+           key: windows-2019-FSHARP_TEMPLATE-pip-pipenv-${{ hashFiles('Pipfile.lock') }}
+           restore-keys: |
+             windows-2019-FSHARP_TEMPLATE-pip-pipenv-
+
+      - name: Cache pipenv
+        uses: actions/cache@v2
+        with:
+           path: ~/.virtualenvs
+           key: windows-2019-pipenv-FSHARP_TEMPLATE-${{ hashFiles('Pipfile.lock') }}
+           restore-keys: |
+             windows-2019-FSHARP_TEMPLATE-pipenv-
+
+      - name: Setup pipenv
+        run: python -m pip install --upgrade pipenv
+
+      - name: Install dependencies using pipenv
+        run: python -m pipenv install --dev
+
+      - name: Setup Tools
+        run:  |
+            dotnet tool restore
+            dotnet paket restore
+
+      - name: Build All
+        shell: cmd
+        run:  |
+          dotnet fake run .\build.fsx
+
+      # - uses: actions/upload-artifact@v2
+      #  if: ${{ always() }}
+      #   with:
+      #     name: Windows Buildnis Pkg Debug Log
+      #     path: log_file.txt
