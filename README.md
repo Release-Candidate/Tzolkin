@@ -1,7 +1,9 @@
 # Tzolkin
 
-This library and program converts mayan Tzolk’in dates to Gregorian dates and vice versa.
+This cross platform - Linux, Mac OS X and Windows - F# .Net library and program converts Maya Tzolk’in dates to Gregorian dates and vice versa.
 If you want to know more about the Maya calendar systems, see [Links](#links).
+
+Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.io/en/latest/)
 
 [![MIT license badge](https://img.shields.io/github/license/Release-Candidate/Tzolkin)](https://github.com/Release-Candidate/Tzolkin/blob/main/LICENSE)
 [![Documentation Status badge](https://readthedocs.org/projects/Tzolkin/badge/?version=latest)](https://Tzolkin.readthedocs.io/en/latest/?badge=latest)
@@ -9,8 +11,6 @@ If you want to know more about the Maya calendar systems, see [Links](#links).
 [![F# 5.0 badge](https://img.shields.io/badge/F%23-5.0-brightgreen?style=flat)](https://fsharp.org/)
 [![.Net 5.0 badge](https://img.shields.io/badge/.Net-5.0-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
 [more badges](#badges)
-
-
 
 ## Table of Content
 
@@ -42,7 +42,6 @@ Online general Maya (not only Tzolk’in) calendar converter: [Maya Converter of
 
 Mayan Glyphs and Unicode: [Roadmap to the SMP](https://www.unicode.org/roadmaps/smp/) and the PDF [Updated List of Characters for Mayan Codices](https://www.unicode.org/L2/L2020/20248-mayan-update.pdf)
 
-
 ## Download
 
 List of changes: [CHANGELOG.md](https://github.com/Release-Candidate/Tzolkin/blob/main/CHANGELOG.md)
@@ -58,6 +57,8 @@ List of changes: [CHANGELOG.md](https://github.com/Release-Candidate/Tzolkin/blo
 ### Usage
 
 ## Contributing
+
+See page [Contributing](https://tzolkin.readthedocs.io/en/latest/contributing/) at Read the Docs.
 
 ## License
 

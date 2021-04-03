@@ -1,9 +1,14 @@
 # Tzolkin
 
-[GitHub Project Page](https://github.com/Release-Candidate/Tzolkin)
-[Nuget Package](https://pypi.org/project/Tzolkin/)
-[Report a Bug or a Feature Request](https://github.com/Release-Candidate/Tzolkin/issues/new/choose)
-[Issue Tracker at GitHub](https://github.com/Release-Candidate/Tzolkin/issues)
+This cross platform - Linux, Mac OS X and Windows - F# .Net library and program converts Maya Tzolk’in dates to Gregorian dates and vice versa.
+
+If you want to know more about the Maya calendar systems, see [Links](#links).
+
+Information about the usage of Tzolkin you find at [Installation & Usage](./usage.md)
+
+[Contributing](./contributing.md) has information about how to contribute to Tzolkin, by
+filing bug reports or feature requests, to contributing source code, to adding documentation
+or translations or any other way you can help Tzolkin.
 
 ## Links
 
