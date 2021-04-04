@@ -7,9 +7,9 @@ Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.i
 
 [![MIT license badge](https://img.shields.io/github/license/Release-Candidate/Tzolkin)](https://github.com/Release-Candidate/Tzolkin/blob/main/LICENSE)
 [![Documentation Status](https://readthedocs.org/projects/tzolkin/badge/?version=latest)](https://tzolkin.readthedocs.io/en/latest/?badge=latest)     
+[![.Net 5.0 badge](https://img.shields.io/badge/.Net-5.0-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
 [![OS badge](https://img.shields.io/badge/Runs%20on-Linux%7COS%20X%7CWindows-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
 [![F# 5.0 badge](https://img.shields.io/badge/F%23-5.0-brightgreen?style=flat)](https://fsharp.org/)
-[![.Net 5.0 badge](https://img.shields.io/badge/.Net-5.0-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
 [more badges](#badges)
 
 ## Table of Content
