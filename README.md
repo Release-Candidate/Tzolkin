@@ -6,10 +6,10 @@ If you want to know more about the Maya calendar systems, see [Links](#links).
 Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.io/en/latest/)
 
 [![MIT license badge](https://img.shields.io/github/license/Release-Candidate/Tzolkin)](https://github.com/Release-Candidate/Tzolkin/blob/main/LICENSE)
-[![Documentation Status](https://readthedocs.org/projects/tzolkin/badge/?version=latest)](https://tzolkin.readthedocs.io/en/latest/?badge=latest)     
 [![F# 5.0 badge](https://img.shields.io/badge/F%23-5.0-brightgreen?style=flat)](https://fsharp.org/)
-[![OS badge](https://img.shields.io/badge/Runs%20on-Linux%7COS%20X%7CWindows-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
 [![.Net 5.0 badge](https://img.shields.io/badge/.Net-5.0-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
+[![OS badge](https://img.shields.io/badge/Runs%20on-Linux%7COS%20X%7CWindows-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
+[![Documentation Status](https://readthedocs.org/projects/tzolkin/badge/?version=latest)](https://tzolkin.readthedocs.io/en/latest/?badge=latest)     
 [more badges](#badges)
 
 ## Table of Content
