@@ -9,67 +9,109 @@
 /// The namespace of the IOS and Android Tzolkin app.
 namespace TzolkinApp
 
+open System
 open System.Diagnostics
 open Fabulous
 open Fabulous.XamarinForms
 open Fabulous.XamarinForms.LiveUpdate
 open Xamarin.Forms
 
-open RC.Maya.TzolkinDate
+open RC.Maya
 
 /// The module holds the IOS and Android app.
 module App =
 
     /// The MVU model.
     type Model =
-        { Count: int
-          Step: int
-          TimerOn: bool }
+        { Date: System.DateTime
+          ListTzolkinDate: TzolkinDate.T
+          FilterTzolkinDate: TzolkinDate.T
+          FilterString: string }
 
     /// MVU messages.
     type Msg =
-        | Increment
-        | Decrement
-        | Reset
-        | SetStep of int
-        | TimerToggled of bool
-        | TimedTick
+        | SetDate of System.DateTime
+        | SetListNumber of int
+        | SetListGlyph of int
+        | SetFilterNumber of int
+        | SetFilterGlyph of int
+        | SetFilterString of string
+
 
     /// Initial state of the MVU model.
-    let initModel = { Count = 0; Step = 1; TimerOn = false }
+    let initModel =
+        { Date = System.DateTime.Today
+          ListTzolkinDate =
+              { number = TzolkinNumber.T.TzolkinNumber 8
+                glyph = TzolkinGlyph.T.TzolkinGlyph 5 }
+          FilterTzolkinDate =
+              { number = TzolkinNumber.T.TzolkinNumber 6
+                glyph = TzolkinGlyph.T.TzolkinGlyph 15 }
+          FilterString = "" }
 
     /// Initialize the model and commands.
     let init () = initModel, Cmd.none
 
-    let timerCmd =
-        async {
-            do! Async.Sleep 200
-            return TimedTick
-        }
-        |> Cmd.ofAsyncMsg
-
     /// The update function of MVU.
     let update msg model =
         match msg with
-        | Increment ->
+        | SetDate date -> { model with Date = date }, Cmd.none
+        | SetListNumber newNum ->
             { model with
-                  Count = model.Count + model.Step },
+                  ListTzolkinDate =
+                      { model.ListTzolkinDate with
+                            number = (TzolkinNumber.T.TzolkinNumber newNum) } },
             Cmd.none
-        | Decrement ->
+        | SetListGlyph newGlyph ->
             { model with
-                  Count = model.Count - model.Step },
+                  ListTzolkinDate =
+                      { model.ListTzolkinDate with
+                            glyph = (TzolkinGlyph.T.TzolkinGlyph newGlyph) } },
             Cmd.none
-        | Reset -> init ()
-        | SetStep n -> { model with Step = n }, Cmd.none
-        | TimerToggled on -> { model with TimerOn = on }, (if on then timerCmd else Cmd.none)
-        | TimedTick ->
-            if model.TimerOn then
-                { model with
-                      Count = model.Count + model.Step },
-                timerCmd
-            else
-                model, Cmd.none
+        | SetFilterNumber newNum ->
+            { model with
+                  FilterTzolkinDate =
+                      { model.FilterTzolkinDate with
+                            number = (TzolkinNumber.T.TzolkinNumber newNum) } },
+            Cmd.none
+        | SetFilterGlyph newGlyph ->
+            { model with
+                  FilterTzolkinDate =
+                      { model.FilterTzolkinDate with
+                            glyph = (TzolkinGlyph.T.TzolkinGlyph newGlyph) } },
+            Cmd.none
+        | SetFilterString newStr -> { model with FilterString = newStr }, Cmd.none
 
+    /// Fills the list view with 21 dates that have the same Tzolk’in date.
+    let fillListView model =
+        let lastList =
+            TzolkinDate.getLastList 10 model.FilterTzolkinDate DateTime.Today
+            |> List.map (fun t -> t.ToShortDateString())
+            |> List.rev
+
+        let nextList =
+            TzolkinDate.getNextList 10 model.FilterTzolkinDate DateTime.Today
+            |> List.map (fun t -> t.ToShortDateString())
+
+        let strList = lastList @ nextList
+
+        List.map (fun elem -> View.TextCell elem) strList
+
+    let fillListViewFilter model =
+        let lastList =
+            TzolkinDate.filterDateList
+                model.FilterString
+                (TzolkinDate.getLastList 500 model.ListTzolkinDate DateTime.Today)
+            |> List.rev
+
+        let nextList =
+            TzolkinDate.filterDateList
+                model.FilterString
+                (TzolkinDate.getNextList 500 model.ListTzolkinDate DateTime.Today)
+
+        let strList = lastList @ nextList
+
+        List.map (fun elem -> View.TextCell elem) strList
 
     /// The view of MVU.
     let view (model: Model) dispatch =
@@ -80,43 +122,82 @@ module App =
                     verticalOptions = LayoutOptions.Center,
                     children =
                         [ View.Label(
-                            text = sprintf "%d" model.Count,
+                            text = sprintf "Tzolk’in date: %s" ((TzolkinDate.fromDate model.Date).ToString()),
                             horizontalOptions = LayoutOptions.Center,
                             width = 200.0,
                             horizontalTextAlignment = TextAlignment.Center
                           )
-                          View.Button(
-                              text = "Increment",
-                              command = (fun () -> dispatch Increment),
+                          View.DatePicker(
+                              minimumDate = DateTime.MinValue,
+                              maximumDate = DateTime.MaxValue,
+                              date = DateTime.Today,
+                              format = "dd-MM-yyyy",
+                              dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
                               horizontalOptions = LayoutOptions.Center
-                          )
-                          View.Button(
-                              text = "Decrement",
-                              command = (fun () -> dispatch Decrement),
-                              horizontalOptions = LayoutOptions.Center
-                          )
-                          View.Label(text = "Timer", horizontalOptions = LayoutOptions.Center)
-                          View.Switch(
-                              isToggled = model.TimerOn,
-                              toggled = (fun on -> dispatch (TimerToggled on.Value)),
-                              horizontalOptions = LayoutOptions.Center
-                          )
-                          View.Slider(
-                              minimumMaximum = (0.0, 10.0),
-                              value = double model.Step,
-                              valueChanged = (fun args -> dispatch (SetStep(int (args.NewValue + 0.5)))),
-                              horizontalOptions = LayoutOptions.FillAndExpand
                           )
                           View.Label(
-                              text = sprintf "Step size: %d" model.Step,
-                              horizontalOptions = LayoutOptions.Center
-                          )
-                          View.Button(
-                              text = "Reset",
+                              text = sprintf "Tzolk’in date: %s" (model.ListTzolkinDate.ToString()),
                               horizontalOptions = LayoutOptions.Center,
-                              command = (fun () -> dispatch Reset),
-                              commandCanExecute = (model <> initModel)
-                          ) ]
+                              width = 200.0,
+                              horizontalTextAlignment = TextAlignment.Center
+                          )
+                          View.Slider(
+                              minimumMaximum = (1.0, 13.0),
+                              minimumTrackColor = Color.Fuchsia,
+                              thumbColor = Color.Fuchsia,
+                              value = double (int model.ListTzolkinDate.number),
+                              valueChanged =
+                                  (fun args ->
+                                      SetListNumber(int (args.NewValue + 0.5))
+                                      |> dispatch),
+                              horizontalOptions = LayoutOptions.FillAndExpand
+                          )
+                          View.Slider(
+                              minimumMaximum = (1.0, 20.0),
+                              minimumTrackColor = Color.Aqua,
+                              thumbColor = Color.Aqua,
+                              value = double (int model.ListTzolkinDate.glyph),
+                              valueChanged =
+                                  (fun args ->
+                                      SetListGlyph(int (args.NewValue + 0.5))
+                                      |> dispatch),
+                              horizontalOptions = LayoutOptions.FillAndExpand
+                          )
+                          View.ListView(items = fillListView model)
+                          View.Label(
+                              text = sprintf "Tzolk’in date: %s" (model.FilterTzolkinDate.ToString()),
+                              horizontalOptions = LayoutOptions.Center,
+                              width = 200.0,
+                              horizontalTextAlignment = TextAlignment.Center
+                          )
+                          View.Slider(
+                              minimumMaximum = (1.0, 13.0),
+                              minimumTrackColor = Color.Fuchsia,
+                              thumbColor = Color.Fuchsia,
+                              value = double (int model.FilterTzolkinDate.number),
+                              valueChanged =
+                                  (fun args ->
+                                      SetFilterNumber(int (args.NewValue + 0.5))
+                                      |> dispatch),
+                              horizontalOptions = LayoutOptions.FillAndExpand
+                          )
+                          View.Slider(
+                              minimumMaximum = (1.0, 20.0),
+                              minimumTrackColor = Color.Aqua,
+                              thumbColor = Color.Aqua,
+                              value = double (int model.FilterTzolkinDate.glyph),
+                              valueChanged =
+                                  (fun args ->
+                                      SetFilterGlyph(int (args.NewValue + 0.5))
+                                      |> dispatch),
+                              horizontalOptions = LayoutOptions.FillAndExpand
+                          )
+                          View.Entry(
+                              text = model.FilterString,
+                              textChanged = (fun args -> dispatch (SetFilterString args.NewTextValue)),
+                              completed = (fun text -> dispatch (SetFilterString text))
+                          )
+                          View.ListView(items = fillListViewFilter model) ]
                 )
         )
 
