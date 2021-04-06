@@ -2,14 +2,16 @@
 // Copyright (C) 2021 Roland Csaszar
 //
 // Project:  Tzolkin
-// File:     Sample.fs
+// File:     TestTzolkinNumber.fs
 //
 //==============================================================================
 
-module Sample
+module Tests.TestTzolkinNumber
 
 open Expecto
 open Swensen.Unquote
+
+open RC.Maya.TzolkinNumber
 
 [<Tests>]
 let tests =

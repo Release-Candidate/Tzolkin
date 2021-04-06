@@ -2,16 +2,18 @@
 // Copyright (C) 2021 Roland Csaszar
 //
 // Project:  Tzolkin
-// File:     Main.fs
+// File:     TestMain.fs
 //
 //==============================================================================
 
-module Main
+/// Test module containing the main entry point for the `standalone` tests, when
+/// called by `dotnet run` instead of `dotnet test`.
+module Tests.TestMain
 
 open Expecto
 
-
-/// <summary>Hugo</summary>
+/// Main entry point of the tests, if called by `dotnet run` instead of
+/// `dotnet test`.
 [<EntryPoint>]
 let main argv =
     Tests.runTestsInAssembly defaultConfig argv
