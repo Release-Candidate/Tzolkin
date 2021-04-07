@@ -18,6 +18,56 @@ Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TestTzolkin", "tests\TestTz
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TzolkinDate", "src\TzolkinDate\TzolkinDate.fsproj", "{88DACF37-9259-4CAB-A3F7-5761CB35906E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C411083C-1D4C-4753-AB17-835AF63985F5}"
+	ProjectSection(SolutionItems) = preProject
+		.gitattributes = .gitattributes
+		.gitignore = .gitignore
+		.readthedocs.yaml = .readthedocs.yaml
+		build.fsx = build.fsx
+		CHANGELOG.md = CHANGELOG.md
+		fake.cmd = fake.cmd
+		fake.sh = fake.sh
+		LICENSE = LICENSE
+		mkdocs.yml = mkdocs.yml
+		Pipfile = Pipfile
+		postBuild = postBuild
+		README.md = README.md
+		run_sharplint.bat = run_sharplint.bat
+		run_sharplint.sh = run_sharplint.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C0448E6D-F374-45E9-A37C-2C596643F99D}"
+	ProjectSection(SolutionItems) = preProject
+		docs\contributing.md = docs\contributing.md
+		docs\index.md = docs\index.md
+		docs\license.md = docs\license.md
+		docs\requirements.txt = docs\requirements.txt
+		docs\usage.md = docs\usage.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{EA6A6722-8FF9-44D0-8A40-DCC5EC60F557}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\create_packages.yml = .github\workflows\create_packages.yml
+		.github\workflows\fsharplint.yml = .github\workflows\fsharplint.yml
+		.github\workflows\linux.yml = .github\workflows\linux.yml
+		.github\workflows\linux_test.yml = .github\workflows\linux_test.yml
+		.github\workflows\osx.yml = .github\workflows\osx.yml
+		.github\workflows\osx_test.yml = .github\workflows\osx_test.yml
+		.github\workflows\windows.yml = .github\workflows\windows.yml
+		.github\workflows\windows_test.yml = .github\workflows\windows_test.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{16744CD7-95E7-44F7-9615-E1BFBED09227}"
+	ProjectSection(SolutionItems) = preProject
+		scripts\get_changelog.sh = scripts\get_changelog.sh
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "issue templates", "issue templates", "{E2EB7E61-B546-4661-9A0B-E576FA98BCEF}"
+	ProjectSection(SolutionItems) = preProject
+		.github\ISSUE_TEMPLATE\bug_report.md = .github\ISSUE_TEMPLATE\bug_report.md
+		.github\ISSUE_TEMPLATE\feature_request.md = .github\ISSUE_TEMPLATE\feature_request.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Ad-Hoc|Any CPU = Ad-Hoc|Any CPU
@@ -26,6 +76,12 @@ Global
 		Ad-Hoc|iPhoneSimulator = Ad-Hoc|iPhoneSimulator
 		Ad-Hoc|x64 = Ad-Hoc|x64
 		Ad-Hoc|x86 = Ad-Hoc|x86
+		APK Release|Any CPU = APK Release|Any CPU
+		APK Release|ARM = APK Release|ARM
+		APK Release|iPhone = APK Release|iPhone
+		APK Release|iPhoneSimulator = APK Release|iPhoneSimulator
+		APK Release|x64 = APK Release|x64
+		APK Release|x86 = APK Release|x86
 		AppStore|Any CPU = AppStore|Any CPU
 		AppStore|ARM = AppStore|ARM
 		AppStore|iPhone = AppStore|iPhone
@@ -58,6 +114,18 @@ Global
 		{6EE96C5C-3777-4E75-A69D-298668A430E1}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
 		{6EE96C5C-3777-4E75-A69D-298668A430E1}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
 		{6EE96C5C-3777-4E75-A69D-298668A430E1}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|Any CPU.ActiveCfg = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|Any CPU.Build.0 = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|ARM.ActiveCfg = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|ARM.Build.0 = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|iPhone.ActiveCfg = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|iPhone.Build.0 = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|iPhoneSimulator.ActiveCfg = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|iPhoneSimulator.Build.0 = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|x64.ActiveCfg = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|x64.Build.0 = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|x86.ActiveCfg = Release APK|Any CPU
+		{6EE96C5C-3777-4E75-A69D-298668A430E1}.APK Release|x86.Build.0 = Release APK|Any CPU
 		{6EE96C5C-3777-4E75-A69D-298668A430E1}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
 		{6EE96C5C-3777-4E75-A69D-298668A430E1}.AppStore|Any CPU.Build.0 = Debug|Any CPU
 		{6EE96C5C-3777-4E75-A69D-298668A430E1}.AppStore|ARM.ActiveCfg = Debug|Any CPU
@@ -106,6 +174,24 @@ Global
 		{280DCF60-1969-4184-9680-5CBA108A8FF6}.Ad-Hoc|x64.Build.0 = Release|Any CPU
 		{280DCF60-1969-4184-9680-5CBA108A8FF6}.Ad-Hoc|x86.ActiveCfg = Release|Any CPU
 		{280DCF60-1969-4184-9680-5CBA108A8FF6}.Ad-Hoc|x86.Build.0 = Release|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|Any CPU.ActiveCfg = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|Any CPU.Build.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|Any CPU.Deploy.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|ARM.ActiveCfg = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|ARM.Build.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|ARM.Deploy.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|iPhone.ActiveCfg = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|iPhone.Build.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|iPhone.Deploy.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|iPhoneSimulator.ActiveCfg = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|iPhoneSimulator.Build.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|iPhoneSimulator.Deploy.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|x64.ActiveCfg = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|x64.Build.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|x64.Deploy.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|x86.ActiveCfg = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|x86.Build.0 = Release APK|Any CPU
+		{280DCF60-1969-4184-9680-5CBA108A8FF6}.APK Release|x86.Deploy.0 = Release APK|Any CPU
 		{280DCF60-1969-4184-9680-5CBA108A8FF6}.AppStore|Any CPU.ActiveCfg = Release|Any CPU
 		{280DCF60-1969-4184-9680-5CBA108A8FF6}.AppStore|Any CPU.Build.0 = Release|Any CPU
 		{280DCF60-1969-4184-9680-5CBA108A8FF6}.AppStore|ARM.ActiveCfg = Release|Any CPU
@@ -152,6 +238,12 @@ Global
 		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.Ad-Hoc|iPhoneSimulator.Build.0 = Ad-Hoc|iPhoneSimulator
 		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.Ad-Hoc|x64.ActiveCfg = Ad-Hoc|iPhone
 		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.Ad-Hoc|x86.ActiveCfg = Ad-Hoc|iPhone
+		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.APK Release|Any CPU.ActiveCfg = Release APK|iPhoneSimulator
+		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.APK Release|ARM.ActiveCfg = Release APK|iPhoneSimulator
+		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.APK Release|iPhone.ActiveCfg = Release APK|iPhone
+		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.APK Release|iPhoneSimulator.ActiveCfg = Release APK|iPhoneSimulator
+		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.APK Release|x64.ActiveCfg = Release APK|iPhoneSimulator
+		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.APK Release|x86.ActiveCfg = Release APK|iPhoneSimulator
 		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.AppStore|Any CPU.ActiveCfg = AppStore|iPhone
 		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.AppStore|ARM.ActiveCfg = AppStore|iPhone
 		{19DDCAB5-DCF6-4EE4-A343-1085C50BDD57}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
@@ -188,6 +280,18 @@ Global
 		{CE7FBF66-014F-484E-9A1F-4C101C688708}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
 		{CE7FBF66-014F-484E-9A1F-4C101C688708}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
 		{CE7FBF66-014F-484E-9A1F-4C101C688708}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|Any CPU.ActiveCfg = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|Any CPU.Build.0 = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|ARM.ActiveCfg = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|ARM.Build.0 = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|iPhone.ActiveCfg = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|iPhone.Build.0 = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|iPhoneSimulator.ActiveCfg = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|iPhoneSimulator.Build.0 = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|x64.ActiveCfg = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|x64.Build.0 = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|x86.ActiveCfg = Release APK|Any CPU
+		{CE7FBF66-014F-484E-9A1F-4C101C688708}.APK Release|x86.Build.0 = Release APK|Any CPU
 		{CE7FBF66-014F-484E-9A1F-4C101C688708}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
 		{CE7FBF66-014F-484E-9A1F-4C101C688708}.AppStore|Any CPU.Build.0 = Debug|Any CPU
 		{CE7FBF66-014F-484E-9A1F-4C101C688708}.AppStore|ARM.ActiveCfg = Debug|Any CPU
@@ -236,6 +340,18 @@ Global
 		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.Ad-Hoc|x64.Build.0 = Debug|Any CPU
 		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.Ad-Hoc|x86.ActiveCfg = Debug|Any CPU
 		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.Ad-Hoc|x86.Build.0 = Debug|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|Any CPU.ActiveCfg = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|Any CPU.Build.0 = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|ARM.ActiveCfg = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|ARM.Build.0 = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|iPhone.ActiveCfg = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|iPhone.Build.0 = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|iPhoneSimulator.ActiveCfg = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|iPhoneSimulator.Build.0 = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|x64.ActiveCfg = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|x64.Build.0 = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|x86.ActiveCfg = Release APK|Any CPU
+		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.APK Release|x86.Build.0 = Release APK|Any CPU
 		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.AppStore|Any CPU.ActiveCfg = Debug|Any CPU
 		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.AppStore|Any CPU.Build.0 = Debug|Any CPU
 		{88DACF37-9259-4CAB-A3F7-5761CB35906E}.AppStore|ARM.ActiveCfg = Debug|Any CPU
@@ -275,6 +391,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C0448E6D-F374-45E9-A37C-2C596643F99D} = {C411083C-1D4C-4753-AB17-835AF63985F5}
+		{EA6A6722-8FF9-44D0-8A40-DCC5EC60F557} = {C411083C-1D4C-4753-AB17-835AF63985F5}
+		{16744CD7-95E7-44F7-9615-E1BFBED09227} = {C411083C-1D4C-4753-AB17-835AF63985F5}
+		{E2EB7E61-B546-4661-9A0B-E576FA98BCEF} = {EA6A6722-8FF9-44D0-8A40-DCC5EC60F557}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F6D05029-56B8-4E45-AF2D-0E76295DDBA2}

@@ -4,6 +4,7 @@
         <OutputType>Exe</OutputType>
         <TargetFramework>net5.0</TargetFramework>
         <GenerateProgramFile>false</GenerateProgramFile>
+        <Configurations>Debug;Release;Release APK</Configurations>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
         <WarningLevel>5</WarningLevel>
@@ -12,6 +13,10 @@
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
         <OtherFlags>--warnon:3390</OtherFlags>
         <WarningLevel>5</WarningLevel>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release APK|AnyCPU'">
+      <OtherFlags>--warnon:3390</OtherFlags>
+      <WarningLevel>5</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="TestTzolkinNumber.fs" />

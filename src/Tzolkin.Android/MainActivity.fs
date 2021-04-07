@@ -31,7 +31,7 @@ type MainActivity() =
         base.OnCreate(bundle)
         Xamarin.Essentials.Platform.Init(this, bundle)
         Xamarin.Forms.Forms.Init(this, bundle)
-        this.LoadApplication(App())
+        this.LoadApplication(TzolkinApp.App())
 
     override this.OnRequestPermissionsResult
         (
