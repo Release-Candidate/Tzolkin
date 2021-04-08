@@ -14,6 +14,8 @@ type AppDelegate() =
 
     override this.FinishedLaunching(app, options) =
         Forms.Init()
+        FFImageLoading.Forms.Platform.CachedImageRenderer.Init()
+
         let appcore = new Tzolkin.App()
         this.LoadApplication(appcore)
         base.FinishedLaunching(app, options)
