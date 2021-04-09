@@ -31,7 +31,6 @@ type MainActivity() =
         base.OnCreate(bundle)
         Xamarin.Essentials.Platform.Init(this, bundle)
         Xamarin.Forms.Forms.Init(this, bundle)
-        FFImageLoading.Forms.Platform.CachedImageRenderer.Init(enableFastRenderer = true)
 
         this.LoadApplication(TzolkinApp.App())
 

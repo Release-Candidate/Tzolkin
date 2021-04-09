@@ -159,8 +159,46 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="MainActivity.fs" />
     <None Include="packages.config" />
-    <AndroidResource Include="Resources\drawable\number-01.png" />
-    <AndroidResource Include="Resources\drawable\01-Imix.png" />
+    <AndroidResource Include="Resources\drawable\glyph_02.png" />
+    <AndroidResource Include="Resources\drawable\glyph_03.png" />
+    <AndroidResource Include="Resources\drawable\glyph_04.png" />
+    <AndroidResource Include="Resources\drawable\glyph_05.png" />
+    <AndroidResource Include="Resources\drawable\glyph_06.png" />
+    <AndroidResource Include="Resources\drawable\glyph_07.png" />
+    <AndroidResource Include="Resources\drawable\glyph_08.png" />
+    <AndroidResource Include="Resources\drawable\glyph_09.png" />
+    <AndroidResource Include="Resources\drawable\glyph_10.png" />
+    <AndroidResource Include="Resources\drawable\glyph_11.png" />
+    <AndroidResource Include="Resources\drawable\glyph_12.png" />
+    <AndroidResource Include="Resources\drawable\glyph_13.png" />
+    <AndroidResource Include="Resources\drawable\glyph_14.png" />
+    <AndroidResource Include="Resources\drawable\glyph_15.png" />
+    <AndroidResource Include="Resources\drawable\glyph_16.png" />
+    <AndroidResource Include="Resources\drawable\glyph_17.png" />
+    <AndroidResource Include="Resources\drawable\glyph_18.png" />
+    <AndroidResource Include="Resources\drawable\glyph_19.png" />
+    <AndroidResource Include="Resources\drawable\glyph_20.png" />
+    <AndroidResource Include="Resources\drawable\number_01.png" />
+    <AndroidResource Include="Resources\drawable\number_02.png" />
+    <AndroidResource Include="Resources\drawable\number_03.png" />
+    <AndroidResource Include="Resources\drawable\number_04.png" />
+    <AndroidResource Include="Resources\drawable\number_05.png" />
+    <AndroidResource Include="Resources\drawable\number_06.png" />
+    <AndroidResource Include="Resources\drawable\number_07.png" />
+    <AndroidResource Include="Resources\drawable\number_08.png" />
+    <AndroidResource Include="Resources\drawable\number_09.png" />
+    <AndroidResource Include="Resources\drawable\number_10.png" />
+    <AndroidResource Include="Resources\drawable\number_11.png" />
+    <AndroidResource Include="Resources\drawable\number_12.png" />
+    <AndroidResource Include="Resources\drawable\number_13.png" />
+    <AndroidResource Include="Resources\drawable\number_14.png" />
+    <AndroidResource Include="Resources\drawable\number_15.png" />
+    <AndroidResource Include="Resources\drawable\number_16.png" />
+    <AndroidResource Include="Resources\drawable\number_17.png" />
+    <AndroidResource Include="Resources\drawable\number_18.png" />
+    <AndroidResource Include="Resources\drawable\number_19.png" />
+    <AndroidResource Include="Resources\drawable\number_20.png" />
+    <AndroidResource Include="Resources\drawable\glyph_01.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fabulous">
@@ -172,32 +210,8 @@
     <Reference Include="Fabulous.XamarinForms">
       <HintPath>..\..\packages\Fabulous.XamarinForms.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Fabulous.XamarinForms.FFImageLoading">
-      <HintPath>..\..\packages\Fabulous.XamarinForms.FFImageLoading.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.FFImageLoading.dll</HintPath>
-    </Reference>
     <Reference Include="Fabulous.XamarinForms.LiveUpdate">
       <HintPath>..\..\packages\Fabulous.XamarinForms.LiveUpdate.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.LiveUpdate.dll</HintPath>
-    </Reference>
-    <Reference Include="Fabulous.XamarinForms.SkiaSharp">
-      <HintPath>..\..\packages\Fabulous.XamarinForms.SkiaSharp.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.SkiaSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.2.4.11.982\lib\MonoAndroid10\FFImageLoading.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Forms">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.Forms.2.4.11.982\lib\MonoAndroid10\FFImageLoading.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Forms.Platform">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.Forms.2.4.11.982\lib\MonoAndroid10\FFImageLoading.Forms.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Platform">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.2.4.11.982\lib\MonoAndroid10\FFImageLoading.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Svg.Forms">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.Svg.Forms.2.4.11.982\lib\MonoAndroid10\FFImageLoading.Svg.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Svg.Platform">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.Svg.2.4.11.982\lib\MonoAndroid10\FFImageLoading.Svg.Platform.dll</HintPath>
     </Reference>
     <Reference Include="FormsViewGroup">
       <HintPath>..\..\packages\Xamarin.Forms.5.0.0.2012\lib\MonoAndroid10.0\FormsViewGroup.dll</HintPath>

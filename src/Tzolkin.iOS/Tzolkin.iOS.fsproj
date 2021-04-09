@@ -155,32 +155,8 @@
     <Reference Include="Fabulous.XamarinForms">
       <HintPath>..\..\packages\Fabulous.XamarinForms.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Fabulous.XamarinForms.FFImageLoading">
-      <HintPath>..\..\packages\Fabulous.XamarinForms.FFImageLoading.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.FFImageLoading.dll</HintPath>
-    </Reference>
     <Reference Include="Fabulous.XamarinForms.LiveUpdate">
       <HintPath>..\..\packages\Fabulous.XamarinForms.LiveUpdate.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.LiveUpdate.dll</HintPath>
-    </Reference>
-    <Reference Include="Fabulous.XamarinForms.SkiaSharp">
-      <HintPath>..\..\packages\Fabulous.XamarinForms.SkiaSharp.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.SkiaSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.2.4.11.982\lib\Xamarin.iOS10\FFImageLoading.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Forms">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.Forms.2.4.11.982\lib\Xamarin.iOS10\FFImageLoading.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Forms.Platform">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.Forms.2.4.11.982\lib\Xamarin.iOS10\FFImageLoading.Forms.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Platform">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.2.4.11.982\lib\Xamarin.iOS10\FFImageLoading.Platform.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Svg.Forms">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.Svg.Forms.2.4.11.982\lib\Xamarin.iOS10\FFImageLoading.Svg.Forms.dll</HintPath>
-    </Reference>
-    <Reference Include="FFImageLoading.Svg.Platform">
-      <HintPath>..\..\packages\Xamarin.FFImageLoading.Svg.2.4.11.982\lib\Xamarin.iOS10\FFImageLoading.Svg.Platform.dll</HintPath>
     </Reference>
     <Reference Include="FSharp.Core">
       <Private>True</Private>

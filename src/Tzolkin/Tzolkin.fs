@@ -24,7 +24,7 @@ module TzolkinApp =
 
 
     /// App-wide constants.
-    let fontSize = FontSize.fromValue 16.0
+    let fontSize = FontSize.fromNamedSize NamedSize.Medium
 
     let numberPickList =
         List.map (fun x -> x.ToString()) [ 1 .. 13 ]
@@ -69,7 +69,6 @@ module TzolkinApp =
         match dateListView.TryValue with
         | None -> ()
         | Some listView ->
-
             let centerItem =
                 List.ofSeq (Seq.cast<ViewElement> listView.ItemsSource)
 
@@ -166,13 +165,33 @@ module TzolkinApp =
             scrollToCenter model
             model, Cmd.none
 
+
+    let tzolkinDateView tzolkinDate =
+        let { TzolkinDate.T.number = (TzolkinNumber.T.TzolkinNumber tzNumInt)
+              TzolkinDate.T.glyph = (TzolkinGlyph.T.TzolkinGlyph tzGlyphInt) } =
+            tzolkinDate
+
+        let numImgName = sprintf "number_%02d.png" tzNumInt
+        let glyphImgName = sprintf "glyph_%02d.png" tzGlyphInt
+
+        View.StackLayout(
+            orientation = StackOrientation.Horizontal,
+            children =
+                [ View.Image(source = Image.fromPath numImgName)
+                  View.Image(source = Image.fromPath glyphImgName) ]
+        )
+
+    let tzolkinDateViewFirst model =
+        tzolkinDateView <| TzolkinDate.fromDate model.Date
+
     /// Select the Gregorian date and display the Tzolk’in date.
     let dateSelector model dispatch =
-        [ View.Label(
-            text = sprintf "Tzolk’in date:\n%s" ((TzolkinDate.fromDate model.Date).ToString()),
-            horizontalTextAlignment = TextAlignment.Center,
-            fontSize = fontSize,
-            textColor = Color.Black
+        [ tzolkinDateViewFirst model
+          View.Label(
+              text = sprintf "Tzolk’in date:\n%s" ((TzolkinDate.fromDate model.Date).ToString()),
+              horizontalTextAlignment = TextAlignment.Center,
+              fontSize = fontSize,
+              textColor = Color.Black
           )
 
           View.DatePicker(
