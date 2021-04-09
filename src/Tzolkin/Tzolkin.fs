@@ -26,16 +26,13 @@ module TzolkinApp =
     /// App-wide constants.
     let fontSize = FontSize.fromNamedSize NamedSize.Medium
 
-    let numberPickList =
-        List.map (fun x -> x.ToString()) [ 1 .. 13 ]
+    let numberPickList = List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
 
     let glyphPickList = Array.toList TzolkinGlyph.glyphNames
 
-    let localeSeparator =
-        CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator
+    let localeSeparator = CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator
 
-    let localeFormat =
-        CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern
+    let localeFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern
 
     /// Record to hold the data needed to filter dates.
     type DateFilter = { day: int; month: int; year: string }
@@ -58,10 +55,10 @@ module TzolkinApp =
         | ScrollListCenter
 
     /// Instances of widgets needed to interact with.
-    let dateListView = ViewRef<CustomListView>()
-    let dayPicker = ViewRef<Xamarin.Forms.Picker>()
-    let monthPicker = ViewRef<Xamarin.Forms.Picker>()
-    let yearPicker = ViewRef<Xamarin.Forms.Entry>()
+    let dateListView = ViewRef<CustomListView> ()
+    let dayPicker = ViewRef<Xamarin.Forms.Picker> ()
+    let monthPicker = ViewRef<Xamarin.Forms.Picker> ()
+    let yearPicker = ViewRef<Xamarin.Forms.Entry> ()
 
     let cmdScrollToCenter = ScrollListCenter |> Cmd.ofMsg
 
@@ -69,10 +66,13 @@ module TzolkinApp =
         match dateListView.TryValue with
         | None -> ()
         | Some listView ->
-            let centerItem =
-                List.ofSeq (Seq.cast<ViewElement> listView.ItemsSource)
+            let centerItem = List.ofSeq (Seq.cast<ViewElement> listView.ItemsSource)
 
-            listView.ScrollTo(item = centerItem.Tail, position = ScrollToPosition.End, animated = true)
+            listView.ScrollTo (
+                item = centerItem.Tail,
+                position = ScrollToPosition.End,
+                animated = true
+            )
 
     /// Fills the list view with filtered dates.
     let fillListViewFilter (model: Model) =
@@ -80,8 +80,7 @@ module TzolkinApp =
             TzolkinDate.getLastList 500 model.ListTzolkinDate DateTime.Today
             |> List.rev
 
-        let nextList =
-            TzolkinDate.getNextList 500 model.ListTzolkinDate DateTime.Today
+        let nextList = TzolkinDate.getNextList 500 model.ListTzolkinDate DateTime.Today
 
         let dateList = lastList @ nextList
 
@@ -101,15 +100,15 @@ module TzolkinApp =
             | year ->
                 List.filter
                     (fun (elem: DateTime) ->
-                        let yearStr = elem.Year.ToString()
-                        yearStr.Contains(year))
+                        let yearStr = elem.Year.ToString ()
+                        yearStr.Contains (year))
                     dateList
 
         dateList
         |> filterDay
         |> filterMonth
         |> filterYear
-        |> List.map (fun elem -> View.TextCell(elem.ToShortDateString()))
+        |> List.map (fun elem -> View.TextCell (elem.ToShortDateString ()))
 
     /// Initial state of the MVU model.
     let initModel =
@@ -174,81 +173,79 @@ module TzolkinApp =
         let numImgName = sprintf "number_%02d.png" tzNumInt
         let glyphImgName = sprintf "glyph_%02d.png" tzGlyphInt
 
-        View.Grid(
-            verticalOptions = LayoutOptions.Start,
-            horizontalOptions = LayoutOptions.Start,
-            columnSpacing = 0.,
+        View.Grid (
+            verticalOptions = LayoutOptions.FillAndExpand,
+            horizontalOptions = LayoutOptions.FillAndExpand,
+            columnSpacing = 5.,
             rowSpacing = 0.,
             rowdefs =
-                [ Dimension.Absolute 25.
+                [ Dimension.Absolute 67.
                   Dimension.Absolute 25. ],
             coldefs =
-                [ Dimension.Stars 1.
-                  Dimension.Absolute 25. ],
+                [ Dimension.Absolute 67.
+                  Dimension.Absolute 100. ],
             children =
                 [ View
                     .Image(source = Image.fromPath numImgName,
-                           verticalOptions = LayoutOptions.Fill,
-                           horizontalOptions = LayoutOptions.Start,
-                           backgroundColor = Color.Blue)
-                      .Row(1)
-                      .Column(1)
+                           scale = 1.0,
+                           aspect = Aspect.AspectFill,
+                           verticalOptions = LayoutOptions.Start,
+                           horizontalOptions = LayoutOptions.End)
+                      .Row(0)
+                      .Column (0)
                   View
                       .Image(source = Image.fromPath glyphImgName,
-                             verticalOptions = LayoutOptions.Fill,
-                             horizontalOptions = LayoutOptions.Start,
-                             backgroundColor = Color.Yellow)
+                             scale = 1.0,
+                             aspect = Aspect.AspectFill,
+                             verticalOptions = LayoutOptions.Start,
+                             horizontalOptions = LayoutOptions.Start)
+                      .Row(0)
+                      .Column (1)
+                  View
+                      .Label(text = tzolkinDate.number.ToString (),
+                             horizontalTextAlignment = TextAlignment.Center,
+                             fontSize = fontSize,
+                             textColor = Color.Black,
+                             verticalOptions = LayoutOptions.Start,
+                             horizontalOptions = LayoutOptions.EndAndExpand)
                       .Row(1)
-                      .Column(2)
+                      .Column (0)
                   View
-                      .Label(text = tzolkinDate.number.ToString(),
+                      .Label(text = tzolkinDate.glyph.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = fontSize,
                              textColor = Color.Black,
-                             width = 35.,
                              verticalOptions = LayoutOptions.Start,
-                             horizontalOptions = LayoutOptions.StartAndExpand,
-                             height = 35.,
-                             backgroundColor = Color.Red)
-                      .Row(2)
-                      .Column(1)
-                  View
-                      .Label(text = tzolkinDate.glyph.ToString(),
-                             horizontalTextAlignment = TextAlignment.Center,
-                             fontSize = fontSize,
-                             textColor = Color.Black,
-                             height = 35.,
-                             width = 100.,
-                             verticalOptions = LayoutOptions.Start,
-                             horizontalOptions = LayoutOptions.StartAndExpand,
-                             backgroundColor = Color.BlueViolet)
-                      .Row(2)
-                      .Column(2) ]
+                             horizontalOptions = LayoutOptions.StartAndExpand)
+                      .Row(1)
+                      .Column (1) ]
         )
 
-    let tzolkinDateViewFirst model =
-        tzolkinDateView <| TzolkinDate.fromDate model.Date
+    let tzolkinDateViewFirst model = tzolkinDateView <| TzolkinDate.fromDate model.Date
 
     /// Select the Gregorian date and display the Tzolk’in date.
     let dateSelector model dispatch =
-        [ tzolkinDateViewFirst model
+        [
 
-          View.DatePicker(
-              minimumDate = DateTime.MinValue,
-              maximumDate = DateTime.MaxValue,
-              date = DateTime.Today,
-              format = localeFormat,
-              dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
-              width = 150.0,
-              verticalOptions = LayoutOptions.Fill,
-              fontSize = fontSize,
-              horizontalOptions = LayoutOptions.Center,
-              backgroundColor = Color.Peru
+          tzolkinDateViewFirst model
+
+          View.Frame (
+              View.DatePicker (
+                  minimumDate = DateTime.MinValue,
+                  maximumDate = DateTime.MaxValue,
+                  date = DateTime.Today,
+                  format = localeFormat,
+                  dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
+                  width = 150.0,
+                  verticalOptions = LayoutOptions.Fill,
+                  fontSize = fontSize,
+                  horizontalOptions = LayoutOptions.CenterAndExpand
+              )
           ) ]
 
     /// Select a Tzolk’in date.
     let tzolkinSelector model dispatch =
-        [ View.Picker(
+        [ View.Picker (
             title = "Number:",
             horizontalOptions = LayoutOptions.Start,
             selectedIndex = int (model.ListTzolkinDate.number) - 1,
@@ -259,7 +256,7 @@ module TzolkinApp =
             horizontalTextAlignment = TextAlignment.End
           )
 
-          View.Picker(
+          View.Picker (
               title = "Glyph:",
               horizontalOptions = LayoutOptions.Start,
               selectedIndex = int (model.ListTzolkinDate.glyph) - 1,
@@ -270,29 +267,29 @@ module TzolkinApp =
 
     /// The Filter section
     let tzolkinFilter (model: Model) dispatch =
-        [ View.Picker(
+        [ View.Picker (
             title = "Day:",
             horizontalOptions = LayoutOptions.Start,
             selectedIndex = model.Filter.day,
-            items = "" :: [ for i in 1 .. 31 -> i.ToString() ],
+            items = "" :: [ for i in 1 .. 31 -> i.ToString () ],
             selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterDay <| i)),
             fontSize = fontSize,
             width = 35.0,
             ref = dayPicker
           )
-          View.Picker(
+          View.Picker (
               title = "Month:",
               horizontalOptions = LayoutOptions.Start,
               selectedIndex = model.Filter.month,
-              items = "" :: [ for i in 1 .. 12 -> i.ToString() ],
+              items = "" :: [ for i in 1 .. 12 -> i.ToString () ],
               selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterMonth <| i)),
               fontSize = fontSize,
               width = 35.0,
               ref = monthPicker
           )
-          View.Entry(
+          View.Entry (
               text = model.Filter.year,
-              completed = (fun text -> SetFilterYear(text) |> dispatch),
+              completed = (fun text -> SetFilterYear text |> dispatch),
               keyboard = Keyboard.Numeric,
               fontSize = fontSize,
               width = 100.0,
@@ -301,83 +298,97 @@ module TzolkinApp =
 
     /// The view of MVU.
     let view (model: Model) dispatch =
-        View.ContentPage(
+        View.ContentPage (
             content =
-                View.FlexLayout(
+                View.StackLayout (
                     padding = Thickness 10.0,
-                    justifyContent = FlexJustify.SpaceBetween,
-                    alignItems = FlexAlignItems.Start,
-                    wrap = FlexWrap.Wrap,
-                    direction = FlexDirection.Row,
+                    orientation = StackOrientation.Vertical,
                     children =
-                        [ View.Frame(
-                            hasShadow = true,
-                            verticalOptions = LayoutOptions.Start,
-                            height = 100.,
-                            backgroundColor = Color.Green,
-                            content =
-                                View.StackLayout(
-                                    orientation = StackOrientation.Horizontal,
-                                    children = dateSelector model dispatch
-                                )
+                        [ View.StackLayout (
+                            orientation = StackOrientation.Horizontal,
+                            children = dateSelector model dispatch
                           )
-                          View.Grid(
-                              verticalOptions = LayoutOptions.FillAndExpand,
+
+                          View.BoxView (
+                              color = Color.Black,
+                              backgroundColor = Color.Black,
+                              height = 0.5,
+                              horizontalOptions = LayoutOptions.FillAndExpand
+                          )
+
+
+                          View.Grid (
+                              padding = Thickness 5.,
                               rowdefs =
                                   [ Dimension.Auto
                                     Dimension.Auto
                                     Dimension.Auto
                                     Dimension.Auto
-                                    Dimension.Auto
-                                    Dimension.Auto ],
+                                    Dimension.Star
+                                    Dimension.Absolute 100. ],
                               coldefs =
-                                  [ Dimension.Stars 0.1
-                                    Dimension.Stars 0.9 ],
+                                  [ Dimension.Stars 0.4
+                                    Dimension.Stars 0.6 ],
                               children =
-                                  [ View
-                                      .StackLayout(children = tzolkinSelector model dispatch,
-                                                   orientation = StackOrientation.Horizontal)
+                                  [ (tzolkinDateView model.ListTzolkinDate).Row(0).Column (1)
 
-                                        .Row(
-                                            1
-                                        )
-                                        .Column(2)
+                                    View
+                                        .StackLayout(children = tzolkinSelector model dispatch,
+                                                     orientation = StackOrientation.Horizontal)
+                                        .Row(1)
+                                        .Column (1)
 
                                     View
                                         .StackLayout(orientation = StackOrientation.Horizontal,
                                                      children = tzolkinFilter model dispatch)
                                         .Row(2)
-                                        .Column(2)
+                                        .Column (1)
 
 
                                     View
-                                        .Button(text = "Reset", command = (fun () -> dispatch DoResetFilter))
-                                        .Row(5)
-                                        .Column(2)
+                                        .Button(text = "Reset",
+                                                command = (fun () -> dispatch DoResetFilter))
+                                        .Row(3)
+                                        .Column (1)
+                                    //View
+                                    //    .BoxView(color = Color.Yellow,
+                                    //             verticalOptions = LayoutOptions.Start)
+                                    //    .Row(4)
+                                    //    .Column (1)
                                     View
                                         .ListView(ref = dateListView,
                                                   items = fillListViewFilter model,
+                                                  //backgroundColor = Color.Green,
+                                                  // verticalOptions = LayoutOptions.Fill,
                                                   horizontalOptions = LayoutOptions.Start)
-                                        .Row(1)
-                                        .Column(1)
-                                        .RowSpan(6) ]
+                                        .Row(0)
+                                        .Column(0)
+                                        .RowSpan (5)
+                                    //View
+                                    //    .BoxView(color = Color.Blue,
+                                    //             horizontalOptions = LayoutOptions.Fill,
+                                    //             verticalOptions = LayoutOptions.Fill)
+                                    //    .Row(5)
+                                    //    .Column(0)
+                                    //    .ColumnSpan (2)
 
+                                    ]
                           ) ]
                 )
         )
 
-
-
     // Note, this declaration is needed if you enable LiveUpdate
+#if DEBUG
     let program =
         XamarinFormsProgram.mkProgram init update view
-#if DEBUG
         |> Program.withConsoleTrace
+#else
+    let program = XamarinFormsProgram.mkProgram init update view
 #endif
 
 
-    type App() as app =
-        inherit Application()
+    type App () as app =
+        inherit Application ()
 
         let runner = program |> XamarinFormsProgram.run app
 
@@ -389,10 +400,9 @@ module TzolkinApp =
 
         override __.OnSleep() =
 
-            let json =
-                Newtonsoft.Json.JsonConvert.SerializeObject(runner.CurrentModel)
+            let json = Newtonsoft.Json.JsonConvert.SerializeObject (runner.CurrentModel)
 
-            Console.WriteLine("OnSleep: saving model into app.Properties, json = {0}", json)
+            Console.WriteLine ("OnSleep: saving model into app.Properties, json = {0}", json)
 
             app.Properties.[modelId] <- json
 
@@ -403,22 +413,25 @@ module TzolkinApp =
                 match app.Properties.TryGetValue modelId with
                 | true, (:? string as json) ->
 
-                    Console.WriteLine("OnResume: restoring model from app.Properties, json = {0}", json)
+                    Console.WriteLine (
+                        "OnResume: restoring model from app.Properties, json = {0}",
+                        json
+                    )
 
-                    let model =
-                        Newtonsoft.Json.JsonConvert.DeserializeObject<App.Model>(json)
+                    let model = Newtonsoft.Json.JsonConvert.DeserializeObject<App.Model> (json)
 
-                    Console.WriteLine(
+                    Console.WriteLine (
                         "OnResume: restoring model from app.Properties, model = {0}",
                         (sprintf "%0A" model)
                     )
 
-                    runner.SetCurrentModel(model, Cmd.none)
+                    runner.SetCurrentModel (model, Cmd.none)
 
                 | _ -> ()
-            with ex -> App.program.onError ("Error while restoring model found in app.Properties", ex)
+            with ex ->
+                App.program.onError ("Error while restoring model found in app.Properties", ex)
 
         override this.OnStart() =
             Console.WriteLine "OnStart: using same logic as OnResume()"
-            this.OnResume()
+            this.OnResume ()
 #endif
