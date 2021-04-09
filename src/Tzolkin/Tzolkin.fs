@@ -174,11 +174,56 @@ module TzolkinApp =
         let numImgName = sprintf "number_%02d.png" tzNumInt
         let glyphImgName = sprintf "glyph_%02d.png" tzGlyphInt
 
-        View.StackLayout(
-            orientation = StackOrientation.Horizontal,
+        View.Grid(
+            verticalOptions = LayoutOptions.Start,
+            horizontalOptions = LayoutOptions.Start,
+            columnSpacing = 0.,
+            rowSpacing = 0.,
+            rowdefs =
+                [ Dimension.Absolute 25.
+                  Dimension.Absolute 25. ],
+            coldefs =
+                [ Dimension.Stars 1.
+                  Dimension.Absolute 25. ],
             children =
-                [ View.Image(source = Image.fromPath numImgName)
-                  View.Image(source = Image.fromPath glyphImgName) ]
+                [ View
+                    .Image(source = Image.fromPath numImgName,
+                           verticalOptions = LayoutOptions.Fill,
+                           horizontalOptions = LayoutOptions.Start,
+                           backgroundColor = Color.Blue)
+                      .Row(1)
+                      .Column(1)
+                  View
+                      .Image(source = Image.fromPath glyphImgName,
+                             verticalOptions = LayoutOptions.Fill,
+                             horizontalOptions = LayoutOptions.Start,
+                             backgroundColor = Color.Yellow)
+                      .Row(1)
+                      .Column(2)
+                  View
+                      .Label(text = tzolkinDate.number.ToString(),
+                             horizontalTextAlignment = TextAlignment.Center,
+                             fontSize = fontSize,
+                             textColor = Color.Black,
+                             width = 35.,
+                             verticalOptions = LayoutOptions.Start,
+                             horizontalOptions = LayoutOptions.StartAndExpand,
+                             height = 35.,
+                             backgroundColor = Color.Red)
+                      .Row(2)
+                      .Column(1)
+                  View
+                      .Label(text = tzolkinDate.glyph.ToString(),
+                             horizontalTextAlignment = TextAlignment.Center,
+                             fontSize = fontSize,
+                             textColor = Color.Black,
+                             height = 35.,
+                             width = 100.,
+                             verticalOptions = LayoutOptions.Start,
+                             horizontalOptions = LayoutOptions.StartAndExpand,
+                             backgroundColor = Color.BlueViolet)
+                      .Row(2)
+                      .Column(2) ]
         )
 
     let tzolkinDateViewFirst model =
@@ -187,12 +232,6 @@ module TzolkinApp =
     /// Select the Gregorian date and display the Tzolk’in date.
     let dateSelector model dispatch =
         [ tzolkinDateViewFirst model
-          View.Label(
-              text = sprintf "Tzolk’in date:\n%s" ((TzolkinDate.fromDate model.Date).ToString()),
-              horizontalTextAlignment = TextAlignment.Center,
-              fontSize = fontSize,
-              textColor = Color.Black
-          )
 
           View.DatePicker(
               minimumDate = DateTime.MinValue,
@@ -201,7 +240,10 @@ module TzolkinApp =
               format = localeFormat,
               dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
               width = 150.0,
-              fontSize = fontSize
+              verticalOptions = LayoutOptions.Fill,
+              fontSize = fontSize,
+              horizontalOptions = LayoutOptions.Center,
+              backgroundColor = Color.Peru
           ) ]
 
     /// Select a Tzolk’in date.
@@ -270,6 +312,9 @@ module TzolkinApp =
                     children =
                         [ View.Frame(
                             hasShadow = true,
+                            verticalOptions = LayoutOptions.Start,
+                            height = 100.,
+                            backgroundColor = Color.Green,
                             content =
                                 View.StackLayout(
                                     orientation = StackOrientation.Horizontal,
