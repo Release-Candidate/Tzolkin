@@ -30,6 +30,14 @@ module TzolkinApp =
 
     let fontSize = FontSize.fromNamedSize NamedSize.Medium
 
+    let backgroundLight = Color.Default
+
+    let backgroundDark = Color.FromHex "#1F1B24"
+
+    let foregroundLight = Color.Black
+
+    let foregroundDark = Color.WhiteSmoke
+
     let numberPickList = List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
 
     let glyphPickList = Array.toList TzolkinGlyph.glyphNames
@@ -45,7 +53,9 @@ module TzolkinApp =
     type Model =
         { Date: System.DateTime
           ListTzolkinDate: TzolkinDate.T
-          Filter: DateFilter }
+          Filter: DateFilter
+          IsDarkMode: bool
+          IsLandscape: bool }
 
     /// MVU messages.
     type Msg =
@@ -57,6 +67,8 @@ module TzolkinApp =
         | SetFilterYear of string
         | DoResetFilter
         | ScrollListCenter
+        | SetAppTheme of OSAppTheme
+        | SetOrientation of float * float
 
     /// Instances of widgets needed to interact with.
     let dateListView = ViewRef<CustomListView> ()
@@ -120,7 +132,13 @@ module TzolkinApp =
           ListTzolkinDate =
               { number = TzolkinNumber.T.TzolkinNumber 8
                 glyph = TzolkinGlyph.T.TzolkinGlyph 5 }
-          Filter = { day = 0; month = 0; year = "" } }
+          Filter = { day = 0; month = 0; year = "" }
+          IsDarkMode =
+              if Application.Current.RequestedTheme = OSAppTheme.Dark then
+                  true
+              else
+                  false
+          IsLandscape = false }
 
     /// Initialize the model and commands.
     let init () = initModel, Cmd.none
@@ -168,8 +186,28 @@ module TzolkinApp =
             scrollToCenter model
             model, Cmd.none
 
+        | SetAppTheme (theme: OSAppTheme) ->
+            match theme with
+            | OSAppTheme.Dark -> { model with IsDarkMode = true }
+            | _ -> { model with IsDarkMode = false }
+            , Cmd.none
 
-    let tzolkinDateView tzolkinDate =
+        | SetOrientation (x, y) ->
+            match x, y with
+            | width, height when width > height -> { model with IsLandscape = true }, Cmd.none
+            | _, _ -> { model with IsLandscape = false }, Cmd.none
+
+    let foregroundColor isDark =
+        match isDark with
+        | true -> foregroundDark
+        | false -> foregroundLight
+
+    let backgroundColor isDark =
+        match isDark with
+        | true -> backgroundDark
+        | false -> backgroundLight
+
+    let tzolkinDateView tzolkinDate isDark =
         let { TzolkinDate.T.number = (TzolkinNumber.T.TzolkinNumber tzNumInt)
               TzolkinDate.T.glyph = (TzolkinGlyph.T.TzolkinGlyph tzGlyphInt) } =
             tzolkinDate
@@ -209,7 +247,8 @@ module TzolkinApp =
                       .Label(text = tzolkinDate.number.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = fontSize,
-                             textColor = Color.Black,
+                             textColor = foregroundColor isDark,
+                             backgroundColor = backgroundColor isDark,
                              verticalOptions = LayoutOptions.Start,
                              horizontalOptions = LayoutOptions.EndAndExpand)
                       .Row(1)
@@ -218,33 +257,38 @@ module TzolkinApp =
                       .Label(text = tzolkinDate.glyph.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = fontSize,
-                             textColor = Color.Black,
+                             textColor = foregroundColor isDark,
+                             backgroundColor = backgroundColor isDark,
                              verticalOptions = LayoutOptions.Start,
                              horizontalOptions = LayoutOptions.StartAndExpand)
                       .Row(1)
                       .Column (1) ]
         )
 
-    let tzolkinDateViewFirst model = tzolkinDateView <| TzolkinDate.fromDate model.Date
+    let tzolkinDateViewFirst model isDark = tzolkinDateView (TzolkinDate.fromDate model.Date) isDark
 
     /// Select the Gregorian date and display the Tzolk’in date.
     let dateSelector model dispatch =
         [
 
-          tzolkinDateViewFirst model
+          tzolkinDateViewFirst model model.IsDarkMode
 
           View.Frame (
-              View.DatePicker (
-                  minimumDate = DateTime.MinValue,
-                  maximumDate = DateTime.MaxValue,
-                  date = DateTime.Today,
-                  format = localeFormat,
-                  dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
-                  width = 150.0,
-                  verticalOptions = LayoutOptions.Fill,
-                  fontSize = fontSize,
-                  horizontalOptions = LayoutOptions.CenterAndExpand
-              )
+              backgroundColor = backgroundColor model.IsDarkMode,
+              content =
+                  View.DatePicker (
+                      minimumDate = DateTime.MinValue,
+                      maximumDate = DateTime.MaxValue,
+                      date = DateTime.Today,
+                      format = localeFormat,
+                      dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
+                      width = 150.0,
+                      verticalOptions = LayoutOptions.Fill,
+                      textColor = foregroundColor model.IsDarkMode,
+                      backgroundColor = backgroundColor model.IsDarkMode,
+                      fontSize = fontSize,
+                      horizontalOptions = LayoutOptions.CenterAndExpand
+                  )
           ) ]
 
     /// Select a Tzolk’in date.
@@ -257,6 +301,8 @@ module TzolkinApp =
             selectedIndexChanged = (fun (i, item) -> dispatch (SetListNumber <| i + 1)),
             width = 35.0,
             fontSize = fontSize,
+            textColor = foregroundColor model.IsDarkMode,
+            backgroundColor = backgroundColor model.IsDarkMode,
             horizontalTextAlignment = TextAlignment.End
           )
 
@@ -266,8 +312,30 @@ module TzolkinApp =
               selectedIndex = int (model.ListTzolkinDate.glyph) - 1,
               items = glyphPickList,
               fontSize = fontSize,
+              textColor = foregroundColor model.IsDarkMode,
+              backgroundColor = backgroundColor model.IsDarkMode,
               selectedIndexChanged = (fun (i, item) -> dispatch (SetListGlyph <| i + 1))
           ) ]
+
+
+    /// Separator line.
+    let separator isL =
+        match isL with
+        | false ->
+            View.BoxView (
+                color = Color.Black,
+                backgroundColor = Color.Black,
+                height = 0.5,
+                horizontalOptions = LayoutOptions.FillAndExpand
+            )
+
+        | true ->
+            View.BoxView (
+                color = Color.Black,
+                backgroundColor = Color.Black,
+                width = 0.5,
+                verticalOptions = LayoutOptions.FillAndExpand
+            )
 
     /// The Filter section
     let tzolkinFilter (model: Model) dispatch =
@@ -278,6 +346,8 @@ module TzolkinApp =
             items = "" :: [ for i in 1 .. 31 -> i.ToString () ],
             selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterDay <| i)),
             fontSize = fontSize,
+            textColor = foregroundColor model.IsDarkMode,
+            backgroundColor = backgroundColor model.IsDarkMode,
             width = 35.0,
             ref = dayPicker
           )
@@ -288,6 +358,8 @@ module TzolkinApp =
               items = "" :: [ for i in 1 .. 12 -> i.ToString () ],
               selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterMonth <| i)),
               fontSize = fontSize,
+              textColor = foregroundColor model.IsDarkMode,
+              backgroundColor = backgroundColor model.IsDarkMode,
               width = 35.0,
               ref = monthPicker
           )
@@ -297,31 +369,36 @@ module TzolkinApp =
               keyboard = Keyboard.Numeric,
               fontSize = fontSize,
               width = 100.0,
+              textColor = foregroundColor model.IsDarkMode,
+              backgroundColor = backgroundColor model.IsDarkMode,
               ref = yearPicker
           ) ]
 
     /// The view of MVU.
     let view (model: Model) dispatch =
         View.ContentPage (
+            sizeChanged = (fun (width, height) -> dispatch (SetOrientation (width, height))),
+            backgroundColor = backgroundColor model.IsDarkMode,
             content =
                 View.StackLayout (
                     padding = Thickness 10.0,
-                    orientation = StackOrientation.Vertical,
+                    orientation =
+                        (if model.IsLandscape then
+                             StackOrientation.Horizontal
+                         else
+                             StackOrientation.Vertical),
+                    backgroundColor = backgroundColor model.IsDarkMode,
                     children =
                         [ View.StackLayout (
                             orientation = StackOrientation.Horizontal,
+                            backgroundColor = backgroundColor model.IsDarkMode,
                             children = dateSelector model dispatch
                           )
 
-                          View.BoxView (
-                              color = Color.Black,
-                              backgroundColor = Color.Black,
-                              height = 0.5,
-                              horizontalOptions = LayoutOptions.FillAndExpand
-                          )
-
+                          separator model.IsLandscape
 
                           View.Grid (
+                              backgroundColor = backgroundColor model.IsDarkMode,
                               padding = Thickness 5.,
                               rowdefs =
                                   [ Dimension.Auto
@@ -334,7 +411,9 @@ module TzolkinApp =
                                   [ Dimension.Stars 0.4
                                     Dimension.Stars 0.6 ],
                               children =
-                                  [ (tzolkinDateView model.ListTzolkinDate).Row(0).Column (1)
+                                  [ (tzolkinDateView model.ListTzolkinDate model.IsDarkMode)
+                                      .Row(0)
+                                      .Column (1)
 
                                     View
                                         .StackLayout(children = tzolkinSelector model dispatch,
@@ -362,7 +441,7 @@ module TzolkinApp =
                                     View
                                         .ListView(ref = dateListView,
                                                   items = fillListViewFilter model,
-
+                                                  backgroundColor = backgroundColor model.IsDarkMode,
                                                   horizontalOptions = LayoutOptions.Start)
                                         .Row(0)
                                         .Column(0)
@@ -370,6 +449,8 @@ module TzolkinApp =
                                     View
                                         .Label(text = version,
                                                fontSize = FontSize.fromNamedSize NamedSize.Micro,
+                                               textColor = foregroundColor model.IsDarkMode,
+                                               backgroundColor = backgroundColor model.IsDarkMode,
                                                verticalTextAlignment = TextAlignment.End,
                                                horizontalTextAlignment = TextAlignment.End,
                                                horizontalOptions = LayoutOptions.Fill,
@@ -396,8 +477,23 @@ module TzolkinApp =
     type App () as app =
         inherit Application ()
 
-        let runner = program |> XamarinFormsProgram.run app
+        let themeChangedSub dispatch =
+#if DEBUG
+            Trace.TraceInformation (sprintf "themeChangedSub %A" Application.Current.RequestedTheme)
+#endif
 
+            // Why is this called instead of the handler function?
+            dispatch (Msg.SetAppTheme Application.Current.RequestedTheme)
+
+        //Application.Current.RequestedThemeChanged.AddHandler (
+        //    EventHandler<AppThemeChangedEventArgs>
+        //        (fun _ args -> dispatch (Msg.SetAppTheme args.RequestedTheme))
+        //)
+
+        let runner =
+            program
+            |> Program.withSubscription (fun _ -> Cmd.ofSub themeChangedSub)
+            |> XamarinFormsProgram.run app
 
 // Uncomment this code to save the application state to app.Properties using Newtonsoft.Json
 // See https://fsprojects.github.io/Fabulous/Fabulous.XamarinForms/models.html#saving-application-state for further  instructions.

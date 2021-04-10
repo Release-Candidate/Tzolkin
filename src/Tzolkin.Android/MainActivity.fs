@@ -19,6 +19,7 @@ open TzolkinApp
            Icon = "@drawable/icon",
            Theme = "@style/MainTheme",
            MainLauncher = true,
+           ScreenOrientation = ScreenOrientation.User,
            ConfigurationChanges = (ConfigChanges.ScreenSize
                                    ||| ConfigChanges.Orientation))>]
 type MainActivity () =
