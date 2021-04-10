@@ -32,7 +32,7 @@ type MainActivity () =
         base.OnCreate (bundle)
         Xamarin.Essentials.Platform.Init (this, bundle)
         Xamarin.Forms.Forms.Init (this, bundle)
-        Xamarin.Essentials.VersionTracking.Track ()
+        //x Xamarin.Essentials.VersionTracking.Track ()
 
         this.LoadApplication (TzolkinApp.App ())
 

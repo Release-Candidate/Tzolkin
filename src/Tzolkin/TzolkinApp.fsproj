@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="Definitions.fs" />
+    <Compile Include="Style.fs" />
+    <Compile Include="TzolkinView.fs" />
+    <Compile Include="DateList.fs" />
+    <Compile Include="View.fs" />
     <Compile Include="Tzolkin.fs" />
   </ItemGroup>
 
