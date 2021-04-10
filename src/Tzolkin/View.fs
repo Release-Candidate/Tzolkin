@@ -14,7 +14,7 @@ open Xamarin.Forms
 open Xamarin.Essentials
 
 
-/// Holds the view `View` of MVU. The app's pages.
+/// Holds the view `view` of MVU. The app's pages.
 [<AutoOpen>]
 module View =
 

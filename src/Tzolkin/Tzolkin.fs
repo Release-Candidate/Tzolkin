@@ -26,7 +26,7 @@ module TzolkinApp =
         XamarinFormsProgram.mkProgram init update View.view
         |> Program.withConsoleTrace
 #else
-    let program = XamarinFormsProgram.mkProgram init update view
+    let program = XamarinFormsProgram.mkProgram init update View.view
 #endif
 
 
