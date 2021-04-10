@@ -21,18 +21,19 @@ open TzolkinApp
            MainLauncher = true,
            ConfigurationChanges = (ConfigChanges.ScreenSize
                                    ||| ConfigChanges.Orientation))>]
-type MainActivity() =
-    inherit FormsAppCompatActivity()
+type MainActivity () =
+    inherit FormsAppCompatActivity ()
 
     override this.OnCreate(bundle: Bundle) =
         FormsAppCompatActivity.TabLayoutResource <- Resources.Layout.Tabbar
         FormsAppCompatActivity.ToolbarResource <- Resources.Layout.Toolbar
 
-        base.OnCreate(bundle)
-        Xamarin.Essentials.Platform.Init(this, bundle)
-        Xamarin.Forms.Forms.Init(this, bundle)
+        base.OnCreate (bundle)
+        Xamarin.Essentials.Platform.Init (this, bundle)
+        Xamarin.Forms.Forms.Init (this, bundle)
+        Xamarin.Essentials.VersionTracking.Track ()
 
-        this.LoadApplication(TzolkinApp.App())
+        this.LoadApplication (TzolkinApp.App ())
 
     override this.OnRequestPermissionsResult
         (
@@ -40,5 +41,10 @@ type MainActivity() =
             permissions: string [],
             [<GeneratedEnum>] grantResults: Android.Content.PM.Permission []
         ) =
-        Xamarin.Essentials.Platform.OnRequestPermissionsResult(requestCode, permissions, grantResults)
-        base.OnRequestPermissionsResult(requestCode, permissions, grantResults)
+        Xamarin.Essentials.Platform.OnRequestPermissionsResult (
+            requestCode,
+            permissions,
+            grantResults
+        )
+
+        base.OnRequestPermissionsResult (requestCode, permissions, grantResults)

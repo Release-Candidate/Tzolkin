@@ -24,9 +24,9 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <SelectedDevice>pixel_2_nougat_7_0_-_api_24</SelectedDevice>
-    <ActiveDebugProfile>pixel_2_nougat_7_0_-_api_24</ActiveDebugProfile>
-    <DefaultDevice>pixel_2_nougat_7_0_-_api_24</DefaultDevice>
+    <SelectedDevice>Pixel_3a_API_30_x86</SelectedDevice>
+    <ActiveDebugProfile>Pixel_3a_API_30_x86</ActiveDebugProfile>
+    <DefaultDevice>Pixel_3a_API_30_x86</DefaultDevice>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

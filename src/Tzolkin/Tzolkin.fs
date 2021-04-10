@@ -14,6 +14,7 @@ open System.Diagnostics
 open Fabulous
 open Fabulous.XamarinForms
 open Xamarin.Forms
+open Xamarin.Essentials
 open System.Globalization
 
 open RC.Maya
@@ -24,6 +25,9 @@ module TzolkinApp =
 
 
     /// App-wide constants.
+    let version =
+        sprintf "%s (Build %s)" VersionTracking.CurrentVersion VersionTracking.CurrentBuild
+
     let fontSize = FontSize.fromNamedSize NamedSize.Medium
 
     let numberPickList = List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
@@ -325,7 +329,7 @@ module TzolkinApp =
                                     Dimension.Auto
                                     Dimension.Auto
                                     Dimension.Star
-                                    Dimension.Absolute 100. ],
+                                    Dimension.Absolute 15. ],
                               coldefs =
                                   [ Dimension.Stars 0.4
                                     Dimension.Stars 0.6 ],
@@ -358,19 +362,21 @@ module TzolkinApp =
                                     View
                                         .ListView(ref = dateListView,
                                                   items = fillListViewFilter model,
-                                                  //backgroundColor = Color.Green,
-                                                  // verticalOptions = LayoutOptions.Fill,
+
                                                   horizontalOptions = LayoutOptions.Start)
                                         .Row(0)
                                         .Column(0)
                                         .RowSpan (5)
-                                    //View
-                                    //    .BoxView(color = Color.Blue,
-                                    //             horizontalOptions = LayoutOptions.Fill,
-                                    //             verticalOptions = LayoutOptions.Fill)
-                                    //    .Row(5)
-                                    //    .Column(0)
-                                    //    .ColumnSpan (2)
+                                    View
+                                        .Label(text = version,
+                                               fontSize = FontSize.fromNamedSize NamedSize.Micro,
+                                               verticalTextAlignment = TextAlignment.End,
+                                               horizontalTextAlignment = TextAlignment.End,
+                                               horizontalOptions = LayoutOptions.Fill,
+                                               verticalOptions = LayoutOptions.Fill)
+                                        .Row(5)
+                                        .Column(0)
+                                        .ColumnSpan (2)
 
                                     ]
                           ) ]
