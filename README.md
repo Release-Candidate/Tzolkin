@@ -63,7 +63,6 @@ See page [Contributing](https://tzolkin.readthedocs.io/en/latest/contributing/) 
 ## License
 
 All content except some images of Tzolkin is licensed under the MIT license, see file [LICENSE](https://github.com/Release-Candidate/Tzolkin/blob/main/LICENSE).
-Some images are licensed under the [CC BY-SA 4.0 license](https://creativecommons.org/licenses/by-sa/4.0/), see file [LICENSE_IMAGES.md](./LICENSE_IMAGES.md) for details.
 
 ## Badges
 
