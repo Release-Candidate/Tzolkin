@@ -55,7 +55,8 @@ module Definitions =
           Filter: DateFilter
           IsDarkMode: bool
           IsLandscape: bool
-          ShowSystemAppInfo: bool }
+          ShowSystemAppInfo: bool
+          CurrentTabIndex: int }
 
     let modelTzolkinDate model =
         match model.ListTzolkinNumber, model.ListTzolkinGlyph with
@@ -97,6 +98,8 @@ module Definitions =
         | SetAppTheme of OSAppTheme
         | SetOrientation of float * float
         | ShowSystemAppInfo of bool
+        | SetTabIndex of int
+        | AddDays of int
 
 
     // Widget instances ============================================================================
@@ -121,7 +124,8 @@ module Definitions =
               else
                   false
           IsLandscape = false
-          ShowSystemAppInfo = false }
+          ShowSystemAppInfo = false
+          CurrentTabIndex = 0 }
 
     /// Initialize the model and commands.
     let init () = initModel, Cmd.none
@@ -211,3 +215,10 @@ module Definitions =
             match doShow with
             | true -> { model with ShowSystemAppInfo = true }, Cmd.none
             | false -> { model with ShowSystemAppInfo = false }, Cmd.none
+
+        | SetTabIndex index -> { model with CurrentTabIndex = index }, Cmd.none
+
+        | AddDays days ->
+            { model with
+                  Date = model.Date + System.TimeSpan.FromDays (float days) },
+            Cmd.none

@@ -21,12 +21,15 @@ open RC.Maya
 [<AutoOpen>]
 module TzolkinView =
 
+
     /// UI to show a Tzolk’in date, the Tzolk’in day number and day glyph, as images with the
     /// text below.
     let tzolkinDateView tzolkinDate isDark =
         let { TzolkinDate.T.number = (TzolkinNumber.T.TzolkinNumber tzNumInt)
               TzolkinDate.T.glyph = (TzolkinGlyph.T.TzolkinGlyph tzGlyphInt) } =
             tzolkinDate
+
+
 
         let numImgName = sprintf "number_%02d.png" tzNumInt
         let glyphImgName = sprintf "glyph_%02d.png" tzGlyphInt
@@ -94,7 +97,7 @@ module TzolkinView =
                   View.DatePicker (
                       minimumDate = DateTime.MinValue,
                       maximumDate = DateTime.MaxValue,
-                      date = DateTime.Today,
+                      date = model.Date,
                       format = localeFormat,
                       dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
                       width = 120.0,
@@ -105,3 +108,124 @@ module TzolkinView =
                       horizontalOptions = LayoutOptions.CenterAndExpand
                   )
           ) ]
+
+
+    /// The day glyph description.
+    let glyphDescription model dispatch =
+        let { TzolkinDate.glyph = glyph } = TzolkinDate.fromDate model.Date
+        let glyphDesc = TzolkinGlyph.getDescription glyph
+
+        View.Grid (
+            backgroundColor = Style.backgroundColor model.IsDarkMode,
+            verticalOptions = LayoutOptions.FillAndExpand,
+            horizontalOptions = LayoutOptions.FillAndExpand,
+            padding = Thickness 5.,
+            rowdefs =
+                [ Dimension.Auto
+                  Dimension.Auto
+                  Dimension.Auto
+                  Dimension.Auto
+                  Dimension.Auto
+                  Dimension.Auto
+                  Dimension.Star
+                  Dimension.Absolute 15. ],
+            coldefs = [ Dimension.Auto; Dimension.Auto ],
+            children =
+                [ View
+                    .Button(text = "-1",
+                            textColor = Style.foregroundColor model.IsDarkMode,
+                            fontSize = Style.fontSize,
+                            command = (fun () -> dispatch (AddDays -1)))
+                      .Row(0)
+                      .Column (0)
+                  View
+                      .Button(text = "+1",
+                              textColor = Style.foregroundColor model.IsDarkMode,
+                              fontSize = Style.fontSize,
+                              command = (fun () -> dispatch (AddDays 1)))
+                      .Row(0)
+                      .Column (1)
+                  View
+                      .Label(text = "Significado:",
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(1)
+                      .Column (0)
+                  View
+                      .Label(text = sprintf "%s" (glyphDesc.meaning),
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(1)
+                      .Column (1)
+                  View
+                      .Label(text = "Elementos o animal asociados:",
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(2)
+                      .Column(0)
+                      .ColumnSpan (2)
+                  View
+                      .Label(text = sprintf "%s" (glyphDesc.elementOrAnimal),
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(3)
+                      .Column (1)
+                  View
+                      .Label(text = "Rumbo asociado:",
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(4)
+                      .Column (0)
+                  View
+                      .Label(text = sprintf "%s" (glyphDesc.direction),
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(4)
+                      .Column (1)
+                  View
+                      .Label(text = "Color asociado:",
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(5)
+                      .Column (0)
+                  View
+                      .Label(text = sprintf "%s" (glyphDesc.color),
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(5)
+                      .Column (1)
+                  View
+                      .Label(text = "Dioses patronos:",
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(6)
+                      .Column (0)
+                  View
+                      .Label(text = sprintf "%s" (glyphDesc.god),
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             fontSize = Style.fontSize)
+                      .Row(6)
+                      .Column (1)
+                  View
+                      .Label(text = versionInfo,
+                             fontSize = FontSize.fromNamedSize NamedSize.Micro,
+                             textColor = Style.foregroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             verticalTextAlignment = TextAlignment.End,
+                             horizontalTextAlignment = TextAlignment.End,
+                             horizontalOptions = LayoutOptions.Fill,
+                             verticalOptions = LayoutOptions.Fill)
+                      .Row(7)
+                      .Column(0)
+                      .ColumnSpan (2) ]
+        )

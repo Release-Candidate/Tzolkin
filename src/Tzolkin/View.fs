@@ -18,15 +18,11 @@ open Xamarin.Essentials
 [<AutoOpen>]
 module View =
 
-    /// The view of MVU.
-    let view model dispatch =
 
-        match model.ShowSystemAppInfo with
-        | true -> AppInfo.ShowSettingsUI ()
-        | false -> ()
-
+    /// The first tab of the app.
+    let tab1 model dispatch =
         View.ContentPage (
-            sizeChanged = (fun (width, height) -> dispatch (SetOrientation (width, height))),
+            title = "1",
             backgroundColor = Style.backgroundColor model.IsDarkMode,
             content =
                 View.StackLayout (
@@ -43,6 +39,44 @@ module View =
 
                           separator model.IsLandscape model.IsDarkMode
 
-                          dateView model dispatch ]
+                          glyphDescription model dispatch ]
+
                 )
+        )
+
+    /// The second tab of the app.
+    let tab2 model dispatch =
+        View.ContentPage (
+            title = "2",
+            backgroundColor = Style.backgroundColor model.IsDarkMode,
+            content =
+                View.StackLayout (
+                    padding = Thickness 5.0,
+                    orientation = setHorizontalIfLandscape model.IsLandscape,
+                    backgroundColor = Style.backgroundColor model.IsDarkMode,
+                    children = [ dateView model dispatch ]
+                )
+        )
+
+    /// The view of MVU.
+    let view model dispatch =
+
+        match model.ShowSystemAppInfo with
+        | true -> AppInfo.ShowSettingsUI ()
+        | false -> ()
+
+        View.TabbedPage (
+            sizeChanged = (fun (width, height) -> dispatch (SetOrientation (width, height))),
+            useSafeArea = true,
+            currentPageChanged =
+                (fun index ->
+                    match index with
+                    | None -> ()
+                    | Some idx ->
+                        printfn "Tab changed : %i" idx
+                        dispatch (SetTabIndex idx)),
+            currentPage = model.CurrentTabIndex,
+            children =
+                [ tab1 model dispatch
+                  tab2 model dispatch ]
         )
