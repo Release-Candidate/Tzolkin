@@ -33,7 +33,7 @@ module View =
                         [ View.StackLayout (
                             padding = Thickness (0.0, 10.0, 10.0, 10.0),
                             orientation = setVerticalIfLandscape model.IsLandscape,
-                            backgroundColor = setBrown, // Style.backgroundColor model.IsDarkMode,
+                            backgroundColor = brownBackground,
                             children = dateSelector model dispatch
                           )
 
@@ -68,6 +68,8 @@ module View =
         View.TabbedPage (
             sizeChanged = (fun (width, height) -> dispatch (SetOrientation (width, height))),
             useSafeArea = true,
+            barBackgroundColor = tabBackgroundColor,
+            barTextColor = tabForegroundColor,
             currentPageChanged =
                 (fun index ->
                     match index with

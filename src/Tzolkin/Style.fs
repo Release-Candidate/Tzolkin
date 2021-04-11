@@ -16,9 +16,15 @@ open Xamarin.Forms
 [<AutoOpen>]
 module Style =
 
-    let fontSize = FontSize.fromNamedSize NamedSize.Medium
+    let normalFontSize = FontSize.fromNamedSize NamedSize.Medium
 
-    let setBrown = Color.FromHex "#F2D8B8"
+    let glyphDescFontSize = FontSize.fromNamedSize NamedSize.Large
+
+    let tabBackgroundColor = Color.CadetBlue
+
+    let tabForegroundColor = Color.Yellow
+
+    let brownBackground = Color.FromHex "#F2D8B8"
 
     let backgroundLight = Color.Default
 

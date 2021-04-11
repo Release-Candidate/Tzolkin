@@ -66,7 +66,7 @@ module TzolkinView =
                   View
                       .Label(text = tzolkinDate.number.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
-                             fontSize = Style.fontSize,
+                             fontSize = Style.normalFontSize,
                              textColor = Color.Black,
                              backgroundColor = Color.Default,
                              verticalOptions = LayoutOptions.Start,
@@ -76,7 +76,7 @@ module TzolkinView =
                   View
                       .Label(text = tzolkinDate.glyph.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
-                             fontSize = Style.fontSize,
+                             fontSize = Style.normalFontSize,
                              textColor = Color.Black,
                              backgroundColor = Color.Default,
                              verticalOptions = LayoutOptions.Start,
@@ -92,7 +92,7 @@ module TzolkinView =
         [ tzolkinDateViewFirst model model.IsDarkMode
 
           View.Frame (
-              backgroundColor = setBrown, //Style.backgroundColor model.IsDarkMode,
+              backgroundColor = brownBackground,
               content =
                   View.DatePicker (
                       minimumDate = DateTime.MinValue,
@@ -104,7 +104,7 @@ module TzolkinView =
                       verticalOptions = LayoutOptions.Fill,
                       textColor = Color.Black,
                       backgroundColor = Color.Default,
-                      fontSize = Style.fontSize,
+                      fontSize = Style.normalFontSize,
                       horizontalOptions = LayoutOptions.CenterAndExpand
                   )
           ) ]
@@ -128,20 +128,20 @@ module TzolkinView =
                   Dimension.Auto
                   Dimension.Auto
                   Dimension.Star
-                  Dimension.Absolute 15. ],
-            coldefs = [ Dimension.Auto; Dimension.Auto ],
+                  Dimension.Absolute 12. ],
+            coldefs = [ Dimension.Auto; Dimension.Star ],
             children =
                 [ View
                     .Button(text = "-1",
                             textColor = Style.foregroundColor model.IsDarkMode,
-                            fontSize = Style.fontSize,
+                            fontSize = Style.normalFontSize,
                             command = (fun () -> dispatch (AddDays -1)))
                       .Row(0)
                       .Column (0)
                   View
                       .Button(text = "+1",
                               textColor = Style.foregroundColor model.IsDarkMode,
-                              fontSize = Style.fontSize,
+                              fontSize = Style.normalFontSize,
                               command = (fun () -> dispatch (AddDays 1)))
                       .Row(0)
                       .Column (1)
@@ -149,21 +149,21 @@ module TzolkinView =
                       .Label(text = "Significado:",
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(1)
                       .Column (0)
                   View
                       .Label(text = sprintf "%s" (glyphDesc.meaning),
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(1)
                       .Column (1)
                   View
                       .Label(text = "Elementos o animal asociados:",
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(2)
                       .Column(0)
                       .ColumnSpan (2)
@@ -171,49 +171,49 @@ module TzolkinView =
                       .Label(text = sprintf "%s" (glyphDesc.elementOrAnimal),
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(3)
                       .Column (1)
                   View
                       .Label(text = "Rumbo asociado:",
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(4)
                       .Column (0)
                   View
                       .Label(text = sprintf "%s" (glyphDesc.direction),
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(4)
                       .Column (1)
                   View
                       .Label(text = "Color asociado:",
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(5)
                       .Column (0)
                   View
                       .Label(text = sprintf "%s" (glyphDesc.color),
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(5)
                       .Column (1)
                   View
                       .Label(text = "Dioses patronos:",
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(6)
                       .Column (0)
                   View
                       .Label(text = sprintf "%s" (glyphDesc.god),
                              textColor = Style.foregroundColor model.IsDarkMode,
                              backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.fontSize)
+                             fontSize = Style.glyphDescFontSize)
                       .Row(6)
                       .Column (1)
                   View
