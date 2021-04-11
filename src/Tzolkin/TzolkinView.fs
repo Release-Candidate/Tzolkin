@@ -36,12 +36,13 @@ module TzolkinView =
             horizontalOptions = LayoutOptions.FillAndExpand,
             columnSpacing = 5.,
             rowSpacing = 0.,
+            padding = Thickness 0.0,
             rowdefs =
                 [ Dimension.Absolute 67.
                   Dimension.Absolute 25. ],
             coldefs =
-                [ Dimension.Absolute 67.
-                  Dimension.Absolute 100. ],
+                [ Dimension.Absolute 62.
+                  Dimension.Absolute 80. ],
             children =
                 [ View
                     .Image(source = Image.fromPath numImgName,
@@ -63,8 +64,8 @@ module TzolkinView =
                       .Label(text = tzolkinDate.number.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = Style.fontSize,
-                             textColor = Style.foregroundColor isDark,
-                             backgroundColor = Style.backgroundColor isDark,
+                             textColor = Color.Black,
+                             backgroundColor = Color.Default,
                              verticalOptions = LayoutOptions.Start,
                              horizontalOptions = LayoutOptions.EndAndExpand)
                       .Row(1)
@@ -73,8 +74,8 @@ module TzolkinView =
                       .Label(text = tzolkinDate.glyph.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = Style.fontSize,
-                             textColor = Style.foregroundColor isDark,
-                             backgroundColor = Style.backgroundColor isDark,
+                             textColor = Color.Black,
+                             backgroundColor = Color.Default,
                              verticalOptions = LayoutOptions.Start,
                              horizontalOptions = LayoutOptions.StartAndExpand)
                       .Row(1)
@@ -88,7 +89,7 @@ module TzolkinView =
         [ tzolkinDateViewFirst model model.IsDarkMode
 
           View.Frame (
-              backgroundColor = Style.backgroundColor model.IsDarkMode,
+              backgroundColor = setBrown, //Style.backgroundColor model.IsDarkMode,
               content =
                   View.DatePicker (
                       minimumDate = DateTime.MinValue,
@@ -96,10 +97,10 @@ module TzolkinView =
                       date = DateTime.Today,
                       format = localeFormat,
                       dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
-                      width = 130.0,
+                      width = 120.0,
                       verticalOptions = LayoutOptions.Fill,
-                      textColor = Style.foregroundColor model.IsDarkMode,
-                      backgroundColor = Style.backgroundColor model.IsDarkMode,
+                      textColor = Color.Black,
+                      backgroundColor = Color.Default,
                       fontSize = Style.fontSize,
                       horizontalOptions = LayoutOptions.CenterAndExpand
                   )

@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="AssemblyInfo.fs" />
+    <EmbeddedResource Include="Tzolkin.ttf" />
     <Compile Include="Definitions.fs" />
     <Compile Include="Style.fs" />
     <Compile Include="TzolkinView.fs" />
@@ -16,10 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fabulous" Version="1.0.0" />
-    <PackageReference Include="Fabulous.LiveUpdate" Version="1.0.0" />
-    <PackageReference Include="Fabulous.XamarinForms" Version="1.0.0" />
-    <PackageReference Include="Fabulous.XamarinForms.LiveUpdate" Version="1.0.0" />
+    <PackageReference Include="Fabulous" Version="1.0.1" />
+    <PackageReference Include="Fabulous.LiveUpdate" Version="1.0.1" />
+    <PackageReference Include="Fabulous.XamarinForms" Version="1.0.1" />
+    <PackageReference Include="Fabulous.XamarinForms.LiveUpdate" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />

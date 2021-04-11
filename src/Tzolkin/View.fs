@@ -30,21 +30,18 @@ module View =
             backgroundColor = Style.backgroundColor model.IsDarkMode,
             content =
                 View.StackLayout (
-                    padding = Thickness 10.0,
-                    orientation =
-                        (if model.IsLandscape then
-                             StackOrientation.Horizontal
-                         else
-                             StackOrientation.Vertical),
+                    padding = Thickness 5.0,
+                    orientation = setHorizontalIfLandscape model.IsLandscape,
                     backgroundColor = Style.backgroundColor model.IsDarkMode,
                     children =
                         [ View.StackLayout (
-                            orientation = StackOrientation.Horizontal,
-                            backgroundColor = Style.backgroundColor model.IsDarkMode,
+                            padding = Thickness (0.0, 10.0, 10.0, 10.0),
+                            orientation = setVerticalIfLandscape model.IsLandscape,
+                            backgroundColor = setBrown, // Style.backgroundColor model.IsDarkMode,
                             children = dateSelector model dispatch
                           )
 
-                          separator model.IsLandscape
+                          separator model.IsLandscape model.IsDarkMode
 
                           dateView model dispatch ]
                 )

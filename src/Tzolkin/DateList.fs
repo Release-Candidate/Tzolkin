@@ -23,13 +23,12 @@ module DateList =
 
     let cmdScrollToCenter = ScrollListCenter |> Cmd.ofMsg
 
-    /// Fills the list view with filtered dates.
-    let fillListViewFilter (model: Model) =
+    let fullFilterList model tzolkinDate =
         let lastList =
-            TzolkinDate.getLastList 500 model.ListTzolkinDate DateTime.Today
+            TzolkinDate.getLastList 500 tzolkinDate DateTime.Today
             |> List.rev
 
-        let nextList = TzolkinDate.getNextList 500 model.ListTzolkinDate DateTime.Today
+        let nextList = TzolkinDate.getNextList 500 tzolkinDate DateTime.Today
 
         let dateList = lastList @ nextList
 
@@ -59,6 +58,23 @@ module DateList =
         |> filterYear
         |> List.map (fun elem -> View.TextCell (elem.ToShortDateString ()))
 
+    let allListView () = []
+
+    let filterListViewNum tzolkinNum = []
+
+    let filterListViewGlyph tzolkinGlyph = []
+
+    /// Fills the list view with filtered dates.
+    let fillListViewFilter (model: Model) =
+        match model.ListTzolkinNumber, model.ListTzolkinGlyph with
+        | None, None -> allListView ()
+        | None, Some tzolkinGlyph -> filterListViewGlyph tzolkinGlyph
+        | Some tzolkinNum, None -> filterListViewNum tzolkinNum
+        | Some tzolkinNum, Some tzolkinGlyph ->
+            fullFilterList
+                model
+                { number = tzolkinNum
+                  glyph = tzolkinGlyph }
 
 
     /// Select a Tzolk’in date.
@@ -66,9 +82,9 @@ module DateList =
         [ View.Picker (
             title = "Number:",
             horizontalOptions = LayoutOptions.Start,
-            selectedIndex = int (model.ListTzolkinDate.number) - 1,
+            selectedIndex = modelNumToInt model,
             items = numberPickList,
-            selectedIndexChanged = (fun (i, item) -> dispatch (SetListNumber <| i + 1)),
+            selectedIndexChanged = (fun (i, item) -> dispatch (SetListNumber i)),
             width = 35.0,
             fontSize = Style.fontSize,
             textColor = Style.foregroundColor model.IsDarkMode,
@@ -79,12 +95,12 @@ module DateList =
           View.Picker (
               title = "Glyph:",
               horizontalOptions = LayoutOptions.Start,
-              selectedIndex = int (model.ListTzolkinDate.glyph) - 1,
+              selectedIndex = modelGlyphToInt model,
               items = glyphPickList,
               fontSize = Style.fontSize,
               textColor = Style.foregroundColor model.IsDarkMode,
               backgroundColor = Style.backgroundColor model.IsDarkMode,
-              selectedIndexChanged = (fun (i, item) -> dispatch (SetListGlyph <| i + 1))
+              selectedIndexChanged = (fun (i, item) -> dispatch (SetListGlyph i))
           ) ]
 
     /// The Filter section
@@ -94,7 +110,7 @@ module DateList =
             horizontalOptions = LayoutOptions.Start,
             selectedIndex = model.Filter.day,
             items = "" :: [ for i in 1 .. 31 -> i.ToString () ],
-            selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterDay <| i)),
+            selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterDay i)),
             fontSize = Style.fontSize,
             textColor = Style.foregroundColor model.IsDarkMode,
             backgroundColor = Style.backgroundColor model.IsDarkMode,
@@ -106,7 +122,7 @@ module DateList =
               horizontalOptions = LayoutOptions.Start,
               selectedIndex = model.Filter.month,
               items = "" :: [ for i in 1 .. 12 -> i.ToString () ],
-              selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterMonth <| i)),
+              selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterMonth i)),
               fontSize = Style.fontSize,
               textColor = Style.foregroundColor model.IsDarkMode,
               backgroundColor = Style.backgroundColor model.IsDarkMode,
@@ -114,7 +130,8 @@ module DateList =
               ref = monthPicker
           )
           View.Entry (
-              text = model.Filter.year,
+              text = "",
+              textChanged = (fun text -> SetFilterYear text.NewTextValue |> dispatch),
               completed = (fun text -> SetFilterYear text |> dispatch),
               keyboard = Keyboard.Numeric,
               fontSize = Style.fontSize,
@@ -124,7 +141,7 @@ module DateList =
               ref = yearPicker
           ) ]
 
-    /// 
+    ///
     let dateView model dispatch =
         View.Grid (
             backgroundColor = Style.backgroundColor model.IsDarkMode,
@@ -140,7 +157,7 @@ module DateList =
                 [ Dimension.Stars 0.4
                   Dimension.Stars 0.6 ],
             children =
-                [ (tzolkinDateView model.ListTzolkinDate model.IsDarkMode).Row(0).Column (1)
+                [ (tzolkinDateView (modelTzolkinDate model) model.IsDarkMode).Row(0).Column (1)
 
                   View
                       .StackLayout(children = tzolkinSelector model dispatch,
@@ -160,8 +177,10 @@ module DateList =
                       .Row(3)
                       .Column (1)
                   //View
-                  //    .BoxView(color = Color.Yellow,
-                  //             verticalOptions = LayoutOptions.Start)
+                  //    .Label(fontFamily = "Tzolkin",
+                  //           text = "𕏲",
+                  //           fontSize = FontSize.fromValue 50.,
+                  //           verticalOptions = LayoutOptions.Start)
                   //    .Row(4)
                   //    .Column (1)
                   View

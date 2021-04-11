@@ -1,10 +1,15 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: MIT
 // Copyright 2018 Fabulous contributors.
+// Copyright 2021 Roland Csaszar
+//
+// Project:  Tzolkin.Android
+// File:     MainActivity.fs
+//
+//==============================================================================
 
 namespace Tzolkin.Android
 
 open System
-
 open Android.App
 open Android.Content
 open Android.Content.PM
@@ -13,9 +18,10 @@ open Android.Views
 open Android.Widget
 open Android.OS
 open Xamarin.Forms.Platform.Android
+
 open TzolkinApp
 
-[<Activity(Label = "Tzolkin.Android",
+[<Activity(Label = "Tzolkin",
            Icon = "@drawable/icon",
            Theme = "@style/MainTheme",
            MainLauncher = true,

@@ -1,5 +1,11 @@
-﻿// SPDX-License-Identifier: Apache-2.0
+﻿// SPDX-License-Identifier: MIT
 // Copyright 2018 Fabulous contributors.
+// Copyright 2021 Roland Csaszar
+//
+// Project:  Tzolkin.Android
+// File:     AssemblyInfo.fs
+//
+//==============================================================================
 
 namespace Tzolkin.Android
 
@@ -16,12 +22,12 @@ type Resources = Tzolkin.Android.Resource
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[<assembly: AssemblyTitle("Tzolkin.Android")>]
+[<assembly: AssemblyTitle("Tzolkin")>]
 [<assembly: AssemblyDescription("")>]
 [<assembly: AssemblyConfiguration("")>]
 [<assembly: AssemblyCompany("")>]
-[<assembly: AssemblyProduct("Tzolkin.Android")>]
-[<assembly: AssemblyCopyright("Copyright ©  2014")>]
+[<assembly: AssemblyProduct("Tzolkin")>]
+[<assembly: AssemblyCopyright("Copyright © 2021 Roland Csaszar")>]
 [<assembly: AssemblyTrademark("")>]
 [<assembly: AssemblyCulture("")>]
 [<assembly: ComVisible(false)>]

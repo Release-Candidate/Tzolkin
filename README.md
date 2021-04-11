@@ -40,6 +40,8 @@ Online general Maya (not only Tzolk’in) calendar converter: [Maya Converter of
 
 [Convertidor Al Calendario Maya Smithsonian NMIA](https://maya.nmai.si.edu/es/calendario/convertidor-de-calendario-maya)
 
+Meaning of the Tzolk’in day glyphs [Arqueología Mexicana](https://arqueologiamexicana.mx/dias-mayas)
+
 Mayan Glyphs and Unicode: [Roadmap to the SMP](https://www.unicode.org/roadmaps/smp/) and the PDF [Updated List of Characters for Mayan Codices](https://www.unicode.org/L2/L2020/20248-mayan-update.pdf)
 
 ## Download

@@ -18,6 +18,8 @@ module Style =
 
     let fontSize = FontSize.fromNamedSize NamedSize.Medium
 
+    let setBrown = Color.FromHex "#F2D8B8"
+
     let backgroundLight = Color.Default
 
     let backgroundDark = Color.FromHex "#1F1B24"
@@ -36,21 +38,33 @@ module Style =
         | true -> backgroundDark
         | false -> backgroundLight
 
+    let setHorizontalIfLandscape isL =
+        if isL then
+            StackOrientation.Horizontal
+        else
+            StackOrientation.Vertical
+
+    let setVerticalIfLandscape isL =
+        if isL then
+            StackOrientation.Vertical
+        else
+            StackOrientation.Horizontal
+
     /// Separator line.
-    let separator isL =
+    let separator isL isDark =
         match isL with
         | false ->
             View.BoxView (
-                color = Color.Black,
-                backgroundColor = Color.Black,
+                color = foregroundColor isDark,
+                backgroundColor = foregroundColor isDark,
                 height = 0.5,
                 horizontalOptions = LayoutOptions.FillAndExpand
             )
 
         | true ->
             View.BoxView (
-                color = Color.Black,
-                backgroundColor = Color.Black,
+                color = foregroundColor isDark,
+                backgroundColor = foregroundColor isDark,
                 width = 0.5,
                 verticalOptions = LayoutOptions.FillAndExpand
             )

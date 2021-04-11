@@ -31,9 +31,11 @@ module Definitions =
 
     let versionInfo = sprintf "%s %s" appNameInfo version
 
-    let numberPickList = List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
+    let numberPickList =
+        ""
+        :: List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
 
-    let glyphPickList = Array.toList TzolkinGlyph.glyphNames
+    let glyphPickList = "" :: Array.toList TzolkinGlyph.glyphNames
 
     let localeSeparator = CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator
 
@@ -48,11 +50,37 @@ module Definitions =
     /// The MVU model.
     type Model =
         { Date: System.DateTime
-          ListTzolkinDate: TzolkinDate.T
+          ListTzolkinNumber: TzolkinNumber.T option
+          ListTzolkinGlyph: TzolkinGlyph.T option
           Filter: DateFilter
           IsDarkMode: bool
           IsLandscape: bool
           ShowSystemAppInfo: bool }
+
+    let modelTzolkinDate model =
+        match model.ListTzolkinNumber, model.ListTzolkinGlyph with
+        | None, Some tz ->
+            { TzolkinDate.number = TzolkinNumber.T.TzolkinNumber 1
+              TzolkinDate.glyph = tz }
+        | Some tz, None ->
+            { TzolkinDate.number = tz
+              TzolkinDate.glyph = TzolkinGlyph.T.TzolkinGlyph 1 }
+        | Some tzn, Some tzg ->
+            { TzolkinDate.number = tzn
+              TzolkinDate.glyph = tzg }
+        | _, _ ->
+            { TzolkinDate.number = TzolkinNumber.T.TzolkinNumber 1
+              TzolkinDate.glyph = TzolkinGlyph.T.TzolkinGlyph 1 }
+
+    let modelNumToInt model =
+        match model.ListTzolkinNumber with
+        | None -> 0
+        | Some tz -> int tz
+
+    let modelGlyphToInt model =
+        match model.ListTzolkinGlyph with
+        | None -> 0
+        | Some tz -> int tz
 
     // The messages ================================================================================
 
@@ -84,9 +112,8 @@ module Definitions =
     /// Initial state of the MVU model.
     let initModel =
         { Date = System.DateTime.Today
-          ListTzolkinDate =
-              { number = TzolkinNumber.T.TzolkinNumber 8
-                glyph = TzolkinGlyph.T.TzolkinGlyph 5 }
+          ListTzolkinNumber = Some (TzolkinNumber.T.TzolkinNumber 8)
+          ListTzolkinGlyph = Some (TzolkinGlyph.T.TzolkinGlyph 5)
           Filter = { day = 0; month = 0; year = "" }
           IsDarkMode =
               if Application.Current.RequestedTheme = OSAppTheme.Dark then
@@ -114,6 +141,12 @@ module Definitions =
                 animated = true
             )
 
+    /// Reset the text in the year entry.
+    let resetYear model =
+        match yearPicker.TryValue with
+        | None -> ()
+        | Some textEntry -> textEntry.Text <- ""
+
     // Update ======================================================================================
 
     /// The update function of MVU.
@@ -122,18 +155,20 @@ module Definitions =
         | SetDate date -> { model with Date = date }, Cmd.none
 
         | SetListNumber newNum ->
-            { model with
-                  ListTzolkinDate =
-                      { model.ListTzolkinDate with
-                            number = (TzolkinNumber.T.TzolkinNumber newNum) } },
-            Cmd.none
+            match newNum with
+            | 0 -> { model with ListTzolkinNumber = None }, Cmd.none
+            | _ ->
+                { model with
+                      ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum },
+                Cmd.none
 
         | SetListGlyph newGlyph ->
-            { model with
-                  ListTzolkinDate =
-                      { model.ListTzolkinDate with
-                            glyph = (TzolkinGlyph.T.TzolkinGlyph newGlyph) } },
-            Cmd.none
+            match newGlyph with
+            | 0 -> { model with ListTzolkinGlyph = None }, Cmd.none
+            | _ ->
+                { model with
+                      ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph },
+                Cmd.none
 
         | SetFilterDay newday ->
             { model with
@@ -151,6 +186,8 @@ module Definitions =
             Cmd.none
 
         | DoResetFilter ->
+            resetYear model
+
             { model with
                   Filter = { day = 0; month = 0; year = "" } },
             Cmd.none

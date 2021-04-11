@@ -147,17 +147,21 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fabulous">
-      <HintPath>..\..\packages\Fabulous.1.0.0\lib\netstandard2.0\Fabulous.dll</HintPath>
+      <HintPath>..\..\packages\Fabulous.1.0.1\lib\netstandard2.0\Fabulous.dll</HintPath>
     </Reference>
+    <Reference Include="Fabulous" />
     <Reference Include="Fabulous.LiveUpdate">
-      <HintPath>..\..\packages\Fabulous.LiveUpdate.1.0.0\lib\netstandard2.0\Fabulous.LiveUpdate.dll</HintPath>
+      <HintPath>..\..\packages\Fabulous.LiveUpdate.1.0.1\lib\netstandard2.0\Fabulous.LiveUpdate.dll</HintPath>
     </Reference>
+    <Reference Include="Fabulous.LiveUpdate" />
     <Reference Include="Fabulous.XamarinForms">
-      <HintPath>..\..\packages\Fabulous.XamarinForms.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.dll</HintPath>
+      <HintPath>..\..\packages\Fabulous.XamarinForms.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.dll</HintPath>
     </Reference>
+    <Reference Include="Fabulous.XamarinForms" />
     <Reference Include="Fabulous.XamarinForms.LiveUpdate">
-      <HintPath>..\..\packages\Fabulous.XamarinForms.LiveUpdate.1.0.0\lib\netstandard2.0\Fabulous.XamarinForms.LiveUpdate.dll</HintPath>
+      <HintPath>..\..\packages\Fabulous.XamarinForms.LiveUpdate.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.LiveUpdate.dll</HintPath>
     </Reference>
+    <Reference Include="Fabulous.XamarinForms.LiveUpdate" />
     <Reference Include="FSharp.Core">
       <Private>True</Private>
     </Reference>
@@ -173,11 +177,13 @@
       <HintPath>..\..\packages\SkiaSharp.Svg.1.60.0\lib\netstandard2.0\SkiaSharp.Extended.Svg.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Views.Forms">
-      <HintPath>..\..\packages\SkiaSharp.Views.Forms.1.68.1\lib\Xamarin.iOS\SkiaSharp.Views.Forms.dll</HintPath>
+      <HintPath>..\..\packages\SkiaSharp.Views.Forms.2.80.2\lib\xamarinios1.0\SkiaSharp.Views.Forms.dll</HintPath>
     </Reference>
+    <Reference Include="SkiaSharp.Views.Forms" />
     <Reference Include="SkiaSharp.Views.iOS">
-      <HintPath>..\..\packages\SkiaSharp.Views.1.68.1\lib\Xamarin.iOS\SkiaSharp.Views.iOS.dll</HintPath>
+      <HintPath>..\..\packages\SkiaSharp.Views.2.80.2\lib\xamarinios1.0\SkiaSharp.Views.iOS.dll</HintPath>
     </Reference>
+    <Reference Include="SkiaSharp.Views.iOS" />
     <Reference Include="System" />
     <Reference Include="System.Buffers">
       <Private>True</Private>
