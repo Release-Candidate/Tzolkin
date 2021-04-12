@@ -79,207 +79,207 @@ module TzolkinGlyph =
           url: string }
 
     /// Description of Tzolk’in day glyph Men.
-    let descMen =
+    let private _descMen =
         { meaning = "águila"
           elementOrAnimal = "águila"
           direction = "oeste"
           color = "negro"
           god = "Ix Chel, diosa de la Luna"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ikʼ.
-    let descIk =
+    let private _descIk =
         { meaning = "viento"
           elementOrAnimal = "viento"
           direction = "norte"
           color = "blanco"
           god = "dios B o Chaac"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Chickchan.
-    let descChikchan =
+    let private _descChikchan =
         { meaning = "serpiente celeste"
           elementOrAnimal = "serpiente"
           direction = "este"
           color = "rojo"
           god = "Chikchan, dios del número 9"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Imix.
-    let descImix =
+    let private _descImix =
         { meaning = "caimán, cocodrilo"
           elementOrAnimal = "superficie terrestre"
           direction = "este"
           color = "rojo"
           god = "monstruo de la tierra"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kawak.
-    let descKawak =
+    let private _descKawak =
         { meaning = "tormenta"
           elementOrAnimal = "lluvia, tormenta"
           direction = "oeste"
           color = "negro"
           god = "Itzamnaaj"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ajaw.
-    let descAjaw =
+    let private _descAjaw =
         { meaning = "señor"
           elementOrAnimal = "Sol"
           direction = "sur"
           color = "amarillo"
           god = "dios G o dios del Sol"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Etzʼnabʼ.
-    let descEtznab =
+    let private _descEtznab =
         { meaning = "pedernal"
           elementOrAnimal = "pedernal"
           direction = "norte"
           color = "blanco"
           god = "dios Q o dios de la guerra y los sacrificios"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kabʼan.
-    let descKaban =
+    let private _descKaban =
         { meaning = "Tierra"
           elementOrAnimal = "Tierra y los temblores"
           direction = "sur"
           color = "amarillo"
           god = "diosa I o diosa de la sensualidad y el amor"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kʼibʼ.
-    let descKib =
-        { meaning = "“cera”"
+    let private _descKib =
+        { meaning = "cera"
           elementOrAnimal = "venado, insectos"
           direction = "sur"
           color = "amarillo"
           god = "dios N o Pawahtún"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ix.
-    let descIx =
+    let private _descIx =
         { meaning = "jaguar"
           elementOrAnimal = "jaguar"
           direction = "este"
           color = "rojo"
           god = "dios jaguar"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Bʼen.
-    let descBen =
+    let private _descBen =
         { meaning = "maíz verde"
           elementOrAnimal = "maíz"
           direction = "este"
           color = "rojo"
           god = "dios E o dios del maíz"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ebʼ.
-    let descEb =
+    let private _descEb =
         { meaning = "rocío"
-          elementOrAnimal = ""
+          elementOrAnimal = "-"
           direction = "sur"
           color = "amarillo"
           god = "dios de las lluvias dañinas"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Chuwen.
-    let descChuwen =
+    let private _descChuwen =
         { meaning = "mono"
           elementOrAnimal = "mono"
           direction = "oeste"
           color = "negro"
           god = "dios C o K’u"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ok.
-    let descOk =
+    let private _descOk =
         { meaning = "perro"
           elementOrAnimal = "perro"
           direction = "norte"
           color = "blanco"
           god = "el perro en su advocación de dios del inframundo"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Muluk.
-    let descMuluk =
+    let private _descMuluk =
         { meaning = "jade, agua"
           elementOrAnimal = "agua"
           direction = "este"
           color = "rojo"
           god = "pez xoc, jaguar"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Lamat.
-    let descLamat =
+    let private _descLamat =
         { meaning = "Venus"
           elementOrAnimal = "conejo"
           direction = "sur"
           color = "amarillo"
           god = "Lahun Chan, Venus"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Manikʼ.
-    let descManik =
+    let private _descManik =
         { meaning = "venado"
           elementOrAnimal = "venado"
           direction = "oeste"
           color = "negro"
           god = "dios R o Buluk Ch’Abtan, dios de la Tierra"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kimi.
-    let descKimi =
+    let private _descKimi =
         { meaning = "muerte"
           elementOrAnimal = "muerte"
           direction = "norte"
           color = "blanco"
           god = "dios A o dios de la muerte"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kʼan.
-    let descKan =
+    let private _descKan =
         { meaning = "maíz maduro"
           elementOrAnimal = "maíz y abundancia"
           direction = "sur"
           color = "amarillo"
           god = "dios E o dios del maíz"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Akʼbʼal.
-    let descAkbal =
+    let private _descAkbal =
         { meaning = "oscuridad"
           elementOrAnimal = "oscuridad, noche, jaguar"
           direction = "oeste"
           color = "negro"
           god = "Chaac Bolay, jaguar de nenúfar"
-          url = "" }
+          url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// The descriptions of the 20 Tzolk’in day glyphs.
     let glyphDesc =
-        [| descImix
-           descIk
-           descAkbal
-           descKan
-           descChikchan
-           descKimi
-           descManik
-           descLamat
-           descMuluk
-           descOk
-           descChuwen
-           descEb
-           descBen
-           descIx
-           descMen
-           descKib
-           descKaban
-           descEtznab
-           descKawak
-           descAjaw |]
+        [| _descImix
+           _descIk
+           _descAkbal
+           _descKan
+           _descChikchan
+           _descKimi
+           _descManik
+           _descLamat
+           _descMuluk
+           _descOk
+           _descChuwen
+           _descEb
+           _descBen
+           _descIx
+           _descMen
+           _descKib
+           _descKaban
+           _descEtznab
+           _descKawak
+           _descAjaw |]
 
     /// Calculate Tzolk’in glyph 'modulo'.
     /// Calculate `n` % 20 and return 20 if `n` = 0 (mod 20), because a day 0 doesn't

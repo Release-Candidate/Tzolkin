@@ -18,45 +18,36 @@ open Xamarin.Essentials
 [<AutoOpen>]
 module View =
 
-
     /// The first tab of the app.
-    let tab1 model dispatch =
-        View.ContentPage (
-            title = "1",
-            backgroundColor = Style.backgroundColor model.IsDarkMode,
-            content =
-                View.StackLayout (
-                    padding = Thickness 5.0,
-                    orientation = setHorizontalIfLandscape model.IsLandscape,
-                    backgroundColor = Style.backgroundColor model.IsDarkMode,
-                    children =
-                        [ View.StackLayout (
-                            padding = Thickness (0.0, 10.0, 10.0, 10.0),
-                            orientation = setVerticalIfLandscape model.IsLandscape,
-                            backgroundColor = brownBackground,
-                            children = dateSelector model dispatch
-                          )
+    let homePage model dispatch =
 
-                          separator model.IsLandscape model.IsDarkMode
+        View
+            .ContentPage(title = "Calendario",
+                         backgroundColor = Style.backgroundColor model.IsDarkMode,
+                         appearing = (fun () -> dispatch <| SetCurrentPage Home),
+                         content = View.StackLayout (
+                             backgroundColor = Style.backgroundBrownDark,//Style.backgroundColor model.IsDarkMode,
+                             children = tzolkinPage model dispatch
+                         )
 
-                          glyphDescription model dispatch ]
 
-                )
-        )
+            )
+            .HasNavigationBar(true)
+            .HasBackButton (false)
 
     /// The second tab of the app.
-    let tab2 model dispatch =
-        View.ContentPage (
-            title = "2",
-            backgroundColor = Style.backgroundColor model.IsDarkMode,
-            content =
-                View.StackLayout (
-                    padding = Thickness 5.0,
-                    orientation = setHorizontalIfLandscape model.IsLandscape,
-                    backgroundColor = Style.backgroundColor model.IsDarkMode,
-                    children = [ dateView model dispatch ]
-                )
-        )
+    let calendarFilter model dispatch =
+        View
+            .ContentPage(title = "calendarFilter",
+                         backgroundColor = Style.backgroundColor model.IsDarkMode,
+                         content = View.StackLayout (
+                             padding = Thickness 5.0,
+                             orientation = setHorizontalIfLandscape model.IsLandscape,
+                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             children = [ dateView model dispatch ]
+                         ))
+            .HasNavigationBar(true)
+            .HasBackButton (true)
 
     /// The view of MVU.
     let view model dispatch =
@@ -65,20 +56,16 @@ module View =
         | true -> AppInfo.ShowSettingsUI ()
         | false -> ()
 
-        View.TabbedPage (
+        View.NavigationPage (
             sizeChanged = (fun (width, height) -> dispatch (SetOrientation (width, height))),
             useSafeArea = true,
             barBackgroundColor = tabBackgroundColor,
             barTextColor = tabForegroundColor,
-            currentPageChanged =
-                (fun index ->
-                    match index with
-                    | None -> ()
-                    | Some idx ->
-                        printfn "Tab changed : %i" idx
-                        dispatch (SetTabIndex idx)),
-            currentPage = model.CurrentTabIndex,
-            children =
-                [ tab1 model dispatch
-                  tab2 model dispatch ]
+            pages =
+                match model.CurrentPage with
+                | Home -> [ homePage model dispatch ]
+
+                | CalendarFilter ->
+                    [ homePage model dispatch
+                      calendarFilter model dispatch ]
         )

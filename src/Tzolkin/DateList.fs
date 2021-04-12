@@ -21,8 +21,6 @@ open Xamarin.Forms
 [<AutoOpen>]
 module DateList =
 
-    let cmdScrollToCenter = ScrollListCenter |> Cmd.ofMsg
-
     let fullFilterList model tzolkinDate =
         let lastList =
             TzolkinDate.getLastList 500 tzolkinDate DateTime.Today
@@ -157,7 +155,9 @@ module DateList =
                 [ Dimension.Stars 0.4
                   Dimension.Stars 0.6 ],
             children =
-                [ (tzolkinDateView (modelTzolkinDate model) model.IsDarkMode).Row(0).Column (1)
+                [ (tzolkinDateView dispatch (modelTzolkinDate model) model.IsDarkMode)
+                    .Row(0)
+                    .Column (1)
 
                   View
                       .StackLayout(children = tzolkinSelector model dispatch,

@@ -14,6 +14,8 @@ open Xamarin.Forms
 open System
 
 open RC.Maya
+open Fabulous.XamarinForms
+open Xamarin.Forms
 
 
 /// All expressions for the upper part of the main page, the date selector and viewer of the
@@ -21,31 +23,78 @@ open RC.Maya
 [<AutoOpen>]
 module TzolkinView =
 
+    /// Helper.
+    let formatGlyphTitle text =
+        View.Span (text = sprintf "%s:\n" text,
+                    fontAttributes = glyphDescFontAttrTitle,
+                    textColor = glyphDescTextColorTitle,
+                    fontSize = glyphDescFontSizeTitle)
+
+    /// Helper.
+    let formatGlyphValue text =
+        View.Span (text = sprintf "\t\t\t%s\n" text,
+                    fontAttributes = glyphDescFontAttrValue,
+                    fontSize = glyphDescFontSizeValue,
+                    textColor = glyphDescTextColorValue)
+
+    /// Formats the Glyph description label.
+    let formatGlypDescription (glyphDescription:TzolkinGlyph.GlyphDescription) dispatch =
+        View.FormattedString (
+            [   formatGlyphTitle "Significado"
+                formatGlyphValue glyphDescription.meaning
+
+                formatGlyphTitle "Elementos o animal asociados"
+                formatGlyphValue glyphDescription.elementOrAnimal
+
+                formatGlyphTitle "Rumbo asociado"
+                formatGlyphValue glyphDescription.direction
+
+                formatGlyphTitle "Color asociado"
+                formatGlyphValue glyphDescription.color
+
+                formatGlyphTitle "Dioses patronos"
+                View.Span (text = sprintf "\t\t\t%s" glyphDescription.god,
+                            fontAttributes = glyphDescFontAttrValue,
+                            fontSize = glyphDescFontSizeValue,
+                            textColor = glyphDescTextColorValue,
+                            gestureRecognizers = [
+                                View.TapGestureRecognizer(
+                                    command = (fun () -> dispatch <| OpenURL glyphDescription.url)
+                                    )
+                            ]
+                 )
+                View.Span (text = sprintf " %s" Style.linkSymbol,
+                            fontAttributes = glyphDescFontAttrValue,
+                            fontSize = glyphDescFontSizeValue,
+                            textColor = glyphDescColorLink,
+                            textDecorations = TextDecorations.Underline
+                 )
+                View.Span "\n  "
+            ]
+        )
 
     /// UI to show a Tzolk’in date, the Tzolk’in day number and day glyph, as images with the
     /// text below.
-    let tzolkinDateView tzolkinDate isDark =
-        let { TzolkinDate.T.number = (TzolkinNumber.T.TzolkinNumber tzNumInt)
-              TzolkinDate.T.glyph = (TzolkinGlyph.T.TzolkinGlyph tzGlyphInt) } =
-            tzolkinDate
+    let tzolkinDateView dispatch (tzolkinDate: TzolkinDate.T) isDark =
+        let numImgName =
+            sprintf "number_%02d.png" <| int tzolkinDate.number
 
-
-
-        let numImgName = sprintf "number_%02d.png" tzNumInt
-        let glyphImgName = sprintf "glyph_%02d.png" tzGlyphInt
+        let glyphImgName = sprintf "glyph_%02d.png" <| int tzolkinDate.glyph
 
         View.Grid (
-            verticalOptions = LayoutOptions.FillAndExpand,
-            horizontalOptions = LayoutOptions.FillAndExpand,
             columnSpacing = 5.,
             rowSpacing = 0.,
             padding = Thickness 0.0,
+            gestureRecognizers =
+                [ View.TapGestureRecognizer (
+                      command = (fun () -> dispatch <| SetCurrentPage CalendarFilter)
+                  ) ],
             rowdefs =
                 [ Dimension.Absolute 67.
                   Dimension.Absolute 25. ],
             coldefs =
-                [ Dimension.Absolute 62.
-                  Dimension.Absolute 80. ],
+                [ Dimension.Absolute 55.
+                  Dimension.Absolute 95. ],
             children =
                 [ View
                     .Image(source = Image.fromPath numImgName,
@@ -67,8 +116,8 @@ module TzolkinView =
                       .Label(text = tzolkinDate.number.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = Style.normalFontSize,
-                             textColor = Color.Black,
-                             backgroundColor = Color.Default,
+                             textColor = Style.foregroundLight,
+                             backgroundColor = Style.backgroundNone,
                              verticalOptions = LayoutOptions.Start,
                              horizontalOptions = LayoutOptions.EndAndExpand)
                       .Row(1)
@@ -77,33 +126,35 @@ module TzolkinView =
                       .Label(text = tzolkinDate.glyph.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = Style.normalFontSize,
-                             textColor = Color.Black,
-                             backgroundColor = Color.Default,
+                             textColor = Style.foregroundLight,
+                             backgroundColor = Style.backgroundNone,
                              verticalOptions = LayoutOptions.Start,
                              horizontalOptions = LayoutOptions.StartAndExpand)
                       .Row(1)
                       .Column (1) ]
         )
 
-    let tzolkinDateViewFirst model isDark = tzolkinDateView (TzolkinDate.fromDate model.Date) isDark
-
     /// Select the Gregorian date and display the Tzolk’in date.
-    let dateSelector model dispatch =
-        [ tzolkinDateViewFirst model model.IsDarkMode
+    let dateSelector model dispatch date =
+        [ View.Frame (
+            backgroundColor = backgroundBrown,
+            padding = Thickness 0.,
+            content = tzolkinDateView dispatch (TzolkinDate.fromDate date) model.IsDarkMode
+          )
 
           View.Frame (
-              backgroundColor = brownBackground,
+              backgroundColor = backgroundBrown,
               content =
                   View.DatePicker (
                       minimumDate = DateTime.MinValue,
                       maximumDate = DateTime.MaxValue,
-                      date = model.Date,
+                      date = date,
                       format = localeFormat,
                       dateSelected = (fun args -> SetDate args.NewDate |> dispatch),
-                      width = 120.0,
+                      width = 100.0,
                       verticalOptions = LayoutOptions.Fill,
-                      textColor = Color.Black,
-                      backgroundColor = Color.Default,
+                      textColor = Style.foregroundLight,
+                      backgroundColor = Style.backgroundNone,
                       fontSize = Style.normalFontSize,
                       horizontalOptions = LayoutOptions.CenterAndExpand
                   )
@@ -111,121 +162,74 @@ module TzolkinView =
 
 
     /// The day glyph description.
-    let glyphDescription model dispatch =
-        let { TzolkinDate.glyph = glyph } = TzolkinDate.fromDate model.Date
+    let glyphDescription model dispatch date =
+        let { TzolkinDate.glyph = glyph } = TzolkinDate.fromDate date
         let glyphDesc = TzolkinGlyph.getDescription glyph
 
-        View.Grid (
-            backgroundColor = Style.backgroundColor model.IsDarkMode,
-            verticalOptions = LayoutOptions.FillAndExpand,
-            horizontalOptions = LayoutOptions.FillAndExpand,
+        View.Label (formattedText = formatGlypDescription glyphDesc dispatch,
+                    lineBreakMode = LineBreakMode.WordWrap,
+                    horizontalOptions = LayoutOptions.Center)
+
+
+    let tzolkinCard model dispatch date =
+
+        View.StackLayout (
+            horizontalOptions = LayoutOptions.Center,
             padding = Thickness 5.,
-            rowdefs =
-                [ Dimension.Auto
-                  Dimension.Auto
-                  Dimension.Auto
-                  Dimension.Auto
-                  Dimension.Auto
-                  Dimension.Auto
-                  Dimension.Star
-                  Dimension.Absolute 12. ],
-            coldefs = [ Dimension.Auto; Dimension.Star ],
             children =
-                [ View
-                    .Button(text = "-1",
-                            textColor = Style.foregroundColor model.IsDarkMode,
-                            fontSize = Style.normalFontSize,
-                            command = (fun () -> dispatch (AddDays -1)))
-                      .Row(0)
-                      .Column (0)
-                  View
-                      .Button(text = "+1",
-                              textColor = Style.foregroundColor model.IsDarkMode,
-                              fontSize = Style.normalFontSize,
-                              command = (fun () -> dispatch (AddDays 1)))
-                      .Row(0)
-                      .Column (1)
-                  View
-                      .Label(text = "Significado:",
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(1)
-                      .Column (0)
-                  View
-                      .Label(text = sprintf "%s" (glyphDesc.meaning),
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(1)
-                      .Column (1)
-                  View
-                      .Label(text = "Elementos o animal asociados:",
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(2)
-                      .Column(0)
-                      .ColumnSpan (2)
-                  View
-                      .Label(text = sprintf "%s" (glyphDesc.elementOrAnimal),
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(3)
-                      .Column (1)
-                  View
-                      .Label(text = "Rumbo asociado:",
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(4)
-                      .Column (0)
-                  View
-                      .Label(text = sprintf "%s" (glyphDesc.direction),
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(4)
-                      .Column (1)
-                  View
-                      .Label(text = "Color asociado:",
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(5)
-                      .Column (0)
-                  View
-                      .Label(text = sprintf "%s" (glyphDesc.color),
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(5)
-                      .Column (1)
-                  View
-                      .Label(text = "Dioses patronos:",
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(6)
-                      .Column (0)
-                  View
-                      .Label(text = sprintf "%s" (glyphDesc.god),
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             fontSize = Style.glyphDescFontSize)
-                      .Row(6)
-                      .Column (1)
-                  View
-                      .Label(text = versionInfo,
-                             fontSize = FontSize.fromNamedSize NamedSize.Micro,
-                             textColor = Style.foregroundColor model.IsDarkMode,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
-                             verticalTextAlignment = TextAlignment.End,
-                             horizontalTextAlignment = TextAlignment.End,
-                             horizontalOptions = LayoutOptions.Fill,
-                             verticalOptions = LayoutOptions.Fill)
-                      .Row(7)
-                      .Column(0)
-                      .ColumnSpan (2) ]
+                [ View.Frame (
+                      backgroundColor = backgroundBrown,
+                      cornerRadius = 20.,
+                      padding = Thickness (0., 10., 0., 10.),
+                      hasShadow = true,
+                      content =
+                          View.StackLayout (
+                              padding = Thickness 10.,
+                              orientation = setHorizontalIfLandscape model.IsLandscape,
+                              horizontalOptions = LayoutOptions.Center,
+                              verticalOptions = LayoutOptions.Center,
+                              backgroundColor = Style.backgroundBrown,
+                              children =
+                                  [ View.StackLayout (
+                                      padding = Thickness (0.0, 10.0, 10.0, 10.0),
+                                      orientation = setVerticalIfLandscape model.IsLandscape,
+                                      backgroundColor = Style.backgroundBrown,
+                                      horizontalOptions = LayoutOptions.Center,
+                                      children = dateSelector model dispatch date
+                                    )
+
+                                    //  separator model.IsLandscape model.IsDarkMode
+
+                                    glyphDescription model dispatch date ]
+                          )
+                  ) ]
         )
+
+
+
+    let tzolkinPage model dispatch =
+        [ View.CarouselView (
+            peekAreaInsets = Thickness 20.,
+            loop = true,
+            position = 1,
+            backgroundColor = Style.backgroundBrownDark,//Style.backgroundColor model.IsDarkMode,
+            verticalOptions = LayoutOptions.Center,
+            horizontalOptions = LayoutOptions.Center,
+            positionChanged = (fun args -> dispatch <| CarouselChanged args),
+            items =
+                [ tzolkinCard model dispatch model.Date
+                  tzolkinCard model dispatch model.Date
+                  tzolkinCard model dispatch model.Date ]
+          )
+
+
+          View.Label (
+              text = versionInfo,
+              fontSize = FontSize.fromNamedSize NamedSize.Micro,
+              textColor = Style.foregroundColor model.IsDarkMode,
+              backgroundColor = Style.backgroundBrownDark,//Style.backgroundColor model.IsDarkMode,
+              verticalTextAlignment = TextAlignment.End,
+              horizontalTextAlignment = TextAlignment.End,
+              horizontalOptions = LayoutOptions.Fill,
+              verticalOptions = LayoutOptions.Fill
+          ) ]

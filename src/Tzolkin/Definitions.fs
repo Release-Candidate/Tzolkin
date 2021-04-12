@@ -17,6 +17,8 @@ open Fabulous
 
 open RC.Maya
 open System.Globalization
+open System.Diagnostics
+open System
 
 /// Holds the most basic definitions, the MVU model type `Model`, the MVU message type `Msg`,
 /// the MVU `init` and `update` functions.
@@ -31,9 +33,7 @@ module Definitions =
 
     let versionInfo = sprintf "%s %s" appNameInfo version
 
-    let numberPickList =
-        ""
-        :: List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
+    let numberPickList = "" :: List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
 
     let glyphPickList = "" :: Array.toList TzolkinGlyph.glyphNames
 
@@ -44,12 +44,18 @@ module Definitions =
 
     // The model ===================================================================================
 
+    /// The pages of the App.
+    type Pages =
+        | Home
+        | CalendarFilter
+
     /// Record to hold the data needed to filter dates.
     type DateFilter = { day: int; month: int; year: string }
 
     /// The MVU model.
     type Model =
-        { Date: System.DateTime
+        { CurrentPage: Pages
+          Date: System.DateTime
           ListTzolkinNumber: TzolkinNumber.T option
           ListTzolkinGlyph: TzolkinGlyph.T option
           Filter: DateFilter
@@ -87,6 +93,7 @@ module Definitions =
 
     /// MVU messages.
     type Msg =
+        | SetCurrentPage of Pages
         | SetDate of System.DateTime
         | SetListNumber of int
         | SetListGlyph of int
@@ -94,13 +101,18 @@ module Definitions =
         | SetFilterMonth of int
         | SetFilterYear of string
         | DoResetFilter
-        | ScrollListCenter
         | SetAppTheme of OSAppTheme
         | SetOrientation of float * float
         | ShowSystemAppInfo of bool
-        | SetTabIndex of int
-        | AddDays of int
+        | CarouselChanged of PositionChangedEventArgs
+        | OpenURL of string
 
+    // Commands ====================================================================================
+    let cmdOpenUrl (url) =
+              Launcher.OpenAsync (new Uri (url))
+              |> Async.AwaitTask
+              |> Async.StartImmediate
+              Cmd.none
 
     // Widget instances ============================================================================
 
@@ -114,7 +126,8 @@ module Definitions =
 
     /// Initial state of the MVU model.
     let initModel =
-        { Date = System.DateTime.Today
+        { CurrentPage = Home
+          Date = System.DateTime.Today
           ListTzolkinNumber = Some (TzolkinNumber.T.TzolkinNumber 8)
           ListTzolkinGlyph = Some (TzolkinGlyph.T.TzolkinGlyph 5)
           Filter = { day = 0; month = 0; year = "" }
@@ -132,19 +145,6 @@ module Definitions =
 
     // Functions needed by `update` ================================================================
 
-    /// Scroll to the center of the `listView`
-    let scrollToCenter model =
-        match dateListView.TryValue with
-        | None -> ()
-        | Some listView ->
-            let centerItem = List.ofSeq (Seq.cast<ViewElement> listView.ItemsSource)
-
-            listView.ScrollTo (
-                item = centerItem.Tail,
-                position = ScrollToPosition.End,
-                animated = true
-            )
-
     /// Reset the text in the year entry.
     let resetYear model =
         match yearPicker.TryValue with
@@ -156,6 +156,11 @@ module Definitions =
     /// The update function of MVU.
     let update msg model =
         match msg with
+
+        | SetCurrentPage page ->
+            Trace.TraceInformation "SetCurrentPage"
+            { model with CurrentPage = page }, Cmd.none
+
         | SetDate date -> { model with Date = date }, Cmd.none
 
         | SetListNumber newNum ->
@@ -196,10 +201,6 @@ module Definitions =
                   Filter = { day = 0; month = 0; year = "" } },
             Cmd.none
 
-        | ScrollListCenter ->
-            scrollToCenter model
-            model, Cmd.none
-
         | SetAppTheme (theme: OSAppTheme) ->
             match theme with
             | OSAppTheme.Dark -> { model with IsDarkMode = true }
@@ -216,9 +217,23 @@ module Definitions =
             | true -> { model with ShowSystemAppInfo = true }, Cmd.none
             | false -> { model with ShowSystemAppInfo = false }, Cmd.none
 
-        | SetTabIndex index -> { model with CurrentTabIndex = index }, Cmd.none
+        | CarouselChanged args ->
+            let direction = args.CurrentPosition - args.PreviousPosition
 
-        | AddDays days ->
-            { model with
-                  Date = model.Date + System.TimeSpan.FromDays (float days) },
-            Cmd.none
+            match args.PreviousPosition, args.CurrentPosition with
+            | 0, 2 ->
+                { model with
+                      Date = model.Date + System.TimeSpan.FromDays -1. },
+                Cmd.none
+            | 2, 0 ->
+                { model with
+                      Date = model.Date + System.TimeSpan.FromDays 1. },
+                Cmd.none
+            | _, _ ->
+                { model with
+                      Date =
+                          model.Date
+                          + System.TimeSpan.FromDays (float direction) },
+                Cmd.none
+
+        | OpenURL url -> model, cmdOpenUrl url

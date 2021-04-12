@@ -16,15 +16,15 @@ open Xamarin.Forms
 [<AutoOpen>]
 module Style =
 
+    // Global ==================================================================
+
     let normalFontSize = FontSize.fromNamedSize NamedSize.Medium
 
-    let glyphDescFontSize = FontSize.fromNamedSize NamedSize.Large
+    let backgroundBrownDark = Color.FromHex "#BFAB91"
 
-    let tabBackgroundColor = Color.CadetBlue
+    let backgroundBrown = Color.FromHex "#F2D8B8"
 
-    let tabForegroundColor = Color.Yellow
-
-    let brownBackground = Color.FromHex "#F2D8B8"
+    let backgroundNone = Color.Default
 
     let backgroundLight = Color.Default
 
@@ -33,6 +33,8 @@ module Style =
     let foregroundLight = Color.Black
 
     let foregroundDark = Color.WhiteSmoke
+
+    let linkSymbol = "\U0001F517"
 
     let foregroundColor isDark =
         match isDark with
@@ -56,7 +58,27 @@ module Style =
         else
             StackOrientation.Horizontal
 
+    // Pages ===================================================================
 
+    let tabBackgroundColor = backgroundBrownDark //Color.CadetBlue
+
+    let tabForegroundColor = Color.Blue
+
+    // Glyph Descriptions ======================================================
+
+    let glyphDescFontSizeTitle = FontSize.fromNamedSize NamedSize.Medium
+
+    let glyphDescTextColorTitle = Color.Black
+
+    let glyphDescFontAttrTitle = FontAttributes.Bold
+
+    let glyphDescFontSizeValue = FontSize.fromNamedSize NamedSize.Medium
+
+    let glyphDescTextColorValue = Color.FromHex "#8B2A02"
+
+    let glyphDescFontAttrValue = FontAttributes.Bold
+
+    let glyphDescColorLink = Color.Blue
 
     /// Separator line.
     let separator isL isDark =
