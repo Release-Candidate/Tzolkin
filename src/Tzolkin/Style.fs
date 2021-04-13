@@ -25,6 +25,8 @@ module Style =
 
     let backgroundBrown = Color.FromHex "#F2D8B8"
 
+    let backgroundBrownLight = Color.FromHex "#F6DCBC"
+
     let backgroundNone = Color.Default
 
     let backgroundLight = Color.Default
@@ -61,9 +63,9 @@ module Style =
 
     // Pages ===================================================================
 
-    let tabBackgroundColor = backgroundBrownDark //Color.CadetBlue
+    let tabBackgroundColor = backgroundBrownDark
 
-    let tabForegroundColor = Color.Blue
+    let tabForegroundColor = Color.Black //Color.FromHex "#8B2A02"
 
     // Glyph Descriptions ======================================================
 

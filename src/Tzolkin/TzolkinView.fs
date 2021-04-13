@@ -92,7 +92,7 @@ module TzolkinView =
                 [ Dimension.Absolute tzolkinImageHeight
                   Dimension.Absolute 25. ],
             coldefs =
-                [ Dimension.Absolute 55.
+                [ Dimension.Absolute 51.
                   Dimension.Absolute 95. ],
             children =
                 [ View
@@ -136,13 +136,17 @@ module TzolkinView =
     /// Select the Gregorian date and display the Tzolk’in date.
     let dateSelector model dispatch date =
         [ View.Frame (
-            backgroundColor = backgroundBrown,
-            padding = Thickness 0.,
+            backgroundColor = backgroundBrownLight,
+            borderColor = backgroundBrownDark,
+            hasShadow = true,
+            padding = Thickness (0., 5.),
             content = tzolkinDateView dispatch (TzolkinDate.fromDate date) model.IsDarkMode
           )
 
           View.Frame (
-              backgroundColor = backgroundBrown,
+              backgroundColor = backgroundBrownLight,
+              borderColor = backgroundBrownDark,
+              hasShadow = true,
               content =
                   View.DatePicker (
                       minimumDate = DateTime.MinValue,
@@ -155,7 +159,7 @@ module TzolkinView =
                       textColor = Style.foregroundLight,
                       backgroundColor = Style.backgroundNone,
                       fontSize = Style.normalFontSize,
-                      horizontalOptions = LayoutOptions.CenterAndExpand
+                      horizontalOptions = LayoutOptions.EndAndExpand
                   )
           ) ]
 

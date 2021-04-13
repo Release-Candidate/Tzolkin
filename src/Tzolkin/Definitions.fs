@@ -185,9 +185,9 @@ module Definitions =
         |> sprintf "glyph_%02d"
         |> getPNGFromSVG
 
-    let cacheGlyphs = [| for i in [1 .. 20] do getPNGStreamGlyph <| TzolkinGlyph.T.TzolkinGlyph i |]
+    let cacheGlyphs = [ for i in [1 .. 20] do getPNGStreamGlyph <| TzolkinGlyph.T.TzolkinGlyph i ]
 
-    let cacheNumbers = [| for i in [1 .. 13] do getPNGStreamNumber <| TzolkinNumber.T.TzolkinNumber i |]
+    let cacheNumbers = [ for i in [1 .. 13] do getPNGStreamNumber <| TzolkinNumber.T.TzolkinNumber i ]
 
     // Init ========================================================================================
 

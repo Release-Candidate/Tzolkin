@@ -75,6 +75,11 @@
     <AndroidSigningStorePass>SUEVVWi2lDz0QvS4WVRI</AndroidSigningStorePass>
     <AndroidSigningKeyPass>U4HmqYD77xW3MWweVOea</AndroidSigningKeyPass>
     <AndroidLinkTool>r8</AndroidLinkTool>
+    <JavaMaximumHeapSize>
+    </JavaMaximumHeapSize>
+    <AndroidEnableMultiDex>false</AndroidEnableMultiDex>
+    <AndroidDexTool>d8</AndroidDexTool>
+    <AndroidEnableSGenConcurrent>true</AndroidEnableSGenConcurrent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release APK|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
