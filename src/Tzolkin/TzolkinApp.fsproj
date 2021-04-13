@@ -7,6 +7,46 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <EmbeddedResource Include="images\glyph_01.svg" />
+    <EmbeddedResource Include="images\glyph_02.svg" />
+    <EmbeddedResource Include="images\glyph_03.svg" />
+    <EmbeddedResource Include="images\glyph_04.svg" />
+    <EmbeddedResource Include="images\glyph_05.svg" />
+    <EmbeddedResource Include="images\glyph_06.svg" />
+    <EmbeddedResource Include="images\glyph_07.svg" />
+    <EmbeddedResource Include="images\glyph_08.svg" />
+    <EmbeddedResource Include="images\glyph_09.svg" />
+    <EmbeddedResource Include="images\glyph_10.svg" />
+    <EmbeddedResource Include="images\glyph_11.svg" />
+    <EmbeddedResource Include="images\glyph_12.svg" />
+    <EmbeddedResource Include="images\glyph_13.svg" />
+    <EmbeddedResource Include="images\glyph_14.svg" />
+    <EmbeddedResource Include="images\glyph_15.svg" />
+    <EmbeddedResource Include="images\glyph_16.svg" />
+    <EmbeddedResource Include="images\glyph_17.svg" />
+    <EmbeddedResource Include="images\glyph_18.svg" />
+    <EmbeddedResource Include="images\glyph_19.svg" />
+    <EmbeddedResource Include="images\glyph_20.svg" />
+    <EmbeddedResource Include="images\number_01.svg" />
+    <EmbeddedResource Include="images\number_02.svg" />
+    <EmbeddedResource Include="images\number_03.svg" />
+    <EmbeddedResource Include="images\number_04.svg" />
+    <EmbeddedResource Include="images\number_05.svg" />
+    <EmbeddedResource Include="images\number_06.svg" />
+    <EmbeddedResource Include="images\number_07.svg" />
+    <EmbeddedResource Include="images\number_08.svg" />
+    <EmbeddedResource Include="images\number_09.svg" />
+    <EmbeddedResource Include="images\number_10.svg" />
+    <EmbeddedResource Include="images\number_11.svg" />
+    <EmbeddedResource Include="images\number_12.svg" />
+    <EmbeddedResource Include="images\number_13.svg" />
+    <EmbeddedResource Include="images\number_14.svg" />
+    <EmbeddedResource Include="images\number_15.svg" />
+    <EmbeddedResource Include="images\number_16.svg" />
+    <EmbeddedResource Include="images\number_17.svg" />
+    <EmbeddedResource Include="images\number_18.svg" />
+    <EmbeddedResource Include="images\number_19.svg" />
+    <EmbeddedResource Include="images\number_20.svg" />
     <Compile Include="AssemblyInfo.fs" />
     <EmbeddedResource Include="Tzolkin.ttf" />
     <Compile Include="Definitions.fs" />
@@ -22,8 +62,9 @@
     <PackageReference Include="Fabulous.LiveUpdate" Version="1.0.1" />
     <PackageReference Include="Fabulous.XamarinForms" Version="1.0.1" />
     <PackageReference Include="Fabulous.XamarinForms.LiveUpdate" Version="1.0.1" />
+    <PackageReference Include="Fabulous.XamarinForms.SkiaSharp" Version="1.0.1" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="SkiaSharp.Svg" Version="1.60.0" />
+    <PackageReference Include="Svg.Skia" Version="0.5.0" />
     <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
     <PackageReference Include="FSharp.Core" Version="5.0.1" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
@@ -33,4 +74,6 @@
   <ItemGroup>
     <ProjectReference Include="..\TzolkinDate\TzolkinDate.fsproj" />
   </ItemGroup>
+
+  <ItemGroup />
 </Project>

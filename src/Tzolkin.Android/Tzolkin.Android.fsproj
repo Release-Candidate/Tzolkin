@@ -24,9 +24,9 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <SelectedDevice>Nexus_10_API_24</SelectedDevice>
-    <ActiveDebugProfile>Nexus_10_API_24</ActiveDebugProfile>
-    <DefaultDevice>Nexus_10_API_24</DefaultDevice>
+    <SelectedDevice>Pixel_3a_API_30_x86</SelectedDevice>
+    <ActiveDebugProfile>Pixel_3a_API_30_x86</ActiveDebugProfile>
+    <DefaultDevice>Pixel_3a_API_30_x86</DefaultDevice>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -156,169 +156,9 @@
     <AndroidResource Include="Resources\layout\Toolbar.axml" />
     <AndroidResource Include="Resources\values\styles.xml" />
     <AndroidResource Include="Resources\drawable\icon.png" />
-    <AndroidResource Include="Resources\drawable\glyph_01.png" />
-    <AndroidResource Include="Resources\drawable\glyph_02.png" />
-    <AndroidResource Include="Resources\drawable\glyph_03.png" />
-    <AndroidResource Include="Resources\drawable\glyph_04.png" />
-    <AndroidResource Include="Resources\drawable\glyph_05.png" />
-    <AndroidResource Include="Resources\drawable\glyph_06.png" />
-    <AndroidResource Include="Resources\drawable\glyph_07.png" />
-    <AndroidResource Include="Resources\drawable\glyph_08.png" />
-    <AndroidResource Include="Resources\drawable\glyph_09.png" />
-    <AndroidResource Include="Resources\drawable\glyph_10.png" />
-    <AndroidResource Include="Resources\drawable\glyph_11.png" />
-    <AndroidResource Include="Resources\drawable\glyph_12.png" />
-    <AndroidResource Include="Resources\drawable\glyph_13.png" />
-    <AndroidResource Include="Resources\drawable\glyph_14.png" />
-    <AndroidResource Include="Resources\drawable\glyph_15.png" />
-    <AndroidResource Include="Resources\drawable\glyph_16.png" />
-    <AndroidResource Include="Resources\drawable\glyph_17.png" />
-    <AndroidResource Include="Resources\drawable\glyph_18.png" />
-    <AndroidResource Include="Resources\drawable\glyph_19.png" />
-    <AndroidResource Include="Resources\drawable\glyph_20.png" />
-    <AndroidResource Include="Resources\drawable\number_01.png" />
-    <AndroidResource Include="Resources\drawable\number_02.png" />
-    <AndroidResource Include="Resources\drawable\number_03.png" />
-    <AndroidResource Include="Resources\drawable\number_04.png" />
-    <AndroidResource Include="Resources\drawable\number_05.png" />
-    <AndroidResource Include="Resources\drawable\number_06.png" />
-    <AndroidResource Include="Resources\drawable\number_07.png" />
-    <AndroidResource Include="Resources\drawable\number_08.png" />
-    <AndroidResource Include="Resources\drawable\number_09.png" />
-    <AndroidResource Include="Resources\drawable\number_10.png" />
-    <AndroidResource Include="Resources\drawable\number_11.png" />
-    <AndroidResource Include="Resources\drawable\number_12.png" />
-    <AndroidResource Include="Resources\drawable\number_13.png" />
-    <AndroidResource Include="Resources\drawable\number_14.png" />
-    <AndroidResource Include="Resources\drawable\number_15.png" />
-    <AndroidResource Include="Resources\drawable\number_16.png" />
-    <AndroidResource Include="Resources\drawable\number_17.png" />
-    <AndroidResource Include="Resources\drawable\number_18.png" />
-    <AndroidResource Include="Resources\drawable\number_19.png" />
-    <AndroidResource Include="Resources\drawable\number_20.png" />
     <AndroidResource Include="Resources\drawable-hdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_01.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_02.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_03.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_04.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_05.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_06.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_07.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_08.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_09.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_10.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_11.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_12.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_13.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_14.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_15.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_16.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_17.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_18.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_19.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\glyph_20.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_01.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_02.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_03.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_04.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_05.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_06.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_07.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_08.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_09.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_10.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_11.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_12.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_13.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_14.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_15.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_16.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_17.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_18.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_19.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\number_20.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_01.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_02.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_03.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_04.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_05.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_06.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_07.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_08.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_09.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_10.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_11.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_12.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_13.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_14.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_15.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_16.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_17.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_18.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_19.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\glyph_20.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_01.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_02.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_03.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_04.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_05.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_06.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_07.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_08.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_09.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_10.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_11.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_12.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_13.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_14.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_15.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_16.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_17.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_18.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_19.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\number_20.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\icon.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_01.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_02.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_03.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_04.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_05.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_06.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_07.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_08.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_09.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_10.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_11.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_12.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_13.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_14.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_15.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_16.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_17.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_18.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_19.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\glyph_20.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_01.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_02.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_03.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_04.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_05.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_06.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_07.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_08.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_09.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_10.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_11.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_12.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_13.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_14.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_15.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_16.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_17.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_18.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_19.png" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\number_20.png" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Fabulous">
@@ -337,11 +177,20 @@
       <HintPath>..\..\packages\Fabulous.XamarinForms.LiveUpdate.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.LiveUpdate.dll</HintPath>
     </Reference>
     <Reference Include="Fabulous.XamarinForms.LiveUpdate" />
+    <Reference Include="Fabulous.XamarinForms.SkiaSharp">
+      <HintPath>..\..\packages\Fabulous.XamarinForms.SkiaSharp.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.SkiaSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Fizzler">
+      <HintPath>..\..\packages\Fizzler.1.2.0\lib\netstandard2.0\Fizzler.dll</HintPath>
+    </Reference>
     <Reference Include="FormsViewGroup">
       <HintPath>..\..\packages\Xamarin.Forms.5.0.0.2012\lib\MonoAndroid10.0\FormsViewGroup.dll</HintPath>
     </Reference>
     <Reference Include="FSharp.Core">
       <HintPath>..\..\packages\FSharp.Core.5.0.1\lib\netstandard2.0\FSharp.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="HarfBuzzSharp">
+      <HintPath>..\..\packages\HarfBuzzSharp.2.6.1.7\lib\monoandroid1.0\HarfBuzzSharp.dll</HintPath>
     </Reference>
     <Reference Include="Java.Interop" />
     <Reference Include="Mono.Android" />
@@ -352,8 +201,8 @@
     <Reference Include="SkiaSharp">
       <HintPath>..\..\packages\SkiaSharp.2.80.2\lib\monoandroid1.0\SkiaSharp.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.Extended.Svg">
-      <HintPath>..\..\packages\SkiaSharp.Svg.1.60.0\lib\netstandard2.0\SkiaSharp.Extended.Svg.dll</HintPath>
+    <Reference Include="SkiaSharp.HarfBuzz">
+      <HintPath>..\..\packages\SkiaSharp.HarfBuzz.2.80.2\lib\netstandard2.0\SkiaSharp.HarfBuzz.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Views.Android">
       <HintPath>..\..\packages\SkiaSharp.Views.2.80.2\lib\monoandroid1.0\SkiaSharp.Views.Android.dll</HintPath>
@@ -363,12 +212,27 @@
       <HintPath>..\..\packages\SkiaSharp.Views.Forms.2.80.2\lib\monoandroid1.0\SkiaSharp.Views.Forms.dll</HintPath>
     </Reference>
     <Reference Include="SkiaSharp.Views.Forms" />
+    <Reference Include="Svg.Custom">
+      <HintPath>..\..\packages\Svg.Custom.0.5.0\lib\netstandard2.1\Svg.Custom.dll</HintPath>
+    </Reference>
+    <Reference Include="Svg.Model">
+      <HintPath>..\..\packages\Svg.Model.0.5.0\lib\netstandard2.0\Svg.Model.dll</HintPath>
+    </Reference>
+    <Reference Include="Svg.Skia">
+      <HintPath>..\..\packages\Svg.Skia.0.5.0\lib\netstandard2.1\Svg.Skia.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers">
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Core" />
+    <Reference Include="System.Memory">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.Android.FSharp.ResourceProvider.Runtime">
@@ -597,6 +461,7 @@
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.props'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets'))" />
     <Error Condition="!Exists('..\..\packages\SkiaSharp.2.80.2\build\monoandroid1.0\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SkiaSharp.2.80.2\build\monoandroid1.0\SkiaSharp.targets'))" />
+    <Error Condition="!Exists('..\..\packages\HarfBuzzSharp.2.6.1.7\build\monoandroid1.0\HarfBuzzSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\HarfBuzzSharp.2.6.1.7\build\monoandroid1.0\HarfBuzzSharp.targets'))" />
   </Target>
   <Import Project="..\..\packages\Xamarin.AndroidX.ConstraintLayout.Solver.2.0.4.2\build\monoandroid9.0\Xamarin.AndroidX.ConstraintLayout.Solver.targets" Condition="Exists('..\..\packages\Xamarin.AndroidX.ConstraintLayout.Solver.2.0.4.2\build\monoandroid9.0\Xamarin.AndroidX.ConstraintLayout.Solver.targets')" />
   <Import Project="..\..\packages\Xamarin.AndroidX.MultiDex.2.0.1.7\build\monoandroid9.0\Xamarin.AndroidX.MultiDex.targets" Condition="Exists('..\..\packages\Xamarin.AndroidX.MultiDex.2.0.1.7\build\monoandroid9.0\Xamarin.AndroidX.MultiDex.targets')" />
@@ -648,4 +513,5 @@
   <Import Project="..\..\packages\Xamarin.AndroidX.Browser.1.3.0.5\build\monoandroid9.0\Xamarin.AndroidX.Browser.targets" Condition="Exists('..\..\packages\Xamarin.AndroidX.Browser.1.3.0.5\build\monoandroid9.0\Xamarin.AndroidX.Browser.targets')" />
   <Import Project="..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets')" />
   <Import Project="..\..\packages\SkiaSharp.2.80.2\build\monoandroid1.0\SkiaSharp.targets" Condition="Exists('..\..\packages\SkiaSharp.2.80.2\build\monoandroid1.0\SkiaSharp.targets')" />
+  <Import Project="..\..\packages\HarfBuzzSharp.2.6.1.7\build\monoandroid1.0\HarfBuzzSharp.targets" Condition="Exists('..\..\packages\HarfBuzzSharp.2.6.1.7\build\monoandroid1.0\HarfBuzzSharp.targets')" />
 </Project>

@@ -12,11 +12,10 @@ namespace TzolkinApp
 open Fabulous.XamarinForms
 open Xamarin.Forms
 open System
+open Fabulous.XamarinForms.SkiaSharp
+open Svg.Skia
 
 open RC.Maya
-open Fabulous.XamarinForms
-open Xamarin.Forms
-
 
 /// All expressions for the upper part of the main page, the date selector and viewer of the
 /// Tzolk’in date of the selected day.
@@ -97,7 +96,7 @@ module TzolkinView =
                   Dimension.Absolute 95. ],
             children =
                 [ View
-                    .Image(source = Image.fromPath numImgName,
+                    .Image(source = Image.fromBytes cacheNumbers.[int tzolkinDate.number - 1], //Image.fromPath numImgName,
                            scale = 1.0,
                            aspect = Aspect.AspectFill,
                            verticalOptions = LayoutOptions.Start,
@@ -105,7 +104,7 @@ module TzolkinView =
                       .Row(0)
                       .Column (0)
                   View
-                      .Image(source = Image.fromPath glyphImgName,
+                      .Image(source = Image.fromBytes cacheGlyphs.[int tzolkinDate.glyph - 1], //Image.fromPath glyphImgName,
                              scale = 1.0,
                              aspect = Aspect.AspectFill,
                              verticalOptions = LayoutOptions.Start,
@@ -206,13 +205,12 @@ module TzolkinView =
         )
 
 
-
     let tzolkinPage model dispatch =
         [ View.CarouselView (
             peekAreaInsets = Thickness 20.,
             loop = true,
             position = 1,
-            backgroundColor = Style.backgroundBrownDark,//Style.backgroundColor model.IsDarkMode,
+            backgroundColor = Style.backgroundBrownDark,
             verticalOptions = LayoutOptions.Center,
             horizontalOptions = LayoutOptions.Center,
             positionChanged = (fun args -> dispatch <| CarouselChanged args),
@@ -221,7 +219,6 @@ module TzolkinView =
                   tzolkinCard model dispatch model.Date
                   tzolkinCard model dispatch model.Date ]
           )
-
 
           View.Label (
               text = versionInfo,
