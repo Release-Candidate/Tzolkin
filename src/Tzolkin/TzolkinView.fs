@@ -89,7 +89,7 @@ module TzolkinView =
                       command = (fun () -> dispatch <| SetCurrentPage CalendarFilter)
                   ) ],
             rowdefs =
-                [ Dimension.Absolute 67.
+                [ Dimension.Absolute tzolkinImageHeight
                   Dimension.Absolute 25. ],
             coldefs =
                 [ Dimension.Absolute 55.

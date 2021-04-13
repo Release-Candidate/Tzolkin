@@ -59,18 +59,6 @@ module Style =
         else
             StackOrientation.Horizontal
 
-    //let svgViewGlyphBrown w h glyph invalidate =
-    //    svgViewGlyph backgroundBrown foregroundDark w h glyph invalidate
-
-    //let svgGlyphCached = [| for i in [1 .. 20] do
-    //                        svgViewGlyphBrown 120. 120. (TzolkinGlyph.T.TzolkinGlyph i) true |]
-
-    //let svgViewNumberBrown w h number invalidate =
-    //    svgViewNumber backgroundBrown foregroundDark w h number invalidate
-
-    //let svgNumberCached = [| for i in [1 .. 13] do
-    //                           svgViewNumberBrown 120. 120. (TzolkinNumber.T.TzolkinNumber i) true |]
-
     // Pages ===================================================================
 
     let tabBackgroundColor = backgroundBrownDark //Color.CadetBlue

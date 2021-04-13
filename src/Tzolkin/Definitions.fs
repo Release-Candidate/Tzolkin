@@ -24,6 +24,7 @@ open Svg.Skia
 open RC.Maya
 
 
+
 /// Holds the most basic definitions, the MVU model type `Model`, the MVU message type `Msg`,
 /// the MVU `init` and `update` functions.
 [<AutoOpen>]
@@ -75,8 +76,7 @@ module Definitions =
           IsDarkMode: bool
           IsLandscape: bool
           ShowSystemAppInfo: bool
-          CurrentTabIndex: int
-          RedrawTzolkin: bool}
+          CurrentTabIndex: int }
 
     let modelTzolkinDate model =
         match model.ListTzolkinNumber, model.ListTzolkinGlyph with
@@ -130,6 +130,8 @@ module Definitions =
 
     // Widget related ==============================================================================
 
+    let tzolkinImageHeight = 67.0
+
     /// Instances of widgets needed to interact with.
     let dateListView = ViewRef<CustomListView> ()
     let dayPicker = ViewRef<Xamarin.Forms.Picker> ()
@@ -146,116 +148,46 @@ module Definitions =
     let getSVGStream name =
         sprintf "TzolkinApp.images.%s.svg" name |> getResourceStream
 
-    let getSVGGlyph (glyph:TzolkinGlyph.T) =
-        sprintf "TzolkinApp.images.glyph_%02d.svg" <| int glyph
+    let getSVGGlyphStream (glyph:TzolkinGlyph.T) =
+        int glyph
+        |> sprintf "TzolkinApp.images.glyph_%02d.svg"
         |> getResourceStream
 
-    let getSVGNumber (number:TzolkinNumber.T) =
-        sprintf "TzolkinApp.images.number_%02d.svg" <| int number
+    let getSVGNumberStream (number:TzolkinNumber.T) =
+        int number
+        |> sprintf "TzolkinApp.images.number_%02d.svg"
         |> getResourceStream
+
+    let getPNGFromSVG name =
+        let svg = new SKSvg ()
+        let svgPicture = svg.Load (getSVGStream name)
+        let height = float32 <| tzolkinImageHeight * screenDensity
+        let scaleFac = height / svgPicture.CullRect.Height
+        let bitmap1 = svgPicture.ToBitmap (SkiaSharp.SKColor.Empty,
+                                            scaleFac, scaleFac,
+                                            SkiaSharp.SKColorType.Rgba8888,
+                                            SkiaSharp.SKAlphaType.Premul,
+                                            SkiaSharp.SKColorSpace.CreateSrgb ()  )
+        let image =  SkiaSharp.SKImage.FromBitmap (bitmap1)
+        let data = image.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100)
+        let stream = data.AsStream (true)
+        let data = Array.zeroCreate <| int stream.Length
+        stream.Read (data, 0, data.Length) |> ignore
+        data
 
     let getPNGStreamNumber number =
-        Trace.TraceInformation (sprintf "PNG for number %s created!" <| number.ToString ())
-        let svg = new SKSvg ()
-        let svgPicture = svg.Load (getSVGNumber number)
-        let bitmap = new SkiaSharp.SKBitmap (SkiaSharp.SKImageInfo (int svgPicture.CullRect.Width,
-                                                int svgPicture.CullRect.Height))
-        let canvas = new SkiaSharp.SKCanvas (bitmap)
-        canvas.DrawPicture (svgPicture)
-        canvas.Flush ()
-        canvas.Save () |> ignore
-        let image =  SkiaSharp.SKImage.FromBitmap (bitmap)
-        let data = image.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100)
-        let stream = data.AsStream (true)
-        let data = Array.zeroCreate <| int stream.Length
-        stream.Read (data, 0, data.Length) |> ignore
-        data
+        int number
+        |> sprintf "number_%02d"
+        |> getPNGFromSVG
 
     let getPNGStreamGlyph glyph =
-        Trace.TraceInformation (sprintf "PNG for glyph %s created!" <| glyph.ToString ())
-        let svg = new SKSvg ()
-        let svgPicture = svg.Load (getSVGGlyph glyph)
-        let bitmap = new SkiaSharp.SKBitmap (SkiaSharp.SKImageInfo (int svgPicture.CullRect.Width,
-                                                int svgPicture.CullRect.Height))
-        let canvas = new SkiaSharp.SKCanvas (bitmap)
-        canvas.DrawPicture (svgPicture)
-        canvas.Flush ()
-        canvas.Save () |> ignore
-        let image =  SkiaSharp.SKImage.FromBitmap (bitmap)
-        let data = image.Encode(SkiaSharp.SKEncodedImageFormat.Png, 100)
-        let stream = data.AsStream (true)
-        let data = Array.zeroCreate <| int stream.Length
-        stream.Read (data, 0, data.Length) |> ignore
-        data
+        int glyph
+        |> sprintf "glyph_%02d"
+        |> getPNGFromSVG
 
     let cacheGlyphs = [| for i in [1 .. 20] do getPNGStreamGlyph <| TzolkinGlyph.T.TzolkinGlyph i |]
 
     let cacheNumbers = [| for i in [1 .. 13] do getPNGStreamNumber <| TzolkinNumber.T.TzolkinNumber i |]
-
-    //let getPNGStreamGlyph stream glyph =
-    //    let svg = new SKSvg ()
-    //    let svgPicture = svg.Load (getSVGGlyph glyph)
-    //    Trace.TraceInformation "Here"
-    //    let result = svgPicture.ToImage (stream, SkiaSharp.SKColors.Empty,
-    //                        SkiaSharp.SKEncodedImageFormat.Png, 100,
-    //                        float32 1., float32 1.,
-    //                        SkiaSharp.SKColorType.Rgb888x,
-    //                        SkiaSharp.SKAlphaType.Premul,
-    //                        SkiaSharp.SKColorSpace.CreateSrgb ())
-    //    Trace.TraceInformation (sprintf "Here 2 res: %b" result)
-    //    Image.fromStream stream
-
-
-
-//    let svgViewPath background foreground w h invalidate path =
-//        View.SKCanvasView(
-//            width = w,
-//            height = h,
-//            backgroundColor = background,
-//            enableTouchEvents = false,
-//            invalidate = invalidate,
-//            horizontalOptions = LayoutOptions.Fill,
-//            verticalOptions = LayoutOptions.Fill,
-//            paintSurface = (fun args ->
-//                let svg = new SKSvg ()
-//                let svgPicture = svg.Load (getResourceStream path)
-
-//                let width = float32 args.Info.Width
-//                let height = float32 args.Info.Height
-//                let scaleX = width / svgPicture.CullRect.Width
-//                let scaleY = height / svgPicture.CullRect.Height
-//                let scale = min scaleX scaleY
-//#if DEBUG
-//                Trace.TraceInformation <| sprintf "W: %f H: %f svgW: %f svgH: %f Dens %f"
-//                                            width height
-//                                            svgPicture.CullRect.Width svgPicture.CullRect.Height
-//                                            screenDensity
-//#endif
-//                let paint = new SkiaSharp.SKPaint ()
-//                //paint.Color <- SKColor.FromHsv foreground
-//                let canvas = args.Surface.Canvas
-//                canvas.Clear()
-//                canvas.Scale(scale)
-//                canvas.Translate (SkiaSharp.SKPoint (width/float32 2.0, height/float32 2.0))
-//                canvas.DrawPicture (svgPicture, paint)
-//            )
-//        )
-
-//    let svgViewFilename background foreground w h filename invalidate =
-//        sprintf "TzolkinApp.images.%s" filename
-//        |> svgViewPath background foreground w h invalidate
-
-//    let svgViewName background foreground w h name invalidate =
-//        sprintf "TzolkinApp.images.%s.svg" name
-//        |> svgViewPath background foreground w h invalidate
-
-//    let svgViewGlyph background foreground w h (glyph:TzolkinGlyph.T) invalidate =
-//        sprintf "TzolkinApp.images.glyph_%02d.svg" <| int glyph
-//        |> svgViewPath background foreground w h invalidate
-
-//    let svgViewNumber background foreground w h (number:TzolkinNumber.T) invalidate =
-//        sprintf "TzolkinApp.images.number_%02d.svg" <| int number
-//        |> svgViewPath background foreground w h invalidate
 
     // Init ========================================================================================
 
@@ -273,8 +205,7 @@ module Definitions =
                   false
           IsLandscape = false
           ShowSystemAppInfo = false
-          CurrentTabIndex = 0
-          RedrawTzolkin = false }
+          CurrentTabIndex = 0 }
 
     /// Initialize the model and commands.
     let init () = initModel, Cmd.none
@@ -296,15 +227,14 @@ module Definitions =
         | SetCurrentPage page ->
             { model with CurrentPage = page }, Cmd.none
 
-        | SetDate date -> { model with Date = date; RedrawTzolkin = true}, Cmd.none
+        | SetDate date -> { model with Date = date }, Cmd.none
 
         | SetListNumber newNum ->
             match newNum with
             | 0 -> { model with ListTzolkinNumber = None }, Cmd.none
             | _ ->
                 { model with
-                      ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum
-                      RedrawTzolkin = true },
+                      ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum },
                 Cmd.none
 
         | SetListGlyph newGlyph ->
@@ -312,8 +242,7 @@ module Definitions =
             | 0 -> { model with ListTzolkinGlyph = None }, Cmd.none
             | _ ->
                 { model with
-                      ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph
-                      RedrawTzolkin = true },
+                      ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph },
                 Cmd.none
 
         | SetFilterDay newday ->
@@ -360,18 +289,15 @@ module Definitions =
             match args.PreviousPosition, args.CurrentPosition with
             | 0, 2 ->
                 { model with
-                      Date = model.Date + System.TimeSpan.FromDays -1.
-                      RedrawTzolkin = true },
+                      Date = model.Date + System.TimeSpan.FromDays -1. },
                 Cmd.none
             | 2, 0 ->
                 { model with
-                      Date = model.Date + System.TimeSpan.FromDays 1.
-                      RedrawTzolkin = true },
+                      Date = model.Date + System.TimeSpan.FromDays 1. },
                 Cmd.none
             | _, _ ->
                 { model with
-                      Date = model.Date + System.TimeSpan.FromDays (float direction)
-                      RedrawTzolkin = true },
+                      Date = model.Date + System.TimeSpan.FromDays (float direction) },
                 Cmd.none
 
         | OpenURL url -> model, cmdOpenUrl url
