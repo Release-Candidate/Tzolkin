@@ -40,25 +40,25 @@ module TzolkinView =
     let formatGlypDescription (glyphDescription:TzolkinGlyph.GlyphDescription) dispatch =
         View.FormattedString (
             [   formatGlyphTitle "Significado"
-                formatGlyphValue glyphDescription.meaning
+                formatGlyphValue glyphDescription.Meaning
 
                 formatGlyphTitle "Elementos o animal asociados"
-                formatGlyphValue glyphDescription.elementOrAnimal
+                formatGlyphValue glyphDescription.ElementOrAnimal
 
                 formatGlyphTitle "Rumbo asociado"
-                formatGlyphValue glyphDescription.direction
+                formatGlyphValue glyphDescription.Direction
 
                 formatGlyphTitle "Color asociado"
-                formatGlyphValue glyphDescription.color
+                formatGlyphValue glyphDescription.Color
 
                 formatGlyphTitle "Dioses patronos"
-                View.Span (text = sprintf "\t\t\t%s" glyphDescription.god,
+                View.Span (text = sprintf "\t\t\t%s" glyphDescription.God,
                             fontAttributes = glyphDescFontAttrValue,
                             fontSize = glyphDescFontSizeValue,
                             textColor = glyphDescTextColorValue,
                             gestureRecognizers = [
                                 View.TapGestureRecognizer(
-                                    command = (fun () -> dispatch <| OpenURL glyphDescription.url)
+                                    command = (fun () -> dispatch <| OpenURL glyphDescription.Url)
                                     )
                             ]
                  )
@@ -91,7 +91,7 @@ module TzolkinView =
                   Dimension.Absolute 95. ],
             children =
                 [ View
-                    .Image(source = Image.fromBytes cacheNumbers.[int tzolkinDate.number - 1], //Image.fromPath numImgName,
+                    .Image(source = Image.fromBytes cacheNumbers.[int tzolkinDate.Number - 1],
                            scale = 1.0,
                            aspect = Aspect.AspectFill,
                            verticalOptions = LayoutOptions.Start,
@@ -99,7 +99,7 @@ module TzolkinView =
                       .Row(0)
                       .Column (0)
                   View
-                      .Image(source = Image.fromBytes cacheGlyphs.[int tzolkinDate.glyph - 1], //Image.fromPath glyphImgName,
+                      .Image(source = Image.fromBytes cacheGlyphs.[int tzolkinDate.Glyph - 1],
                              scale = 1.0,
                              aspect = Aspect.AspectFill,
                              verticalOptions = LayoutOptions.Start,
@@ -107,7 +107,7 @@ module TzolkinView =
                       .Row(0)
                       .Column (1)
                   View
-                      .Label(text = tzolkinDate.number.ToString (),
+                      .Label(text = tzolkinDate.Number.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = Style.normalFontSize,
                              textColor = Style.foregroundLight,
@@ -117,7 +117,7 @@ module TzolkinView =
                       .Row(1)
                       .Column (0)
                   View
-                      .Label(text = tzolkinDate.glyph.ToString (),
+                      .Label(text = tzolkinDate.Glyph.ToString (),
                              horizontalTextAlignment = TextAlignment.Center,
                              fontSize = Style.normalFontSize,
                              textColor = Style.foregroundLight,
@@ -162,7 +162,7 @@ module TzolkinView =
 
     /// The day glyph description.
     let glyphDescription model dispatch date =
-        let { TzolkinDate.glyph = glyph } = TzolkinDate.fromDate date
+        let { TzolkinDate.Glyph = glyph } = TzolkinDate.fromDate date
         let glyphDesc = TzolkinGlyph.getDescription glyph
 
         View.Label (formattedText = formatGlypDescription glyphDesc dispatch,

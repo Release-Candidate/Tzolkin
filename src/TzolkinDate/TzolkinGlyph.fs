@@ -9,6 +9,8 @@
 /// Namespace containing all Maya calendar libraries.
 namespace RC.Maya
 
+open System
+
 /// Module with the `TzolkinGlyph` type and expression.
 ///
 /// Everything needed to use the Tzolk’in day glyphs, that are integers from 1 to 20
@@ -71,192 +73,192 @@ module TzolkinGlyph =
     /// A record to hold the information about each Tzolk’in day glyph.
     /// See https://arqueologiamexicana.mx/dias-mayas.
     type GlyphDescription =
-        { meaning: string
-          elementOrAnimal: string
-          direction: string
-          color: string
-          god: string
-          url: string }
+        { Meaning: string
+          ElementOrAnimal: string
+          Direction: string
+          Color: string
+          God: string
+          Url: string }
 
     /// Description of Tzolk’in day glyph Men.
     let private _descMen =
-        { meaning = "águila"
-          elementOrAnimal = "águila"
-          direction = "oeste"
-          color = "negro"
-          god = "Ix Chel, diosa de la Luna"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "águila"
+          ElementOrAnimal = "águila"
+          Direction = "oeste"
+          Color = "negro"
+          God = "Ix Chel, diosa de la Luna"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ikʼ.
     let private _descIk =
-        { meaning = "viento"
-          elementOrAnimal = "viento"
-          direction = "norte"
-          color = "blanco"
-          god = "dios B o Chaac"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "viento"
+          ElementOrAnimal = "viento"
+          Direction = "norte"
+          Color = "blanco"
+          God = "dios B o Chaac"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Chickchan.
     let private _descChikchan =
-        { meaning = "serpiente celeste"
-          elementOrAnimal = "serpiente"
-          direction = "este"
-          color = "rojo"
-          god = "Chikchan, dios del número 9"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "serpiente celeste"
+          ElementOrAnimal = "serpiente"
+          Direction = "este"
+          Color = "rojo"
+          God = "Chikchan, dios del número 9"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Imix.
     let private _descImix =
-        { meaning = "caimán, cocodrilo"
-          elementOrAnimal = "superficie terrestre"
-          direction = "este"
-          color = "rojo"
-          god = "monstruo de la tierra"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "caimán, cocodrilo"
+          ElementOrAnimal = "superficie terrestre"
+          Direction = "este"
+          Color = "rojo"
+          God = "monstruo de la tierra"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kawak.
     let private _descKawak =
-        { meaning = "tormenta"
-          elementOrAnimal = "lluvia, tormenta"
-          direction = "oeste"
-          color = "negro"
-          god = "Itzamnaaj"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "tormenta"
+          ElementOrAnimal = "lluvia, tormenta"
+          Direction = "oeste"
+          Color = "negro"
+          God = "Itzamnaaj"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ajaw.
     let private _descAjaw =
-        { meaning = "señor"
-          elementOrAnimal = "Sol"
-          direction = "sur"
-          color = "amarillo"
-          god = "dios G o dios del Sol"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "señor"
+          ElementOrAnimal = "Sol"
+          Direction = "sur"
+          Color = "amarillo"
+          God = "dios G o dios del Sol"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Etzʼnabʼ.
     let private _descEtznab =
-        { meaning = "pedernal"
-          elementOrAnimal = "pedernal"
-          direction = "norte"
-          color = "blanco"
-          god = "dios Q o dios de la guerra y los sacrificios"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "pedernal"
+          ElementOrAnimal = "pedernal"
+          Direction = "norte"
+          Color = "blanco"
+          God = "dios Q o dios de la guerra y los sacrificios"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kabʼan.
     let private _descKaban =
-        { meaning = "Tierra"
-          elementOrAnimal = "Tierra y los temblores"
-          direction = "sur"
-          color = "amarillo"
-          god = "diosa I o diosa de la sensualidad y el amor"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "Tierra"
+          ElementOrAnimal = "Tierra y los temblores"
+          Direction = "sur"
+          Color = "amarillo"
+          God = "diosa I o diosa de la sensualidad y el amor"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kʼibʼ.
     let private _descKib =
-        { meaning = "cera"
-          elementOrAnimal = "venado, insectos"
-          direction = "sur"
-          color = "amarillo"
-          god = "dios N o Pawahtún"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "cera"
+          ElementOrAnimal = "venado, insectos"
+          Direction = "sur"
+          Color = "amarillo"
+          God = "dios N o Pawahtún"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ix.
     let private _descIx =
-        { meaning = "jaguar"
-          elementOrAnimal = "jaguar"
-          direction = "este"
-          color = "rojo"
-          god = "dios jaguar"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "jaguar"
+          ElementOrAnimal = "jaguar"
+          Direction = "este"
+          Color = "rojo"
+          God = "dios jaguar"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Bʼen.
     let private _descBen =
-        { meaning = "maíz verde"
-          elementOrAnimal = "maíz"
-          direction = "este"
-          color = "rojo"
-          god = "dios E o dios del maíz"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "maíz verde"
+          ElementOrAnimal = "maíz"
+          Direction = "este"
+          Color = "rojo"
+          God = "dios E o dios del maíz"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ebʼ.
     let private _descEb =
-        { meaning = "rocío"
-          elementOrAnimal = "-"
-          direction = "sur"
-          color = "amarillo"
-          god = "dios de las lluvias dañinas"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "rocío"
+          ElementOrAnimal = "-"
+          Direction = "sur"
+          Color = "amarillo"
+          God = "dios de las lluvias dañinas"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Chuwen.
     let private _descChuwen =
-        { meaning = "mono"
-          elementOrAnimal = "mono"
-          direction = "oeste"
-          color = "negro"
-          god = "dios C o K’u"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "mono"
+          ElementOrAnimal = "mono"
+          Direction = "oeste"
+          Color = "negro"
+          God = "dios C o K’u"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Ok.
     let private _descOk =
-        { meaning = "perro"
-          elementOrAnimal = "perro"
-          direction = "norte"
-          color = "blanco"
-          god = "el perro en su advocación de dios del inframundo"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "perro"
+          ElementOrAnimal = "perro"
+          Direction = "norte"
+          Color = "blanco"
+          God = "el perro en su advocación de dios del inframundo"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Muluk.
     let private _descMuluk =
-        { meaning = "jade, agua"
-          elementOrAnimal = "agua"
-          direction = "este"
-          color = "rojo"
-          god = "pez xoc, jaguar"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "jade, agua"
+          ElementOrAnimal = "agua"
+          Direction = "este"
+          Color = "rojo"
+          God = "pez xoc, jaguar"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Lamat.
     let private _descLamat =
-        { meaning = "Venus"
-          elementOrAnimal = "conejo"
-          direction = "sur"
-          color = "amarillo"
-          god = "Lahun Chan, Venus"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "Venus"
+          ElementOrAnimal = "conejo"
+          Direction = "sur"
+          Color = "amarillo"
+          God = "Lahun Chan, Venus"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Manikʼ.
     let private _descManik =
-        { meaning = "venado"
-          elementOrAnimal = "venado"
-          direction = "oeste"
-          color = "negro"
-          god = "dios R o Buluk Ch’Abtan, dios de la Tierra"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "venado"
+          ElementOrAnimal = "venado"
+          Direction = "oeste"
+          Color = "negro"
+          God = "dios R o Buluk Ch’Abtan, dios de la Tierra"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kimi.
     let private _descKimi =
-        { meaning = "muerte"
-          elementOrAnimal = "muerte"
-          direction = "norte"
-          color = "blanco"
-          god = "dios A o dios de la muerte"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "muerte"
+          ElementOrAnimal = "muerte"
+          Direction = "norte"
+          Color = "blanco"
+          God = "dios A o dios de la muerte"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kʼan.
     let private _descKan =
-        { meaning = "maíz maduro"
-          elementOrAnimal = "maíz y abundancia"
-          direction = "sur"
-          color = "amarillo"
-          god = "dios E o dios del maíz"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "maíz maduro"
+          ElementOrAnimal = "maíz y abundancia"
+          Direction = "sur"
+          Color = "amarillo"
+          God = "dios E o dios del maíz"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Akʼbʼal.
     let private _descAkbal =
-        { meaning = "oscuridad"
-          elementOrAnimal = "oscuridad, noche, jaguar"
-          direction = "oeste"
-          color = "negro"
-          god = "Chaac Bolay, jaguar de nenúfar"
-          url = "https://arqueologiamexicana.mx/dias-mayas" }
+        { Meaning = "oscuridad"
+          ElementOrAnimal = "oscuridad, noche, jaguar"
+          Direction = "oeste"
+          Color = "negro"
+          God = "Chaac Bolay, jaguar de nenúfar"
+          Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// The descriptions of the 20 Tzolk’in day glyphs.
     let glyphDesc =
@@ -306,23 +308,46 @@ module TzolkinGlyph =
             | (TzolkinGlyph n) -> n
 
         /// Add two `TzolkinGlyph`.
-        static member (+)(glyph1: T, glyph2: T) =
+        static member ( + ) (glyph1:T, glyph2:T) =
             int glyph1 + int glyph2
             |> modulo20
             |> TzolkinGlyph
 
         /// Add an int to a `TzolkinGlyph`.
-        static member (+)(glyph1: T, i: int) = int glyph1 + i |> modulo20 |> TzolkinGlyph
+        static member ( + ) (glyph1:T, i:int) =
+            int glyph1 + i
+            |> modulo20
+            |> TzolkinGlyph
 
         /// Add a `TzolkinGlyph` to an int.
-        static member (+)(i: int, glyph1: T) = int glyph1 + i |> modulo20 |> TzolkinGlyph
+        static member ( + ) (i:int, glyph1:T) =
+            int glyph1 + i
+            |> modulo20
+            |> TzolkinGlyph
+
+        /// Add a `TimeSpan` to a `TzolkinGlyph`.
+        static member ( + ) (glyph1:T, days:TimeSpan) =
+            int glyph1 + days.Days
+            |> modulo20
+            |> TzolkinGlyph
+
+        /// Add a `TzolkinGlyph` to a `TimeSpan`.
+        static member ( + ) (days:TimeSpan, glyph:T) =
+            days.Days + int glyph
+            |> modulo20
+            |> TzolkinGlyph
 
         /// Convert a `TzolkinGlyph` to a string.
         /// Now you can use `string` with a `TzolkinGlyph`, like
         /// `string (TzolkinGlyph.create 4)`
-        override this.ToString() =
+        override this.ToString () =
             match this with
             | (TzolkinGlyph i) -> glyphNames.[(modulo20 i) - 1]
+
+
+    /// Reference Tzolk’in date. The 1st of January, 1970 is a Tzolk’in date of
+    /// 13 Chikchan.
+    let referenceDate = ("01.01.1970", TzolkinGlyph 5)
 
     /// Constructor from an `int`.
     /// Return `None`, if `n` is not positive, 20 if `n` mod 20 is 0 (day `0` doesn't
@@ -341,9 +366,102 @@ module TzolkinGlyph =
         | i when i < 1 -> None
         | i -> Some (TzolkinGlyph (modulo20 i))
 
-    /// Reference Tzolk’in date. The 1st of January, 1970 is a Tzolk’in date of
-    /// 13 Chikchan.
-    let referenceDate = ("01.01.1970", TzolkinGlyph 5)
+    type T with
+        /// Subtract two `TzolkinGlyph`.
+        static member ( - ) (tz1:T, tz2:T) =
+            (int tz1) - (int tz2)
+
+    /// Convert the given Gregorian date `gregorian` to a Tzolk’in day glyph.
+    ///
+    /// Params:
+    ///         `gregorian` The Gregorian date to convert.
+    ///
+    /// Returns:
+    ///          The Tzolk’in day glyph of the given Gregorian date.
+    let fromDate gregorian =
+        let (refDate, refTzolkin) = referenceDate
+        let formatProvider = System.Globalization.DateTimeFormatInfo.InvariantInfo
+        let reference = System.DateTime.ParseExact (refDate, "dd.MM.yyyy", formatProvider)
+        refTzolkin + (gregorian - reference)
+
+    /// Return the next Gregorian date after `start` with a Tzolk’in day glyph of
+    /// `tzolkinDate`.
+    /// If `start` has a Tzolk’in day glyph of `tzolkinDate` return the next Gregorian
+    /// date with a Tzolk’in day glyph of `tzolkinDate` (260 days later).
+    ///
+    /// Params:
+    ///          `tzolkinDate` The Tzolk’in day glyph to search for.
+    ///          `start` The Gregorian date to start the search.
+    ///
+    /// Returns:
+    ///          The next Gregorian date (forward in time after the date `start` that
+    ///          has a Tzolk’in day glyph of `tzolkinDate`.
+    let getNext tzolkinDate start =
+        let startTzolkin = fromDate start
+        let dayDiff = if tzolkinDate - startTzolkin = 0 then 20 else tzolkinDate - startTzolkin
+        start + System.TimeSpan.FromDays (float dayDiff)
+
+    /// Add a `TzolkinGlyph`to the given list of `TzolkinGlyph`, to a length of `length`.
+    /// Helper function.
+    let rec private addDate getTzolkin length num start list =
+        let next = getTzolkin start
+        let nextNum = num + 1
+        if nextNum < length
+            then addDate getTzolkin length nextNum next (next :: list)
+            else List.rev (next :: list)
+
+    /// Return a list of Gregorian dates after `start` with the same Tzolk’in day glyph
+    /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
+    /// If `start` has a Tzolk’in day glyph of `tzolkinDate` the first element is the next
+    /// Gregorian date with a Tzolk’in day number of `tzolkinDate` (260 days later).
+    ///
+    /// Params:
+    ///          `numDates` The number of returned dates in the list.
+    ///          `tzolkinDate` The Tzolk’in day glyph to search for.
+    ///          `start` The Gregorian date to start the search.
+    ///
+    /// Returns:
+    ///          A list with the next `numDates` Gregorian dates (forward in time after
+    ///          the date `start`) that have the same Tzolk’in day glyph as `tzolkinDate`.
+    let getNextList numDates tzolkinDate start =
+        let rec getNextTzolkin = addDate (getNext tzolkinDate) numDates
+
+        getNextTzolkin 0 start []
+
+    /// Return the last Gregorian date before or the same as `start` with a Tzolk’in
+    /// day glyph of `tzolkinDate`.
+    /// If `start` has a Tzolk’in day glyph of `tzolkinDate` return the last Gregorian
+    /// date with a Tzolk’in day glyph of `tzolkinDate` (260 days before).
+    ///
+    /// Params:
+    ///          `tzolkinDate` The Tzolk’in day glyph to search for.
+    ///          `start` The Gregorian date to start the search.
+    ///
+    /// Returns:
+    ///          The last Gregorian date (backwards in time before the date `start` that
+    ///          has a Tzolk’in day glyph of `tzolkinDate`.
+    let getLast tzolkinDate start =
+        let last = System.TimeSpan.FromDays -20. |> (+) (getNext tzolkinDate start)
+        if last = start then last + System.TimeSpan.FromDays -20. else last
+
+    /// Return a list of Gregorian dates before `start` with the same Tzolk’in day glyph
+    /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
+    /// If `start` has a Tzolk’in day glyph of `tzolkinDate` the first element is the last
+    /// Gregorian date with a Tzolk’in day glyph of `tzolkinDate` (260 days before `start`).
+    ///
+    /// Params:
+    ///          `numDates` The number of returned dates in the list.
+    ///          `tzolkinDate` The Tzolk’in day glyph to search for.
+    ///          `start` The Gregorian date to start the search.
+    ///
+    /// Returns:
+    ///          A list with the last `numDates` Gregorian dates (backwards in time
+    ///          before the date `start`) that have the same Tzolk’in day glyph as
+    ///          `tzolkinDate`.
+    let getLastList numDates tzolkinDate start =
+        let rec getLastTzolkin = addDate (getLast tzolkinDate) numDates
+
+        getLastTzolkin 0 start []
 
     /// Return the Tzolk’in day glyph's name as a string.
     ///

@@ -9,6 +9,8 @@
 /// Namespace containing all Maya calendar libraries.
 namespace RC.Maya
 
+open System
+
 /// Module with the `TzolkinNumber` type and expressions.
 ///
 /// Everything needed to use Tzolk’in day numbers, that are integers from 1 to 13
@@ -69,18 +71,40 @@ module TzolkinNumber =
             | (TzolkinNumber n) -> n
 
         /// Add two `TzolkinNumber`.
-        static member (+)(tz1: T, tz2: T) = int tz1 + int tz2 |> modulo13 |> TzolkinNumber
+        static member ( + ) (tz1: T, tz2: T) =
+            int tz1 + int tz2
+            |> modulo13
+            |> TzolkinNumber
 
         /// Add an int to a `TzolkinNumber`.
-        static member (+)(tz1: T, i: int) = int tz1 + i |> modulo13 |> TzolkinNumber
+        static member ( + ) (tz1: T, i: int) =
+            int tz1 + i
+            |> modulo13
+            |> TzolkinNumber
 
         /// Add a `TzolkinNumber` to an int.
-        static member (+)(i: int, tz1: T) = int tz1 + i |> modulo13 |> TzolkinNumber
+        static member ( + ) (i: int, tz1: T) =
+            int tz1 + i
+            |> modulo13
+            |> TzolkinNumber
+
+        /// Add a `TimeSpan` to a `TzolkinNumber`.
+        static member (+) (tz1:T, days:TimeSpan) =
+            int tz1 + days.Days
+            |> modulo13
+            |> TzolkinNumber
+
+        /// Add a `TzolkinNumber` to a `TimeSpan`.
+        static member (+) (days:TimeSpan, tz1:T) =
+            days.Days + int tz1
+            |> modulo13
+            |> TzolkinNumber
 
         /// Convert the `TzolkinNumber` to a string.
         /// Now you can use `string` with a `TzolkinNumber`, like
         /// `string (TzolkinNumber.create 8)`
-        override this.ToString() = int this |> string
+        override this.ToString() =
+            int this |> string
 
     /// Reference Tzolk’in date. The 1st of January, 1970 is a Tzolk’in date of
     /// 13 Chikchan.
@@ -101,6 +125,103 @@ module TzolkinNumber =
         match n with
         | i when i < 1 -> None
         | i -> Some (TzolkinNumber (modulo13 i))
+
+    type T with
+          /// Subtract two `TzolkinNumber`.
+          static member ( - ) (tz1:T, tz2:T) =
+              (int tz1) - (int tz2)
+
+    /// Convert the given Gregorian date `gregorian` to a Tzolk’in day number.
+    ///
+    /// Params:
+    ///         `gregorian` The Gregorian date to convert.
+    ///
+    /// Returns:
+    ///          The Tzolk’in day number of the given Gregorian date.
+    let fromDate gregorian =
+        let (refDate, refTzolkin) = referenceDate
+        let formatProvider = System.Globalization.DateTimeFormatInfo.InvariantInfo
+        let reference = System.DateTime.ParseExact (refDate, "dd.MM.yyyy", formatProvider)
+        refTzolkin + (gregorian - reference)
+
+    /// Return the next Gregorian date after `start` with a Tzolk’in daday number of
+    /// `tzolkinDate`.
+    /// If `start` has a Tzolk’in day number of `tzolkinDate` return the next Gregorian
+    /// date with a Tzolk’in day number of `tzolkinDate` (260 days later).
+    ///
+    /// Params:
+    ///          `tzolkinDate` The Tzolk’in day number to search for.
+    ///          `start` The Gregorian date to start the search.
+    ///
+    /// Returns:
+    ///          The next Gregorian date (forward in time after the date `start` that
+    ///          has a Tzolk’in day number of `tzolkinDate`.
+    let getNext tzolkinDate start =
+        let startTzolkin = fromDate start
+        let dayDiff = if tzolkinDate - startTzolkin = 0 then 13 else tzolkinDate - startTzolkin
+        start + System.TimeSpan.FromDays (float dayDiff)
+
+    /// Add a `TzolkinNumber`to the given list of `TzolkinNumber`, to a length of `length`.
+    /// Helper function.
+    let rec private addDate getTzolkin length num start list =
+            let next = getTzolkin start
+            let nextNum = num + 1
+            if nextNum < length
+                then addDate getTzolkin length nextNum next (next :: list)
+                else List.rev (next :: list)
+
+    /// Return a list of Gregorian dates after `start` with the same Tzolk’in day number
+    /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
+    /// If `start` has a Tzolk’in day number of `tzolkinDate` the first element is the next
+    /// Gregorian date with a Tzolk’in day number of `tzolkinDate` (260 days later).
+    ///
+    /// Params:
+    ///          `numDates` The number of returned dates in the list.
+    ///          `tzolkinDate` The Tzolk’in day number to search for.
+    ///          `start` The Gregorian date to start the search.
+    ///
+    /// Returns:
+    ///          A list with the next `numDates` Gregorian dates (forward in time after
+    ///          the date `start`) that have the same Tzolk’in day numbers as `tzolkinDate`.
+    let getNextList numDates tzolkinDate start =
+        let rec getNextTzolkin = addDate (getNext tzolkinDate) numDates
+
+        getNextTzolkin 0 start []
+
+    /// Return the last Gregorian date before or the same as `start` with a Tzolk’in
+    /// day number of `tzolkinDate`.
+    /// If `start` has a Tzolk’in day number of `tzolkinDate` return the last Gregorian
+    /// date with a Tzolk’in day number of `tzolkinDate` (13 days before).
+    ///
+    /// Params:
+    ///          `tzolkinDate` The Tzolk’in day number to search for.
+    ///          `start` The Gregorian date to start the search.
+    ///
+    /// Returns:
+    ///          The last Gregorian date (backwards in time before the date `start` that
+    ///          has a Tzolk’in day number of `tzolkinDate`.
+    let getLast tzolkinDate start =
+        let last = System.TimeSpan.FromDays -13.0 |> (+) (getNext tzolkinDate start)
+        if last = start then last + System.TimeSpan.FromDays -13.0 else last
+
+    /// Return a list of Gregorian dates before `start` with the same Tzolk’in day number
+    /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
+    /// If `start` has a Tzolk’in day number of `tzolkinDate` the first element is the last
+    /// Gregorian date with a Tzolk’in day number of `tzolkinDate` (260 days before `start`).
+    ///
+    /// Params:
+    ///          `numDates` The number of returned dates in the list.
+    ///          `tzolkinDate` The Tzolk’in day number to search for.
+    ///          `start` The Gregorian date to start the search.
+    ///
+    /// Returns:
+    ///          A list with the last `numDates` Gregorian dates (backwards in time
+    ///          before the date `start`) that have the same Tzolk’in day number as
+    ///          `tzolkinDate`.
+    let getLastList numDates tzolkinDate start =
+        let rec getLastTzolkin = addDate (getLast tzolkinDate) numDates
+
+        getLastTzolkin 0 start []
 
     /// Return the Tzolk’in day number as a Unicode symbol.
     /// This works as soon as the Tzolk’in day numbers are included in the Unicode

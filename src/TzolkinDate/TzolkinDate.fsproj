@@ -29,6 +29,7 @@
         <RepositoryUrl>https://github.com/Release-Candidate/Tzolkin</RepositoryUrl>
     </PropertyGroup>
     <ItemGroup>
+        <Compile Include="Generics.fs" />
         <Compile Include="TzolkinNumber.fs" />
         <Compile Include="TzolkinGlyph.fs" />
         <Compile Include="TzolkinDate.fs" />

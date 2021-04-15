@@ -28,7 +28,6 @@
         <PackageReference Include="AltCover" Version="8.1.819" />
         <PackageReference Include="Expecto" Version="9.*" />
         <PackageReference Include="Expecto.FsCheck" Version="9.0.2" />
-        <PackageReference Include="Expecto.VisualStudio.TestAdapter" Version="10.0.2" />
         <PackageReference Include="Unquote" Version="5.0.0" />
         <PackageReference Include="YoloDev.Expecto.TestSdk" Version="0.*" />
         <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.*" />

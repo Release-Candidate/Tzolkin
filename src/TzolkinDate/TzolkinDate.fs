@@ -40,8 +40,8 @@ module TzolkinDate =
     /// The `TzolkinDate` type, holding the Tzolk’in day number in `number` and day
     /// glyph in `glyph`.
     type T =
-        { number: TzolkinNumber.T
-          glyph: TzolkinGlyph.T }
+        { Number: TzolkinNumber.T
+          Glyph: TzolkinGlyph.T }
 
         /// Convert a `TzolkinDate` to a string, containing the day number and the day
         /// glyph as a string. Like "1 Imix" or "20 Ajaw".
@@ -49,36 +49,36 @@ module TzolkinDate =
         /// `string TzolkinDate.create 134`
         override this.ToString() =
             match this with
-            | { number = num; glyph = glph } -> $"{string num} {string glph}"
+            | { Number = num; Glyph = glph } -> $"{string num} {string glph}"
 
         /// Add days to a `TzolkinDate`.
-        static member (+)(tzolkinDate, i) =
-            { number = tzolkinDate.number + i
-              glyph = tzolkinDate.glyph + i }
+        static member (+)(tzolkinDate, i:int) =
+            { Number = tzolkinDate.Number + i
+              Glyph = tzolkinDate.Glyph + i }
 
         /// Add days to a `TzolkinDate`, order of `int` and `TzolkinDate` changed.
-        static member (+)(i, tzolkinDate) =
-            { number = tzolkinDate.number + i
-              glyph = tzolkinDate.glyph + i }
+        static member (+)(i:int, tzolkinDate) =
+            { Number = tzolkinDate.Number + i
+              Glyph = tzolkinDate.Glyph + i }
 
         /// Add two `TzolkinDate`. Doesn't really make sense, what would that be
         /// conceptually? But define it anyway.
         static member (+)(tzolkinDate1, tzolkinDate2) =
-            { number = tzolkinDate1.number + tzolkinDate2.number
-              glyph = tzolkinDate1.glyph + tzolkinDate2.glyph }
+            { Number = tzolkinDate1.Number + tzolkinDate2.Number
+              Glyph = tzolkinDate1.Glyph + tzolkinDate2.Glyph }
 
         /// Add a `System.TimeSpan` to a `TzolkinDate`.
         /// Only makes sense with (at least) days, not hours, minutes, or seconds.
         static member (+)(tzolkinDate, timeSpan: System.TimeSpan) =
-            { number = tzolkinDate.number + timeSpan.Days
-              glyph = tzolkinDate.glyph + timeSpan.Days }
+            { Number = tzolkinDate.Number + timeSpan.Days
+              Glyph = tzolkinDate.Glyph + timeSpan.Days }
 
         /// Add a `System.TimeSpan` to a `TzolkinDate`, other order of `TimeSpan` and
         /// `TzolkinDate`.
         /// Only makes sense with (at least) days, not hours, minutes, or seconds.
         static member (+)(timeSpan: System.TimeSpan, tzolkinDate) =
-            { number = tzolkinDate.number + timeSpan.Days
-              glyph = tzolkinDate.glyph + timeSpan.Days }
+            { Number = tzolkinDate.Number + timeSpan.Days
+              Glyph = tzolkinDate.Glyph + timeSpan.Days }
 
 
     /// A map of all 260 Tzolk’in days in a year.
@@ -87,8 +87,8 @@ module TzolkinDate =
     let yearMap =
         Map [ for i in [ 1 .. 260 ] ->
                   (i,
-                   { number = (i |> TzolkinNumber.modulo13 |> TzolkinNumber)
-                     glyph = (i |> TzolkinGlyph.modulo20 |> TzolkinGlyph) }) ]
+                   { Number = (i |> TzolkinNumber.modulo13 |> TzolkinNumber)
+                     Glyph = (i |> TzolkinGlyph.modulo20 |> TzolkinGlyph) }) ]
 
     /// Return all 260 Tzolk’in days in a year as strings in a map.
     /// The keys of this map are the number of the day in the Tzolk’in year, the value
@@ -109,8 +109,8 @@ module TzolkinDate =
     ///          The `TzolkinDate` with the Tzolk’in day number `tzolkinNumber` and day
     ///           glyph `tzolkinGlyph` if such a date exists, `None` else.
     let create tzolkinNumber tzolkinGlyph =
-        { number = tzolkinNumber
-          glyph = tzolkinGlyph }
+        { Number = tzolkinNumber
+          Glyph = tzolkinGlyph }
 
     /// Create a `TzolkinDate` from two ints. The first one `number` is the Tzolk’in day
     /// number, the second one, `glyph` the Tzolk’in day glyph.
@@ -131,7 +131,7 @@ module TzolkinDate =
         match (tzolkinNumber, tzolkinGlyph) with
         | (None, _) -> None
         | (_, None) -> None
-        | (Some tn, Some tg) -> Some { number = tn; glyph = tg }
+        | (Some tn, Some tg) -> Some { Number = tn; Glyph = tg }
 
     /// Create a `TzolkinDate` from two strings. The first one `number` is the Tzolk’in day
     /// number, the second one, `glyph` the Tzolk’in day glyph.
@@ -189,9 +189,7 @@ module TzolkinDate =
     /// Reference Tzolk’in date. The 1st of January, 1970 is a Tzolk’in date of
     /// 13 Chikchan.
     let referenceDate =
-        ("01.01.1970",
-         { number = TzolkinNumber 13
-           glyph = TzolkinGlyph 5 })
+        ("01.01.1970", { Number = TzolkinNumber 13; Glyph = TzolkinGlyph 5 })
 
     /// Convert the given Gregorian date `gregorian` to a Tzolk’in date.
     ///

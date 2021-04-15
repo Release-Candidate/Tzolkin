@@ -31,9 +31,6 @@ open Xamarin.Forms
 [<AutoOpen>]
 module Definitions =
 
-    let streamNumber = new IO.MemoryStream ()
-    let streamGlyph = new IO.MemoryStream ()
-
     /// App-wide constants =========================================================================
 
     let appNameInfo = sprintf "%s (Package %s)" AppInfo.Name AppInfo.PackageName
@@ -65,34 +62,35 @@ module Definitions =
         | CalendarFilter
 
     /// Record to hold the data needed to filter dates.
-    type DateFilter = { day: int; month: int; year: string }
+    type DateFilter = { Day: int; Month: int; Year: string }
 
     /// The MVU model.
     type Model =
-        { CurrentPage: Pages
+        { DateList: list<DateTime>
           Date: System.DateTime
           ListTzolkinNumber: TzolkinNumber.T option
           ListTzolkinGlyph: TzolkinGlyph.T option
           Filter: DateFilter
+          CurrentPage: Pages
           IsDarkMode: bool
           IsLandscape: bool
           ShowSystemAppInfo: bool
-          CurrentTabIndex: int }
+          DateViewScrollDir: int }
 
     let modelTzolkinDate model =
         match model.ListTzolkinNumber, model.ListTzolkinGlyph with
         | None, Some tz ->
-            { TzolkinDate.number = TzolkinNumber.T.TzolkinNumber 1
-              TzolkinDate.glyph = tz }
+            { TzolkinDate.Number = TzolkinNumber.T.TzolkinNumber 1
+              TzolkinDate.Glyph = tz }
         | Some tz, None ->
-            { TzolkinDate.number = tz
-              TzolkinDate.glyph = TzolkinGlyph.T.TzolkinGlyph 1 }
+            { TzolkinDate.Number = tz
+              TzolkinDate.Glyph = TzolkinGlyph.T.TzolkinGlyph 1 }
         | Some tzn, Some tzg ->
-            { TzolkinDate.number = tzn
-              TzolkinDate.glyph = tzg }
+            { TzolkinDate.Number = tzn
+              TzolkinDate.Glyph = tzg }
         | _, _ ->
-            { TzolkinDate.number = TzolkinNumber.T.TzolkinNumber 1
-              TzolkinDate.glyph = TzolkinGlyph.T.TzolkinGlyph 1 }
+            { TzolkinDate.Number = TzolkinNumber.T.TzolkinNumber 1
+              TzolkinDate.Glyph = TzolkinGlyph.T.TzolkinGlyph 1 }
 
     let modelNumToInt model =
         match model.ListTzolkinNumber with
@@ -103,6 +101,24 @@ module Definitions =
         match model.ListTzolkinGlyph with
         | None -> 0
         | Some tz -> int tz
+
+    let genericLlistTzolkin getLastList getNextList numElem tzolkin date =
+        let lastList =
+                   getLastList numElem tzolkin date
+                   |> List.rev
+
+        let nextList = getNextList numElem tzolkin date
+        lastList @ nextList
+
+    let dateListTzolkin numElem tzolkin date =
+        genericLlistTzolkin TzolkinDate.getLastList TzolkinDate.getNextList numElem tzolkin date
+
+    let numListTzolkin numElem tzolkin date =
+        genericLlistTzolkin TzolkinNumber.getLastList TzolkinNumber.getNextList numElem tzolkin date
+
+    let glyphListTzolkin numElem tzolkin date =
+           genericLlistTzolkin TzolkinGlyph.getLastList TzolkinGlyph.getNextList numElem tzolkin date
+
 
     // The messages ================================================================================
 
@@ -122,6 +138,7 @@ module Definitions =
         | CarouselChanged of PositionChangedEventArgs
         | OpenURL of string
         | HasScrolled of ItemsViewScrolledEventArgs
+        | NewDateViewItemsNeeded
 
 
     // Widget references ===========================================================================
@@ -141,7 +158,7 @@ module Definitions =
     let cmdCollectionView =
         Cmd.ofSub (fun dispatch ->
                    match dateListView.TryValue with
-                   | None -> Trace.TraceInformation "dateListView.TryValue NONE"
+                   | None -> ()
                    | Some reference -> reference.Scrolled.Add (fun args -> dispatch <| HasScrolled args)
                   )
 
@@ -149,8 +166,9 @@ module Definitions =
 
     let tzolkinImageHeight = 67.0
 
+    let streamNumber = new IO.MemoryStream ()
 
-
+    let streamGlyph = new IO.MemoryStream ()
 
     let getResourceStream path =
          let assembly = IntrospectionExtensions.GetTypeInfo(typedefof<Model>).Assembly
@@ -207,11 +225,12 @@ module Definitions =
 
     /// Initial state of the MVU model.
     let initModel =
-        { CurrentPage = Home
+        { DateList = []
           Date = System.DateTime.Today
           ListTzolkinNumber = Some (TzolkinNumber.T.TzolkinNumber 8)
           ListTzolkinGlyph = Some (TzolkinGlyph.T.TzolkinGlyph 5)
-          Filter = { day = 0; month = 0; year = "" }
+          Filter = { Day = 0; Month = 0; Year = "" }
+          CurrentPage = Home
           IsDarkMode =
               if Application.Current.RequestedTheme = OSAppTheme.Dark then
                   true
@@ -219,7 +238,7 @@ module Definitions =
                   false
           IsLandscape = false
           ShowSystemAppInfo = false
-          CurrentTabIndex = 0 }
+          DateViewScrollDir = 1 }
 
     /// Initialize the model and commands.
     let init () = initModel, Cmd.none
@@ -232,6 +251,8 @@ module Definitions =
         | None -> ()
         | Some textEntry -> textEntry.Text <- ""
 
+
+
     // Update ======================================================================================
 
     /// The update function of MVU.
@@ -241,47 +262,95 @@ module Definitions =
         | SetCurrentPage page ->
             let tzolkin = TzolkinDate.fromDate model.Date
             { model with CurrentPage = page
-                         ListTzolkinGlyph = Some tzolkin.glyph
-                         ListTzolkinNumber = Some tzolkin.number }, cmdCollectionView
+                         ListTzolkinGlyph = Some tzolkin.Glyph
+                         ListTzolkinNumber = Some tzolkin.Number
+                         DateList = dateListTzolkin 20 tzolkin model.Date },
+            cmdCollectionView
 
         | SetDate date -> { model with Date = date }, Cmd.none
 
         | SetListNumber newNum ->
-            match newNum with
-            | 0 -> { model with ListTzolkinNumber = None }, Cmd.none
-            | _ ->
+            match newNum, model.ListTzolkinGlyph with
+            | 0, None -> { model with ListTzolkinNumber = None
+                                      DateList = [ for i in [-20 .. 20] do
+                                                    model.Date + TimeSpan.FromDays (float i)] },
+                         Cmd.none
+
+            | _, None ->
                 { model with
-                      ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum },
+                      ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum
+                      DateList = numListTzolkin
+                                      20
+                                      (TzolkinNumber.T.TzolkinNumber newNum)
+                                      model.Date },
+                Cmd.none
+
+            | 0, Some glyph ->
+                { model with
+                      ListTzolkinNumber = None
+                      DateList = glyphListTzolkin 20 glyph model.Date },
+                Cmd.none
+
+            | _, Some glyph ->
+                { model with
+                    ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum
+                    DateList = dateListTzolkin
+                                    20
+                                    (TzolkinDate.create (TzolkinNumber.T.TzolkinNumber newNum) glyph)
+                                    model.Date },
                 Cmd.none
 
         | SetListGlyph newGlyph ->
-            match newGlyph with
-            | 0 -> { model with ListTzolkinGlyph = None }, Cmd.none
-            | _ ->
+           match newGlyph, model.ListTzolkinNumber with
+           | 0, None -> { model with ListTzolkinGlyph = None
+                                     DateList = [ for i in [-20 .. 20] do
+                                                        model.Date + TimeSpan.FromDays (float i)] },
+                        Cmd.none
+
+           | _, None ->
                 { model with
-                      ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph },
+                    ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph
+                    DateList = glyphListTzolkin
+                                    20
+                                    (TzolkinGlyph.T.TzolkinGlyph newGlyph)
+                                    model.Date },
+                Cmd.none
+
+           | 0, Some number ->
+                { model with
+                    ListTzolkinGlyph = None
+                    DateList = numListTzolkin 20 number model.Date },
+                Cmd.none
+
+           | _, Some number ->
+                { model with
+                    ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph
+                    DateList = dateListTzolkin
+                                    20
+                                    (TzolkinDate.create number (TzolkinGlyph.T.TzolkinGlyph newGlyph))
+                                    model.Date },
                 Cmd.none
 
         | SetFilterDay newday ->
             { model with
-                  Filter = { model.Filter with day = newday } },
+                  Filter = { model.Filter with Day = newday } },
             Cmd.none
 
         | SetFilterMonth newMonth ->
             { model with
-                  Filter = { model.Filter with month = newMonth } },
+                  Filter = { model.Filter with Month = newMonth } },
             Cmd.none
 
         | SetFilterYear newYear ->
             { model with
-                  Filter = { model.Filter with year = newYear } },
+                  Filter = { model.Filter with Year = newYear } },
             Cmd.none
 
         | DoResetFilter ->
             resetYear model
 
             { model with
-                  Filter = { day = 0; month = 0; year = "" } },
+                  Filter = { Day = 0; Month = 0; Year = "" } },
             Cmd.none
 
         | SetAppTheme (theme: OSAppTheme) ->
@@ -320,5 +389,7 @@ module Definitions =
         | OpenURL url -> model, cmdOpenUrl url
 
         | HasScrolled arg ->
-                             Trace.TraceInformation (sprintf "scrolled: %f" arg.VerticalDelta)
-                             model, Cmd.none
+            { model with DateViewScrollDir = if arg.VerticalDelta > 0. then 1 else -1 }, Cmd.none
+
+        | NewDateViewItemsNeeded -> model, Cmd.none
+
