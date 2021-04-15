@@ -22,6 +22,7 @@ open Fabulous.XamarinForms.SkiaSharp
 open Svg.Skia
 
 open RC.Maya
+open Xamarin.Forms
 
 
 
@@ -43,13 +44,13 @@ module Definitions =
 
     let screenDensity = DeviceDisplay.MainDisplayInfo.Density
 
-    let screenWidth = DeviceDisplay.MainDisplayInfo.Width
+    let screenWidth () = DeviceDisplay.MainDisplayInfo.Width
 
-    let screenHeight = DeviceDisplay.MainDisplayInfo.Height
+    let screenHeight () = DeviceDisplay.MainDisplayInfo.Height
 
-    let numberPickList = "" :: List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
+    let numberPickList = "todos" :: List.map (fun x -> x.ToString ()) [ 1 .. 13 ]
 
-    let glyphPickList = "" :: Array.toList TzolkinGlyph.glyphNames
+    let glyphPickList = "todos" :: Array.toList TzolkinGlyph.glyphNames
 
     let localeSeparator = CultureInfo.CurrentCulture.DateTimeFormat.DateSeparator
 
@@ -120,6 +121,15 @@ module Definitions =
         | ShowSystemAppInfo of bool
         | CarouselChanged of PositionChangedEventArgs
         | OpenURL of string
+        | HasScrolled of ItemsViewScrolledEventArgs
+
+
+    // Widget references ===========================================================================
+    /// Instances of widgets needed to interact with.
+    let dateListView = ViewRef<CollectionView> ()
+    let dayPicker = ViewRef<Xamarin.Forms.Picker> ()
+    let monthPicker = ViewRef<Xamarin.Forms.Picker> ()
+    let yearPicker = ViewRef<Xamarin.Forms.Entry> ()
 
     // Commands ====================================================================================
     let cmdOpenUrl (url) =
@@ -128,15 +138,19 @@ module Definitions =
               |> Async.StartImmediate
               Cmd.none
 
+    let cmdCollectionView =
+        Cmd.ofSub (fun dispatch ->
+                   match dateListView.TryValue with
+                   | None -> Trace.TraceInformation "dateListView.TryValue NONE"
+                   | Some reference -> reference.Scrolled.Add (fun args -> dispatch <| HasScrolled args)
+                  )
+
     // Widget related ==============================================================================
 
     let tzolkinImageHeight = 67.0
 
-    /// Instances of widgets needed to interact with.
-    let dateListView = ViewRef<CustomListView> ()
-    let dayPicker = ViewRef<Xamarin.Forms.Picker> ()
-    let monthPicker = ViewRef<Xamarin.Forms.Picker> ()
-    let yearPicker = ViewRef<Xamarin.Forms.Entry> ()
+
+
 
     let getResourceStream path =
          let assembly = IntrospectionExtensions.GetTypeInfo(typedefof<Model>).Assembly
@@ -158,10 +172,10 @@ module Definitions =
         |> sprintf "TzolkinApp.images.number_%02d.svg"
         |> getResourceStream
 
-    let getPNGFromSVG name =
+    let getPNGFromSVG spaceHeight name =
         let svg = new SKSvg ()
         let svgPicture = svg.Load (getSVGStream name)
-        let height = float32 <| tzolkinImageHeight * screenDensity
+        let height = float32 <| spaceHeight * screenDensity
         let scaleFac = height / svgPicture.CullRect.Height
         let bitmap1 = svgPicture.ToBitmap (SkiaSharp.SKColor.Empty,
                                             scaleFac, scaleFac,
@@ -178,12 +192,12 @@ module Definitions =
     let getPNGStreamNumber number =
         int number
         |> sprintf "number_%02d"
-        |> getPNGFromSVG
+        |> getPNGFromSVG tzolkinImageHeight
 
     let getPNGStreamGlyph glyph =
         int glyph
         |> sprintf "glyph_%02d"
-        |> getPNGFromSVG
+        |> getPNGFromSVG tzolkinImageHeight
 
     let cacheGlyphs = [ for i in [1 .. 20] do getPNGStreamGlyph <| TzolkinGlyph.T.TzolkinGlyph i ]
 
@@ -225,7 +239,10 @@ module Definitions =
         match msg with
 
         | SetCurrentPage page ->
-            { model with CurrentPage = page }, Cmd.none
+            let tzolkin = TzolkinDate.fromDate model.Date
+            { model with CurrentPage = page
+                         ListTzolkinGlyph = Some tzolkin.glyph
+                         ListTzolkinNumber = Some tzolkin.number }, cmdCollectionView
 
         | SetDate date -> { model with Date = date }, Cmd.none
 
@@ -301,3 +318,7 @@ module Definitions =
                 Cmd.none
 
         | OpenURL url -> model, cmdOpenUrl url
+
+        | HasScrolled arg ->
+                             Trace.TraceInformation (sprintf "scrolled: %f" arg.VerticalDelta)
+                             model, Cmd.none

@@ -25,7 +25,7 @@
         <Compile Include="TestMain.fs" />
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="AltCover" Version="8.1.817" />
+        <PackageReference Include="AltCover" Version="8.1.819" />
         <PackageReference Include="Expecto" Version="9.*" />
         <PackageReference Include="Expecto.FsCheck" Version="9.0.2" />
         <PackageReference Include="Expecto.VisualStudio.TestAdapter" Version="10.0.2" />

@@ -75,11 +75,6 @@ module TzolkinView =
     /// UI to show a Tzolk’in date, the Tzolk’in day number and day glyph, as images with the
     /// text below.
     let tzolkinDateView dispatch (tzolkinDate: TzolkinDate.T) isDark =
-        let numImgName =
-            sprintf "number_%02d.png" <| int tzolkinDate.number
-
-        let glyphImgName = sprintf "glyph_%02d.png" <| int tzolkinDate.glyph
-
         View.Grid (
             columnSpacing = 5.,
             rowSpacing = 0.,
@@ -147,6 +142,7 @@ module TzolkinView =
               backgroundColor = backgroundBrownLight,
               borderColor = backgroundBrownDark,
               hasShadow = true,
+              padding = Thickness (5., 5.),
               content =
                   View.DatePicker (
                       minimumDate = DateTime.MinValue,
@@ -194,7 +190,7 @@ module TzolkinView =
                               backgroundColor = Style.backgroundBrown,
                               children =
                                   [ View.StackLayout (
-                                      padding = Thickness (0.0, 10.0, 10.0, 10.0),
+                                      padding = Thickness (5.0, 10.0, 5.0, 10.0),
                                       orientation = setVerticalIfLandscape model.IsLandscape,
                                       backgroundColor = Style.backgroundBrown,
                                       horizontalOptions = LayoutOptions.Center,

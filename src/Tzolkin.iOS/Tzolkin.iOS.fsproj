@@ -166,7 +166,7 @@
       <HintPath>..\..\packages\Fabulous.XamarinForms.SkiaSharp.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.SkiaSharp.dll</HintPath>
     </Reference>
     <Reference Include="Fizzler">
-      <HintPath>..\..\packages\Fizzler.1.2.0\lib\netstandard2.0\Fizzler.dll</HintPath>
+      <HintPath>..\..\packages\Fizzler.1.3.0\lib\netstandard2.0\Fizzler.dll</HintPath>
     </Reference>
     <Reference Include="FSharp.Core">
       <Private>True</Private>
@@ -211,7 +211,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Runtime.CompilerServices.Unsafe">
-      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+      <HintPath>..\..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\netstandard2.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />

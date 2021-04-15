@@ -26,7 +26,7 @@ module View =
                          backgroundColor = Style.backgroundColor model.IsDarkMode,
                          appearing = (fun () -> dispatch <| SetCurrentPage Home),
                          content = View.StackLayout (
-                             backgroundColor = Style.backgroundBrownDark,//Style.backgroundColor model.IsDarkMode,
+                             backgroundColor = Style.backgroundBrownDark,
                              children = tzolkinPage model dispatch
                          )
 
@@ -39,7 +39,7 @@ module View =
     let calendarFilter model dispatch =
         View
             .ContentPage(title = "calendarFilter",
-                         backgroundColor = Style.backgroundColor model.IsDarkMode,
+                         backgroundColor = backgroundBrownDark,
                          content = View.StackLayout (
                              padding = Thickness 5.0,
                              orientation = setHorizontalIfLandscape model.IsLandscape,

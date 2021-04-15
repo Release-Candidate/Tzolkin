@@ -37,6 +37,10 @@ module Style =
 
     let foregroundDark = Color.WhiteSmoke
 
+    let accentDarkRed = Color.FromHex "#8B2A02"
+
+    let linkColorBlue = Color.Blue
+
     let linkSymbol = "\U0001F517"
 
     let foregroundColor isDark =
@@ -71,17 +75,23 @@ module Style =
 
     let glyphDescFontSizeTitle = FontSize.fromNamedSize NamedSize.Medium
 
-    let glyphDescTextColorTitle = Color.Black
+    let glyphDescTextColorTitle = foregroundLight
 
     let glyphDescFontAttrTitle = FontAttributes.Bold
 
     let glyphDescFontSizeValue = FontSize.fromNamedSize NamedSize.Medium
 
-    let glyphDescTextColorValue = Color.FromHex "#8B2A02"
+    let glyphDescTextColorValue = accentDarkRed
 
     let glyphDescFontAttrValue = FontAttributes.Bold
 
-    let glyphDescColorLink = Color.Blue
+    let glyphDescColorLink = linkColorBlue
+
+    // Date list ===============================================================
+
+    let dateListFontSize = FontSize.fromNamedSize NamedSize.Large
+
+    let dateListFontAttr = FontAttributes.None
 
     /// Separator line.
     let separator isL isDark =
