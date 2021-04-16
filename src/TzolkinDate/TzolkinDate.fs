@@ -322,9 +322,7 @@ module TzolkinDate =
     ///          A list with the next `numDates` Gregorian dates (forward in time after
     ///          the date `start`) that have the same Tzolk’in dates as `tzolkinDate`.
     let getNextList numDates tzolkinDate start =
-        let rec getNextTzolkin = Generics.addDate (getNext tzolkinDate) numDates
-
-        getNextTzolkin 0 start []
+        Generics.getNextList referenceDate 260 numDates tzolkinDate start
 
     /// Return the last Gregorian date before or the same as `start` with a Tzolk’in
     /// date of `tzolkinDate`.
@@ -356,9 +354,7 @@ module TzolkinDate =
     ///          before the date `start`) that have the same Tzolk’in dates as
     ///          `tzolkinDate`.
     let getLastList numDates tzolkinDate start =
-        let rec getLastTzolkin = Generics.addDate (getLast tzolkinDate) numDates
-
-        getLastTzolkin 0 start []
+        Generics.getLastList referenceDate 260 numDates tzolkinDate start
 
     /// Filter the given list of Gregorian dates by the string `filterStr`.
     /// If `filterStr` is contained in the  locale short date ("dd.MM.yyyy" or

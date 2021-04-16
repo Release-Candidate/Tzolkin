@@ -408,9 +408,7 @@ module TzolkinGlyph =
     ///          A list with the next `numDates` Gregorian dates (forward in time after
     ///          the date `start`) that have the same Tzolk’in day glyph as `tzolkinDate`.
     let getNextList numDates tzolkinDate start =
-        let rec getNextTzolkin = Generics.addDate (getNext tzolkinDate) numDates
-
-        getNextTzolkin 0 start []
+        Generics.getNextList referenceDate 20 numDates tzolkinDate start
 
     /// Return the last Gregorian date before or the same as `start` with a Tzolk’in
     /// day glyph of `tzolkinDate`.
@@ -442,9 +440,7 @@ module TzolkinGlyph =
     ///          before the date `start`) that have the same Tzolk’in day glyph as
     ///          `tzolkinDate`.
     let getLastList numDates tzolkinDate start =
-        let rec getLastTzolkin = Generics.addDate (getLast tzolkinDate) numDates
-
-        getLastTzolkin 0 start []
+       Generics.getLastList referenceDate 20 numDates tzolkinDate start
 
     /// Return the Tzolk’in day glyph's name as a string.
     ///

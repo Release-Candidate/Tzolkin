@@ -27,11 +27,11 @@ module Generics=
         (gregorian: DateTime)
         : ^T
         =
-      let (refDate, refTzolkin) = referenceDate
-      let formatProvider = System.Globalization.DateTimeFormatInfo.InvariantInfo
-      let reference = System.DateTime.ParseExact (refDate, "dd.MM.yyyy", formatProvider)
-      let dayDiff: TimeSpan = gregorian - reference
-      (^T: (static member op_Addition : ^T * TimeSpan -> ^T) refTzolkin, dayDiff)
+        let (refDate, refTzolkin) = referenceDate
+        let formatProvider = System.Globalization.DateTimeFormatInfo.InvariantInfo
+        let reference = System.DateTime.ParseExact (refDate, "dd.MM.yyyy", formatProvider)
+        let dayDiff: TimeSpan = gregorian - reference
+        (^T: (static member ( + ) : ^T * TimeSpan -> ^T) refTzolkin, dayDiff)
 
   /// Return the next Gregorian date after `start` with a Tzolk’in day type.
   let inline internal getNext
@@ -40,13 +40,12 @@ module Generics=
         (tzolkinDate: ^T)
         (start: DateTime)
         =
-      let startTzolkin = fromDate referenceDate start
-      let dayDiff = if tzolkinDate - startTzolkin = 0 then numElem else tzolkinDate - startTzolkin
-      start + System.TimeSpan.FromDays (float dayDiff)
+        let startTzolkin = fromDate referenceDate start
+        let dayDiff = if tzolkinDate - startTzolkin = 0 then numElem else tzolkinDate - startTzolkin
+        start + System.TimeSpan.FromDays (float dayDiff)
 
-  /// Add a `TzolkinGlyph`to the given list of `TzolkinGlyph`, to a length of `length`.
-  /// Helper function.
-  let rec internal addDate getTzolkin length num start list =
+  /// Add a gregorian date of a Tzolk’in day to the given list, to a length of `length`.
+  let rec private addDate getTzolkin length num start list =
       let next = getTzolkin start
       let nextNum = num + 1
       if nextNum < length
@@ -62,21 +61,18 @@ module Generics=
 
       if last = start then last + System.TimeSpan.FromDays (float -numElem) else last
 
-  /// Return a list of Gregorian dates before `start` with the same Tzolk’in day glyph
-  /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
-  /// If `start` has a Tzolk’in day glyph of `tzolkinDate` the first element is the last
-  /// Gregorian date with a Tzolk’in day glyph of `tzolkinDate` (260 days before `start`).
-  ///
-  /// Params:
-  ///          `numDates` The number of returned dates in the list.
-  ///          `tzolkinDate` The Tzolk’in day glyph to search for.
-  ///          `start` The Gregorian date to start the search.
-  ///
-  /// Returns:
-  ///          A list with the last `numDates` Gregorian dates (backwards in time
-  ///          before the date `start`) that have the same Tzolk’in day glyph as
-  ///          `tzolkinDate`.
-  //let getLastList referenceDate numDates tzolkinDate start =
-  //    let rec getLastTzolkin = addDate (getLast referenceDate tzolkinDate) numDates
+  /// Helper function.
+  let inline private getList getFunc referenceDate numElem numDates tzolkinDate start =
+        let rec getNextTzolkin = addDate (getFunc referenceDate numElem tzolkinDate) numDates
 
-  //    getLastTzolkin 0 start []
+        getNextTzolkin 0 start []
+
+  /// Return a list of gregorian dates with the given Tzolk’in date.
+  let inline internal getNextList referenceDate numElem numDates tzolkinDate start =
+        getList getNext referenceDate numElem numDates tzolkinDate start
+
+
+  /// Return a list of gregorian dates with the given Tzolk’in date.
+  let inline internal getLastList referenceDate numElem numDates tzolkinDate start =
+        getList getLast referenceDate numElem numDates tzolkinDate start
+

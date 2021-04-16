@@ -168,9 +168,7 @@ module TzolkinNumber =
     ///          A list with the next `numDates` Gregorian dates (forward in time after
     ///          the date `start`) that have the same Tzolk’in day numbers as `tzolkinDate`.
     let getNextList numDates tzolkinDate start =
-        let rec getNextTzolkin = Generics.addDate (getNext tzolkinDate) numDates
-
-        getNextTzolkin 0 start []
+        Generics.getNextList referenceDate 13 numDates tzolkinDate start
 
     /// Return the last Gregorian date before or the same as `start` with a Tzolk’in
     /// day number of `tzolkinDate`.
@@ -202,9 +200,7 @@ module TzolkinNumber =
     ///          before the date `start`) that have the same Tzolk’in day number as
     ///          `tzolkinDate`.
     let getLastList numDates tzolkinDate start =
-        let rec getLastTzolkin = Generics.addDate (getLast tzolkinDate) numDates
-
-        getLastTzolkin 0 start []
+        Generics.getLastList referenceDate 13 numDates tzolkinDate start
 
     /// Return the Tzolk’in day number as a Unicode symbol.
     /// This works as soon as the Tzolk’in day numbers are included in the Unicode
