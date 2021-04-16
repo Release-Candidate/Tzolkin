@@ -56,10 +56,7 @@ module TzolkinNumber =
     /// Returns:
     ///         13 if `n` = 0 (mod13)
     ///         `n` % 13 else.
-    let modulo13 n =
-        match n with
-        | i when i >= 0 -> if n % 13 = 0 then 13 else n % 13
-        | _ -> if n % 13 = 0 then 13 else 13 + (n % 13)
+    let modulo13 = Generics.modulo 13
 
     /// The Tzolk’in day number type.
     type T =
@@ -139,12 +136,9 @@ module TzolkinNumber =
     /// Returns:
     ///          The Tzolk’in day number of the given Gregorian date.
     let fromDate gregorian =
-        let (refDate, refTzolkin) = referenceDate
-        let formatProvider = System.Globalization.DateTimeFormatInfo.InvariantInfo
-        let reference = System.DateTime.ParseExact (refDate, "dd.MM.yyyy", formatProvider)
-        refTzolkin + (gregorian - reference)
+        Generics.fromDate referenceDate gregorian
 
-    /// Return the next Gregorian date after `start` with a Tzolk’in daday number of
+    /// Return the next Gregorian date after `start` with a Tzolk’in day number of
     /// `tzolkinDate`.
     /// If `start` has a Tzolk’in day number of `tzolkinDate` return the next Gregorian
     /// date with a Tzolk’in day number of `tzolkinDate` (260 days later).
@@ -157,18 +151,8 @@ module TzolkinNumber =
     ///          The next Gregorian date (forward in time after the date `start` that
     ///          has a Tzolk’in day number of `tzolkinDate`.
     let getNext tzolkinDate start =
-        let startTzolkin = fromDate start
-        let dayDiff = if tzolkinDate - startTzolkin = 0 then 13 else tzolkinDate - startTzolkin
-        start + System.TimeSpan.FromDays (float dayDiff)
+        Generics.getNext referenceDate 13 tzolkinDate start
 
-    /// Add a `TzolkinNumber`to the given list of `TzolkinNumber`, to a length of `length`.
-    /// Helper function.
-    let rec private addDate getTzolkin length num start list =
-            let next = getTzolkin start
-            let nextNum = num + 1
-            if nextNum < length
-                then addDate getTzolkin length nextNum next (next :: list)
-                else List.rev (next :: list)
 
     /// Return a list of Gregorian dates after `start` with the same Tzolk’in day number
     /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
@@ -184,7 +168,7 @@ module TzolkinNumber =
     ///          A list with the next `numDates` Gregorian dates (forward in time after
     ///          the date `start`) that have the same Tzolk’in day numbers as `tzolkinDate`.
     let getNextList numDates tzolkinDate start =
-        let rec getNextTzolkin = addDate (getNext tzolkinDate) numDates
+        let rec getNextTzolkin = Generics.addDate (getNext tzolkinDate) numDates
 
         getNextTzolkin 0 start []
 
@@ -201,7 +185,10 @@ module TzolkinNumber =
     ///          The last Gregorian date (backwards in time before the date `start` that
     ///          has a Tzolk’in day number of `tzolkinDate`.
     let getLast tzolkinDate start =
-        let last = System.TimeSpan.FromDays -13.0 |> (+) (getNext tzolkinDate start)
+        let last =
+            System.TimeSpan.FromDays -13.0
+            |> (+) (getNext tzolkinDate start)
+
         if last = start then last + System.TimeSpan.FromDays -13.0 else last
 
     /// Return a list of Gregorian dates before `start` with the same Tzolk’in day number
@@ -219,7 +206,7 @@ module TzolkinNumber =
     ///          before the date `start`) that have the same Tzolk’in day number as
     ///          `tzolkinDate`.
     let getLastList numDates tzolkinDate start =
-        let rec getLastTzolkin = addDate (getLast tzolkinDate) numDates
+        let rec getLastTzolkin = Generics.addDate (getLast tzolkinDate) numDates
 
         getLastTzolkin 0 start []
 
@@ -246,9 +233,6 @@ module TzolkinNumber =
     /// Returns:
     ///         The Maya number as a Unicode symbol.
     let toUnicodeNum number =
-        let modulo20 n =
-            match n with
-            | i when i < 1 -> if i % 20 = 0 then 20 else abs (i) % 20
-            | i -> if i % 20 = 0 then 20 else i % 20
+        let modulo20 = Generics.modulo 20
 
         numberUnicode.[(modulo20 number) - 1]

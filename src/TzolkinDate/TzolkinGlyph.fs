@@ -293,10 +293,7 @@ module TzolkinGlyph =
     /// Returns:
     ///         20 if `n` = 0 (mod 20)
     ///         `n` % 20 else.
-    let modulo20 n =
-        match n with
-        | i when i >= 0 -> if n % 20 = 0 then 20 else n % 20
-        | _ -> if n % 20 = 0 then 20 else 20 + (n % 20)
+    let modulo20 = Generics.modulo 20
 
     /// The Tzolk’in day glyph type.
     type T =
@@ -379,10 +376,7 @@ module TzolkinGlyph =
     /// Returns:
     ///          The Tzolk’in day glyph of the given Gregorian date.
     let fromDate gregorian =
-        let (refDate, refTzolkin) = referenceDate
-        let formatProvider = System.Globalization.DateTimeFormatInfo.InvariantInfo
-        let reference = System.DateTime.ParseExact (refDate, "dd.MM.yyyy", formatProvider)
-        refTzolkin + (gregorian - reference)
+        Generics.fromDate referenceDate gregorian
 
     /// Return the next Gregorian date after `start` with a Tzolk’in day glyph of
     /// `tzolkinDate`.
@@ -397,18 +391,8 @@ module TzolkinGlyph =
     ///          The next Gregorian date (forward in time after the date `start` that
     ///          has a Tzolk’in day glyph of `tzolkinDate`.
     let getNext tzolkinDate start =
-        let startTzolkin = fromDate start
-        let dayDiff = if tzolkinDate - startTzolkin = 0 then 20 else tzolkinDate - startTzolkin
-        start + System.TimeSpan.FromDays (float dayDiff)
+        Generics.getNext referenceDate 20 tzolkinDate start
 
-    /// Add a `TzolkinGlyph`to the given list of `TzolkinGlyph`, to a length of `length`.
-    /// Helper function.
-    let rec private addDate getTzolkin length num start list =
-        let next = getTzolkin start
-        let nextNum = num + 1
-        if nextNum < length
-            then addDate getTzolkin length nextNum next (next :: list)
-            else List.rev (next :: list)
 
     /// Return a list of Gregorian dates after `start` with the same Tzolk’in day glyph
     /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
@@ -424,7 +408,7 @@ module TzolkinGlyph =
     ///          A list with the next `numDates` Gregorian dates (forward in time after
     ///          the date `start`) that have the same Tzolk’in day glyph as `tzolkinDate`.
     let getNextList numDates tzolkinDate start =
-        let rec getNextTzolkin = addDate (getNext tzolkinDate) numDates
+        let rec getNextTzolkin = Generics.addDate (getNext tzolkinDate) numDates
 
         getNextTzolkin 0 start []
 
@@ -441,7 +425,10 @@ module TzolkinGlyph =
     ///          The last Gregorian date (backwards in time before the date `start` that
     ///          has a Tzolk’in day glyph of `tzolkinDate`.
     let getLast tzolkinDate start =
-        let last = System.TimeSpan.FromDays -20. |> (+) (getNext tzolkinDate start)
+        let last =
+            System.TimeSpan.FromDays -20.
+            |> (+) (getNext tzolkinDate start)
+
         if last = start then last + System.TimeSpan.FromDays -20. else last
 
     /// Return a list of Gregorian dates before `start` with the same Tzolk’in day glyph
@@ -459,7 +446,7 @@ module TzolkinGlyph =
     ///          before the date `start`) that have the same Tzolk’in day glyph as
     ///          `tzolkinDate`.
     let getLastList numDates tzolkinDate start =
-        let rec getLastTzolkin = addDate (getLast tzolkinDate) numDates
+        let rec getLastTzolkin = Generics.addDate (getLast tzolkinDate) numDates
 
         getLastTzolkin 0 start []
 

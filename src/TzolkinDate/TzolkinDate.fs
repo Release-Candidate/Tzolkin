@@ -52,31 +52,31 @@ module TzolkinDate =
             | { Number = num; Glyph = glph } -> $"{string num} {string glph}"
 
         /// Add days to a `TzolkinDate`.
-        static member (+)(tzolkinDate, i:int) =
+        static member ( + ) (tzolkinDate, i: int) =
             { Number = tzolkinDate.Number + i
               Glyph = tzolkinDate.Glyph + i }
 
         /// Add days to a `TzolkinDate`, order of `int` and `TzolkinDate` changed.
-        static member (+)(i:int, tzolkinDate) =
+        static member ( + ) (i: int, tzolkinDate) =
             { Number = tzolkinDate.Number + i
               Glyph = tzolkinDate.Glyph + i }
 
         /// Add two `TzolkinDate`. Doesn't really make sense, what would that be
         /// conceptually? But define it anyway.
-        static member (+)(tzolkinDate1, tzolkinDate2) =
+        static member ( + )(tzolkinDate1, tzolkinDate2) =
             { Number = tzolkinDate1.Number + tzolkinDate2.Number
               Glyph = tzolkinDate1.Glyph + tzolkinDate2.Glyph }
 
         /// Add a `System.TimeSpan` to a `TzolkinDate`.
         /// Only makes sense with (at least) days, not hours, minutes, or seconds.
-        static member (+)(tzolkinDate, timeSpan: System.TimeSpan) =
+        static member ( + ) (tzolkinDate, timeSpan: System.TimeSpan) =
             { Number = tzolkinDate.Number + timeSpan.Days
               Glyph = tzolkinDate.Glyph + timeSpan.Days }
 
         /// Add a `System.TimeSpan` to a `TzolkinDate`, other order of `TimeSpan` and
         /// `TzolkinDate`.
         /// Only makes sense with (at least) days, not hours, minutes, or seconds.
-        static member (+)(timeSpan: System.TimeSpan, tzolkinDate) =
+        static member ( + ) (timeSpan: System.TimeSpan, tzolkinDate) =
             { Number = tzolkinDate.Number + timeSpan.Days
               Glyph = tzolkinDate.Glyph + timeSpan.Days }
 
@@ -199,15 +199,7 @@ module TzolkinDate =
     /// Returns:
     ///          The Tzolk’in day of the given Gregorian date.
     let fromDate gregorian =
-        let (refDate, refTzolkin) = referenceDate
-
-        let formatProvider =
-            System.Globalization.DateTimeFormatInfo.InvariantInfo
-
-        let reference =
-            System.DateTime.ParseExact(refDate, "dd.MM.yyyy", formatProvider)
-
-        refTzolkin + (gregorian - reference)
+        Generics.fromDate referenceDate gregorian
 
     /// Get the Tzolk’in date of today.
     let today = fromDate System.DateTime.Now
@@ -314,20 +306,7 @@ module TzolkinDate =
     ///          The next Gregorian date (forward in time after the date `start` that
     ///          has a Tzolk’in date of `tzolkinDate`.
     let getNext tzolkinDate start =
-        let startTzolkin = fromDate start
-        let dayDiff = tzolkinDate - startTzolkin
-        start + System.TimeSpan.FromDays(float dayDiff)
-
-    /// Add a `TzolkinDate`to the given list of `tzolkinDate`, to a length of `length`.
-    /// Helper function.
-    let rec private addDate getTzolkin length num start list =
-        let next = getTzolkin start
-        let nextNum = num + 1
-
-        if nextNum < length then
-            addDate getTzolkin length nextNum next (next :: list)
-        else
-            List.rev (next :: list)
+        Generics.getNext referenceDate 260 tzolkinDate start
 
     /// Return a list of Gregorian dates after `start` with the same Tzolk’in date
     /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
@@ -343,7 +322,7 @@ module TzolkinDate =
     ///          A list with the next `numDates` Gregorian dates (forward in time after
     ///          the date `start`) that have the same Tzolk’in dates as `tzolkinDate`.
     let getNextList numDates tzolkinDate start =
-        let rec getNextTzolkin = addDate (getNext tzolkinDate) numDates
+        let rec getNextTzolkin = Generics.addDate (getNext tzolkinDate) numDates
 
         getNextTzolkin 0 start []
 
@@ -384,7 +363,7 @@ module TzolkinDate =
     ///          before the date `start`) that have the same Tzolk’in dates as
     ///          `tzolkinDate`.
     let getLastList numDates tzolkinDate start =
-        let rec getLastTzolkin = addDate (getLast tzolkinDate) numDates
+        let rec getLastTzolkin = Generics.addDate (getLast tzolkinDate) numDates
 
         getLastTzolkin 0 start []
 

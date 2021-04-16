@@ -217,9 +217,9 @@ module Definitions =
         |> sprintf "glyph_%02d"
         |> getPNGFromSVG tzolkinImageHeight
 
-    let cacheGlyphs = [ for i in [1 .. 20] do getPNGStreamGlyph <| TzolkinGlyph.T.TzolkinGlyph i ]
+    let cacheGlyphs = [ for i in [1 .. 20] -> getPNGStreamGlyph <| TzolkinGlyph.T.TzolkinGlyph i ]
 
-    let cacheNumbers = [ for i in [1 .. 13] do getPNGStreamNumber <| TzolkinNumber.T.TzolkinNumber i ]
+    let cacheNumbers = [ for i in [1 .. 13] -> getPNGStreamNumber <| TzolkinNumber.T.TzolkinNumber i ]
 
     // Init ========================================================================================
 
@@ -272,7 +272,7 @@ module Definitions =
         | SetListNumber newNum ->
             match newNum, model.ListTzolkinGlyph with
             | 0, None -> { model with ListTzolkinNumber = None
-                                      DateList = [ for i in [-20 .. 20] do
+                                      DateList = [ for i in [-20 .. 20] ->
                                                     model.Date + TimeSpan.FromDays (float i)] },
                          Cmd.none
 
@@ -303,7 +303,7 @@ module Definitions =
         | SetListGlyph newGlyph ->
            match newGlyph, model.ListTzolkinNumber with
            | 0, None -> { model with ListTzolkinGlyph = None
-                                     DateList = [ for i in [-20 .. 20] do
+                                     DateList = [ for i in [-20 .. 20] ->
                                                         model.Date + TimeSpan.FromDays (float i)] },
                         Cmd.none
 
