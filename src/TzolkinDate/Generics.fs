@@ -53,44 +53,14 @@ module Generics=
           then addDate getTzolkin length nextNum next (next :: list)
           else List.rev (next :: list)
 
-  /// Return a list of Gregorian dates after `start` with the same Tzolk’in day glyph
-  /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
-  /// If `start` has a Tzolk’in day glyph of `tzolkinDate` the first element is the next
-  /// Gregorian date with a Tzolk’in day number of `tzolkinDate` (260 days later).
-  ///
-  /// Params:
-  ///          `numDates` The number of returned dates in the list.
-  ///          `tzolkinDate` The Tzolk’in day glyph to search for.
-  ///          `start` The Gregorian date to start the search.
-  ///
-  /// Returns:
-  ///          A list with the next `numDates` Gregorian dates (forward in time after
-  ///          the date `start`) that have the same Tzolk’in day glyph as `tzolkinDate`.
-  //let getNextList
-  //      (referenceDate: string * ^T)
-  //      (numDates: int)
-  //      (tzolkinDate: ^T)
-  //      (start: DateTime)
-  //      =
-  //    let rec getNextTzolkin = addDate (getNext referenceDate tzolkinDate) numDates
-
-  //    getNextTzolkin 0 start []
-
   /// Return the last Gregorian date before or the same as `start` with a Tzolk’in
-  /// day glyph of `tzolkinDate`.
-  /// If `start` has a Tzolk’in day glyph of `tzolkinDate` return the last Gregorian
-  /// date with a Tzolk’in day glyph of `tzolkinDate` (260 days before).
-  ///
-  /// Params:
-  ///          `tzolkinDate` The Tzolk’in day glyph to search for.
-  ///          `start` The Gregorian date to start the search.
-  ///
-  /// Returns:
-  ///          The last Gregorian date (backwards in time before the date `start` that
-  ///          has a Tzolk’in day glyph of `tzolkinDate`.
-  //let getLast referenceDate tzolkinDate start =
-  //    let last = System.TimeSpan.FromDays -260.0 |> (+) (getNext referenceDate tzolkinDate start)
-  //    if last = start then last + System.TimeSpan.FromDays -260.0 else last
+  /// day of `tzolkinDate`.
+  let inline internal getLast referenceDate (numElem: int) tzolkinDate start =
+      let last =
+        System.TimeSpan.FromDays (float -numElem)
+        |> (+) (getNext referenceDate numElem tzolkinDate start)
+
+      if last = start then last + System.TimeSpan.FromDays (float -numElem) else last
 
   /// Return a list of Gregorian dates before `start` with the same Tzolk’in day glyph
   /// `tzolkinDate`. The number of elements in the returned list is `numDates`.

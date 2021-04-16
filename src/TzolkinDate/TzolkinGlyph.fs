@@ -425,11 +425,7 @@ module TzolkinGlyph =
     ///          The last Gregorian date (backwards in time before the date `start` that
     ///          has a Tzolk’in day glyph of `tzolkinDate`.
     let getLast tzolkinDate start =
-        let last =
-            System.TimeSpan.FromDays -20.
-            |> (+) (getNext tzolkinDate start)
-
-        if last = start then last + System.TimeSpan.FromDays -20. else last
+        Generics.getLast referenceDate 20 tzolkinDate start
 
     /// Return a list of Gregorian dates before `start` with the same Tzolk’in day glyph
     /// `tzolkinDate`. The number of elements in the returned list is `numDates`.

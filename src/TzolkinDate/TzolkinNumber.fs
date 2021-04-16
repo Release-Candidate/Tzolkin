@@ -185,11 +185,7 @@ module TzolkinNumber =
     ///          The last Gregorian date (backwards in time before the date `start` that
     ///          has a Tzolk’in day number of `tzolkinDate`.
     let getLast tzolkinDate start =
-        let last =
-            System.TimeSpan.FromDays -13.0
-            |> (+) (getNext tzolkinDate start)
-
-        if last = start then last + System.TimeSpan.FromDays -13.0 else last
+        Generics.getLast referenceDate 13 tzolkinDate start
 
     /// Return a list of Gregorian dates before `start` with the same Tzolk’in day number
     /// `tzolkinDate`. The number of elements in the returned list is `numDates`.
