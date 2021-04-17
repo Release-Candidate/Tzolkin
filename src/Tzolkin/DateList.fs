@@ -11,16 +11,94 @@ namespace TzolkinApp
 
 open Fabulous
 open System
+open Xamarin.Forms
+open System.Diagnostics
+open System.Globalization
 open Fabulous.XamarinForms
 
 open RC.Maya
-open Xamarin.Forms
-open System.Diagnostics
+
 
 /// View to pick a Tzolk’in date and display and filter a list of Gregorian dates with the same
 /// Tzolk’in date.
 [<AutoOpen>]
 module DateList =
+
+    let dayFrame model dispatch =
+        View.Frame (
+            padding = Thickness 0.,
+            backgroundColor = backgroundBrownLight,
+            borderColor = backgroundBrownDark,
+            content =
+                View.Picker (
+                    title = "día",
+                    horizontalOptions = LayoutOptions.Start,
+                    selectedIndex = model.Filter.Day,
+                    items = "todos" :: [ for i in 1 .. 31 -> i.ToString () ],
+                    selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterDay i)),
+                    fontSize = Style.normalFontSize,
+                    textColor = foregroundLight,
+                    backgroundColor = backgroundBrownLight,
+                    width = 60.0,
+                    ref = dayPicker
+                  )
+          )
+
+    let monthFrame model dispatch =
+          View.Frame (
+              padding = Thickness 0.,
+              backgroundColor = backgroundBrownLight,
+              borderColor = backgroundBrownDark,
+              content =
+                View.Picker (
+                  title = "mes",
+                  horizontalOptions = LayoutOptions.Start,
+                  selectedIndex = model.Filter.Month,
+                  items = "todos" :: [ for i in 1 .. 12 -> i.ToString () ],
+                  selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterMonth i)),
+                  fontSize = Style.normalFontSize,
+                  textColor = foregroundLight,
+                  backgroundColor = backgroundBrownLight,
+                  width = 60.,
+                  ref = monthPicker
+              )
+          )
+
+    let yearFrame model dispatch =
+          View.Frame (
+            padding = Thickness 0.,
+            backgroundColor = backgroundBrownLight,
+            borderColor = backgroundBrownDark,
+            content =
+                  View.Entry (
+                      text = "",
+                      placeholder = "año",
+                      textChanged = (fun text -> SetFilterYear text.NewTextValue |> dispatch),
+                      completed = (fun text -> SetFilterYear text |> dispatch),
+                      keyboard = Keyboard.Numeric,
+                      fontSize = Style.normalFontSize,
+                      width = 50.0,
+                      textColor = foregroundLight,
+                      backgroundColor = backgroundBrownLight,
+                      ref = yearPicker
+                  )
+         )
+
+    let getDateOrder model dispatch =
+        let currentDateString = DateTimeFormatInfo.CurrentInfo.ShortDatePattern
+        let dayIndex = currentDateString.IndexOf "d"
+        let monthIndex = currentDateString.IndexOf "M"
+        let yearIndex = currentDateString.IndexOf "y"
+        let dateList =
+            [ (dayIndex, dayFrame model dispatch)
+              (monthIndex, monthFrame model dispatch)
+              (yearIndex, yearFrame model dispatch) ]
+
+        dateList
+        |> List.sortBy (fun (idx, _) -> idx)
+        |> List.map (fun (_, frame) -> frame)
+
+
 
     let dateLabelFormat (tzolkindate:TzolkinDate.T) (date:DateTime) =
         View.FormattedString (
@@ -41,11 +119,13 @@ module DateList =
 
         ])
 
-    let dateLabel tzolkindate (date:DateTime) =
-        View.Label(formattedText = dateLabelFormat tzolkindate date,
+    let dateLabelF labelFormat tzolkindate (date:DateTime) =
+        View.Label(formattedText = labelFormat tzolkindate date,
                     lineBreakMode = LineBreakMode.WordWrap,
                     horizontalOptions = LayoutOptions.Center
          )
+
+    let dateLabel = dateLabelF dateLabelFormat
 
     let fullFilterList model dateList =
            let filterDay dateList =
@@ -82,69 +162,46 @@ module DateList =
 
     /// Select a Tzolk’in date.
     let tzolkinSelector model dispatch =
-        [ View.Picker (
-            title = "número",
-            horizontalOptions = LayoutOptions.Start,
-            selectedIndex = modelNumToInt model,
-            items = numberPickList,
-            selectedIndexChanged = (fun (i, item) -> dispatch (SetListNumber i)),
-            width = 60.,
-            fontSize = Style.normalFontSize,
-            textColor = Style.foregroundColor model.IsDarkMode,
-            backgroundColor = Style.backgroundColor model.IsDarkMode,
-            horizontalTextAlignment = TextAlignment.End
+        [ View.Frame (
+            padding = Thickness 0.,
+            backgroundColor = backgroundBrownLight,
+            borderColor = backgroundBrownDark,
+            content =
+                View.Picker (
+                    title = "número",
+                    horizontalOptions = LayoutOptions.Start,
+                    selectedIndex = modelNumToInt model,
+                    items = numberPickList,
+                    selectedIndexChanged = (fun (i, item) -> dispatch (SetListNumber i)),
+                    width = 60.,
+                    fontSize = Style.normalFontSize,
+                    textColor = foregroundLight,
+                    backgroundColor = backgroundBrownLight,
+                    horizontalTextAlignment = TextAlignment.End
+                )
           )
 
-          View.Picker (
-              title = "glifo",
-              horizontalOptions = LayoutOptions.Start,
-              selectedIndex = modelGlyphToInt model,
-              items = glyphPickList,
-              fontSize = Style.normalFontSize,
-              textColor = Style.foregroundColor model.IsDarkMode,
-              backgroundColor = Style.backgroundColor model.IsDarkMode,
-              selectedIndexChanged = (fun (i, item) -> dispatch (SetListGlyph i)),
-              width = 90.
+          View.Frame (
+              padding = Thickness 0.,
+              backgroundColor = backgroundBrownLight,
+              borderColor = backgroundBrownDark,
+              content =
+                  View.Picker (
+                      title = "glifo",
+                      horizontalOptions = LayoutOptions.Start,
+                      selectedIndex = modelGlyphToInt model,
+                      items = glyphPickList,
+                      fontSize = Style.normalFontSize,
+                      textColor = foregroundLight,
+                      backgroundColor = backgroundBrownLight,
+                      selectedIndexChanged = (fun (i, item) -> dispatch (SetListGlyph i)),
+                      width = 90.
+                )
           ) ]
 
     /// The Filter section
     let tzolkinFilter (model: Model) dispatch =
-        [ View.Picker (
-            title = "día",
-            horizontalOptions = LayoutOptions.Start,
-            selectedIndex = model.Filter.Day,
-            items = "todos" :: [ for i in 1 .. 31 -> i.ToString () ],
-            selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterDay i)),
-            fontSize = Style.normalFontSize,
-            textColor = Style.foregroundColor model.IsDarkMode,
-            backgroundColor = Style.backgroundColor model.IsDarkMode,
-            width = 60.0,
-            ref = dayPicker
-          )
-          View.Picker (
-              title = "mes",
-              horizontalOptions = LayoutOptions.Start,
-              selectedIndex = model.Filter.Month,
-              items = "todos" :: [ for i in 1 .. 12 -> i.ToString () ],
-              selectedIndexChanged = (fun (i, item) -> dispatch (SetFilterMonth i)),
-              fontSize = Style.normalFontSize,
-              textColor = Style.foregroundColor model.IsDarkMode,
-              backgroundColor = Style.backgroundColor model.IsDarkMode,
-              width = 60.,
-              ref = monthPicker
-          )
-          View.Entry (
-              text = "",
-              placeholder = "año",
-              textChanged = (fun text -> SetFilterYear text.NewTextValue |> dispatch),
-              completed = (fun text -> SetFilterYear text |> dispatch),
-              keyboard = Keyboard.Numeric,
-              fontSize = Style.normalFontSize,
-              width = 65.0,
-              textColor = Style.foregroundColor model.IsDarkMode,
-              backgroundColor = Style.backgroundColor model.IsDarkMode,
-              ref = yearPicker
-          ) ]
+        getDateOrder model dispatch
 
     let dateViewLayout = GridItemsLayout (ItemsLayoutOrientation.Vertical)
 
@@ -162,19 +219,17 @@ module DateList =
                     [
                       View.StackLayout(
                             orientation = StackOrientation.Horizontal,
-                            children = (tzolkinSelector model dispatch)
-                                       @ (tzolkinFilter model dispatch)
+                            children = (tzolkinSelector model dispatch) @
+                                       (tzolkinFilter model dispatch)
                       )
 
                       View.CollectionView(
                           ref = dateListView,
-                          remainingItemsThreshold = 4,
+                          remainingItemsThreshold = 10,
                           remainingItemsThresholdReachedCommand = (
                                 fun () -> dispatch NewDateViewItemsNeeded),
                           itemsLayout = dateViewLayout,
                           items = fillListViewFilter model
                       )
-
-
                      ]
             )

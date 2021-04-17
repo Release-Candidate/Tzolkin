@@ -67,7 +67,8 @@ module Definitions =
     /// The MVU model.
     type Model =
         { DateList: list<DateTime>
-          Date: System.DateTime
+          Date: DateTime
+          ListDate: DateTime
           ListTzolkinNumber: TzolkinNumber.T option
           ListTzolkinGlyph: TzolkinGlyph.T option
           Filter: DateFilter
@@ -75,7 +76,7 @@ module Definitions =
           IsDarkMode: bool
           IsLandscape: bool
           ShowSystemAppInfo: bool
-          DateViewScrollDir: int }
+          DateViewScrollDir: float }
 
     let modelTzolkinDate model =
         match model.ListTzolkinNumber, model.ListTzolkinGlyph with
@@ -102,7 +103,7 @@ module Definitions =
         | None -> 0
         | Some tz -> int tz
 
-    let genericLlistTzolkin getLastList getNextList numElem tzolkin date =
+    let genericListTzolkin getLastList getNextList numElem tzolkin date =
         let lastList =
                    getLastList numElem tzolkin date
                    |> List.rev
@@ -111,13 +112,13 @@ module Definitions =
         lastList @ nextList
 
     let dateListTzolkin numElem tzolkin date =
-        genericLlistTzolkin TzolkinDate.getLastList TzolkinDate.getNextList numElem tzolkin date
+        genericListTzolkin TzolkinDate.getLastList TzolkinDate.getNextList numElem tzolkin date
 
     let numListTzolkin numElem tzolkin date =
-        genericLlistTzolkin TzolkinNumber.getLastList TzolkinNumber.getNextList numElem tzolkin date
+        genericListTzolkin TzolkinNumber.getLastList TzolkinNumber.getNextList numElem tzolkin date
 
     let glyphListTzolkin numElem tzolkin date =
-           genericLlistTzolkin TzolkinGlyph.getLastList TzolkinGlyph.getNextList numElem tzolkin date
+           genericListTzolkin TzolkinGlyph.getLastList TzolkinGlyph.getNextList numElem tzolkin date
 
 
     // The messages ================================================================================
@@ -227,6 +228,7 @@ module Definitions =
     let initModel =
         { DateList = []
           Date = System.DateTime.Today
+          ListDate = System.DateTime.Today
           ListTzolkinNumber = Some (TzolkinNumber.T.TzolkinNumber 8)
           ListTzolkinGlyph = Some (TzolkinGlyph.T.TzolkinGlyph 5)
           Filter = { Day = 0; Month = 0; Year = "" }
@@ -238,7 +240,7 @@ module Definitions =
                   false
           IsLandscape = false
           ShowSystemAppInfo = false
-          DateViewScrollDir = 1 }
+          DateViewScrollDir = 1. }
 
     /// Initialize the model and commands.
     let init () = initModel, Cmd.none
@@ -262,12 +264,15 @@ module Definitions =
         | SetCurrentPage page ->
             let tzolkin = TzolkinDate.fromDate model.Date
             { model with CurrentPage = page
+                         ListDate = model.Date
                          ListTzolkinGlyph = Some tzolkin.Glyph
                          ListTzolkinNumber = Some tzolkin.Number
                          DateList = dateListTzolkin 20 tzolkin model.Date },
             cmdCollectionView
 
-        | SetDate date -> { model with Date = date }, Cmd.none
+        | SetDate date -> { model with
+                                    Date = date
+                                    ListDate = date }, Cmd.none
 
         | SetListNumber newNum ->
             match newNum, model.ListTzolkinGlyph with
@@ -375,21 +380,71 @@ module Definitions =
             match args.PreviousPosition, args.CurrentPosition with
             | 0, 2 ->
                 { model with
+                      ListDate = model.Date + System.TimeSpan.FromDays -1.
                       Date = model.Date + System.TimeSpan.FromDays -1. },
                 Cmd.none
             | 2, 0 ->
                 { model with
+                      ListDate = model.Date + System.TimeSpan.FromDays 1.
                       Date = model.Date + System.TimeSpan.FromDays 1. },
                 Cmd.none
             | _, _ ->
                 { model with
+                      ListDate = model.Date + System.TimeSpan.FromDays(float direction)
                       Date = model.Date + System.TimeSpan.FromDays (float direction) },
                 Cmd.none
 
         | OpenURL url -> model, cmdOpenUrl url
 
         | HasScrolled arg ->
-            { model with DateViewScrollDir = if arg.VerticalDelta > 0. then 1 else -1 }, Cmd.none
+            { model with DateViewScrollDir = if arg.VerticalDelta > 0. then 1. else -1. }, Cmd.none
 
-        | NewDateViewItemsNeeded -> model, Cmd.none
+        | NewDateViewItemsNeeded ->
+            //let oldListDate = model.ListDate
+            //let newDate = oldListDate + TimeSpan.FromDays (260. * model.DateViewScrollDir * 20.)
+            //Trace.TraceInformation (sprintf "XXXX  NEED MORE!!! XX %s new: %s"
+            //                            (oldListDate.ToLongDateString ())
+            //                            (newDate.ToString ())
+            //                       )
+            //match model.ListTzolkinGlyph, model.ListTzolkinNumber with
+            //| None, None ->
+            //    { model with
+            //            ListDate = oldListDate + TimeSpan.FromDays (model.DateViewScrollDir * 20.)
+            //            DateList = [ for i in [-20 .. 20] ->
+            //                            oldListDate + TimeSpan.FromDays (
+            //                                        model.DateViewScrollDir * 20. + float i)] },
+            //    Cmd.none
+
+            //| Some glyph, None ->
+            //     { model with
+            //         ListDate = oldListDate + TimeSpan.FromDays (20. * model.DateViewScrollDir * 20.)
+            //         DateList = glyphListTzolkin
+            //                         20
+            //                         glyph
+            //                         (oldListDate + TimeSpan.FromDays (
+            //                            20. * model.DateViewScrollDir * 20.) ) },
+            //     Cmd.none
+
+            //| None, Some number ->
+            //     { model with
+            //         ListDate = oldListDate + TimeSpan.FromDays (13. * model.DateViewScrollDir * 20.)
+            //         DateList = numListTzolkin
+            //                        20
+            //                        number
+            //                        (oldListDate + TimeSpan.FromDays (
+            //                            13. * model.DateViewScrollDir * 20.) ) },
+            //     Cmd.none
+
+
+            //| Some glyph, Some number ->
+            //     { model with
+            //         ListDate = oldListDate + TimeSpan.FromDays (260. * model.DateViewScrollDir * 20.)
+            //         DateList = dateListTzolkin
+            //                         20
+            //                         (TzolkinDate.create number glyph)
+            //                         (oldListDate + TimeSpan.FromDays (
+            //                             260. * model.DateViewScrollDir * 20.) ) },
+            //     Cmd.none
+
+            model, Cmd.none
 

@@ -43,7 +43,7 @@ module View =
                          content = View.StackLayout (
                              padding = Thickness 5.0,
                              orientation = setHorizontalIfLandscape model.IsLandscape,
-                             backgroundColor = Style.backgroundColor model.IsDarkMode,
+                             backgroundColor = backgroundBrownDark,
                              children = [ dateView model dispatch ]
                          ))
             .HasNavigationBar(true)

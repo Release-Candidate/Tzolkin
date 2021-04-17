@@ -39,9 +39,9 @@ module TzolkinApp =
 #endif
 
             // Why is this called instead of the handler function?
-            dispatch (Msg.SetAppTheme Application.Current.RequestedTheme)
+           // dispatch (Msg.SetAppTheme Application.Current.RequestedTheme)
 
-
+            Application.Current.RequestedThemeChanged.Add (fun args -> dispatch (Msg.SetAppTheme args.RequestedTheme))
 
         //Application.Current.RequestedThemeChanged.AddHandler (
         //    EventHandler<AppThemeChangedEventArgs>

@@ -27,5 +27,12 @@
 
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
     <item name="colorAccent">#8B2A02</item>
+    <!--<item name="android:background">#F2D8B8</item>
+    <item name="android:textColorPrimary">#000000</item>
+    <item name="android:textColorPrimaryInverse">#000000</item>
+    <item name="android:textColorSecondary">#000000</item>
+    <item name="android:textColorSecondaryInverse">#000000</item>
+    <item name="android:textColorTertiary">#000000</item>
+    <item name="android:textColorTertiaryInverse">#000000</item>-->
   </style>
 </resources>

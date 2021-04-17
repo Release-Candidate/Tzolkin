@@ -26,28 +26,3 @@ Links to the original image files at Wikimedia:
 * [Etzʼnabʼ - https://commons.wikimedia.org/wiki/File:MAYA-g-log-cal-D18-Etznab.svg](https://commons.wikimedia.org/wiki/File:MAYA-g-log-cal-D18-Etznab.svg)
 * [Kawak - https://commons.wikimedia.org/wiki/File:MAYA-g-log-cal-D19-Kawak.svg](https://commons.wikimedia.org/wiki/File:MAYA-g-log-cal-D19-Kawak.svg)
 * [Ajaw - https://commons.wikimedia.org/wiki/File:MAYA-g-log-cal-D20-Ajaw.svg](https://commons.wikimedia.org/wiki/File:MAYA-g-log-cal-D20-Ajaw.svg)
-
-The images of the 13 day numbers have been created by the Wikimedia user [Slomox](https://commons.wikimedia.org/wiki/User:Slomox) and released to the public domain.
-
-Links to the original image files at Wikimedia:
-
-* [1 - https://commons.wikimedia.org/wiki/File:Maya_1.svg](https://commons.wikimedia.org/wiki/File:Maya_1.svg)
-* [2 - https://commons.wikimedia.org/wiki/File:Maya_2.svg](https://commons.wikimedia.org/wiki/File:Maya_2.svg)
-* [3 - https://commons.wikimedia.org/wiki/File:Maya_3.svg](https://commons.wikimedia.org/wiki/File:Maya_3.svg)
-* [4 - https://commons.wikimedia.org/wiki/File:Maya_4.svg](https://commons.wikimedia.org/wiki/File:Maya_4.svg)
-* [5 - https://commons.wikimedia.org/wiki/File:Maya_5.svg](https://commons.wikimedia.org/wiki/File:Maya_5.svg)
-* [6 - https://commons.wikimedia.org/wiki/File:Maya_6.svg](https://commons.wikimedia.org/wiki/File:Maya_6.svg)
-* [7 - https://commons.wikimedia.org/wiki/File:Maya_7.svg](https://commons.wikimedia.org/wiki/File:Maya_7.svg)
-* [8 - https://commons.wikimedia.org/wiki/File:Maya_8.svg](https://commons.wikimedia.org/wiki/File:Maya_8.svg)
-* [9 - https://commons.wikimedia.org/wiki/File:Maya_9.svg](https://commons.wikimedia.org/wiki/File:Maya_9.svg)
-* [10 - https://commons.wikimedia.org/wiki/File:Maya_10.svg](https://commons.wikimedia.org/wiki/File:Maya_10.svg)
-* [11 - https://commons.wikimedia.org/wiki/File:Maya_11.svg](https://commons.wikimedia.org/wiki/File:Maya_11.svg)
-* [12 - https://commons.wikimedia.org/wiki/File:Maya_12.svg](https://commons.wikimedia.org/wiki/File:Maya_12.svg)
-* [13 - https://commons.wikimedia.org/wiki/File:Maya_13.svg](https://commons.wikimedia.org/wiki/File:Maya_13.svg)
-* [14 - https://commons.wikimedia.org/wiki/File:Maya_14.svg](https://commons.wikimedia.org/wiki/File:Maya_14.svg)
-* [15 - https://commons.wikimedia.org/wiki/File:Maya_15.svg](https://commons.wikimedia.org/wiki/File:Maya_15.svg)
-* [16 - https://commons.wikimedia.org/wiki/File:Maya_16.svg](https://commons.wikimedia.org/wiki/File:Maya_16.svg)
-* [17 - https://commons.wikimedia.org/wiki/File:Maya_17.svg](https://commons.wikimedia.org/wiki/File:Maya_17.svg)
-* [18 - https://commons.wikimedia.org/wiki/File:Maya_18.svg](https://commons.wikimedia.org/wiki/File:Maya_18.svg)
-* [19 - https://commons.wikimedia.org/wiki/File:Maya_19.svg](https://commons.wikimedia.org/wiki/File:Maya_19.svg)
-
