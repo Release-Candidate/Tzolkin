@@ -15,6 +15,9 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Tzolkin.iOS", "src\Tzolkin.
 	EndProjectSection
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TestTzolkin", "tests\TestTzolkin\TestTzolkin.fsproj", "{CE7FBF66-014F-484E-9A1F-4C101C688708}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6EE96C5C-3777-4E75-A69D-298668A430E1} = {6EE96C5C-3777-4E75-A69D-298668A430E1}
+	EndProjectSection
 EndProject
 Project("{6EC3EE1D-3C4E-46DD-8F32-0CC8E7565705}") = "TzolkinDate", "src\TzolkinDate\TzolkinDate.fsproj", "{88DACF37-9259-4CAB-A3F7-5761CB35906E}"
 EndProject

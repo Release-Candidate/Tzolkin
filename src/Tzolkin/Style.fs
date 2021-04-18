@@ -65,11 +65,16 @@ module Style =
         else
             StackOrientation.Horizontal
 
+
+
+    let setDateHeightCarouselFactors isL =
+           if isL then 2.35 * 0.275 else 2.15 * 0.347
+
     // Pages ===================================================================
 
     let tabBackgroundColor = backgroundBrownDark
 
-    let tabForegroundColor = Color.Black //Color.FromHex "#8B2A02"
+    let tabForegroundColor = Color.Black
 
     // Glyph Descriptions ======================================================
 

@@ -203,14 +203,8 @@ module DateList =
     let tzolkinFilter (model: Model) dispatch =
         getDateOrder model dispatch
 
-    let dateViewLayout = GridItemsLayout (ItemsLayoutOrientation.Vertical)
-
-
     ///
     let dateView model dispatch =
-        dateViewLayout.Span <- 1
-        dateViewLayout.HorizontalItemSpacing <- 10.
-        dateViewLayout.VerticalItemSpacing <- 10.
         View.StackLayout(
                 backgroundColor = backgroundBrown,
                 padding = Thickness 5.,
@@ -223,13 +217,18 @@ module DateList =
                                        (tzolkinFilter model dispatch)
                       )
 
-                      View.CollectionView(
-                          ref = dateListView,
-                          remainingItemsThreshold = 10,
-                          remainingItemsThresholdReachedCommand = (
-                                fun () -> dispatch NewDateViewItemsNeeded),
-                          itemsLayout = dateViewLayout,
-                          items = fillListViewFilter model
+                      View.CarouselView(
+                            ref = dateListView,
+                            loop = false,
+                            itemsLayout = View.CarouselVerticalItemsLayout (
+                                                itemSpacing = 0.0,
+                                                snapPointsType = SnapPointsType.Mandatory
+                                          ),
+                            //peekAreaInsets = Thickness (carouselHeight model /
+                            //                    (setDateCarouselFactors model.IsLandscape)),
+                            items = fillListViewFilter model
+                            //positionChanged = (fun args -> dispatch <| FilterCarouselChanged args),
+                            // position = 20
                       )
                      ]
             )

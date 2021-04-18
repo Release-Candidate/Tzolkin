@@ -44,10 +44,10 @@ module TzolkinApp =
             //Application.Current.RequestedThemeChanged.Add (fun args ->
             //    dispatch (Msg.SetAppTheme args.RequestedTheme))
 
-        //Application.Current.RequestedThemeChanged.AddHandler (
-        //    EventHandler<AppThemeChangedEventArgs>
-        //        (fun _ args -> dispatch (Msg.SetAppTheme args.RequestedTheme))
-        //)
+            //Application.Current.RequestedThemeChanged.AddHandler (
+            //    EventHandler<AppThemeChangedEventArgs>
+            //        (fun _ args -> dispatch (Msg.SetAppTheme args.RequestedTheme))
+            //)
 
         let runner =
             program
