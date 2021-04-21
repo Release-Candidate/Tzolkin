@@ -53,7 +53,6 @@ module Definitions =
 
     let localeFormat = CultureInfo.CurrentCulture.DateTimeFormat.ShortDatePattern
 
-
     // The model ===================================================================================
 
     /// The pages of the App.
@@ -68,7 +67,6 @@ module Definitions =
     type Model =
         { DateList: DateTime list
           Date: DateTime
-          ListDate: DateTime
           ListTzolkinNumber: TzolkinNumber.T option
           ListTzolkinGlyph: TzolkinGlyph.T option
           Filter: DateFilter
@@ -76,22 +74,7 @@ module Definitions =
           IsDarkMode: bool
           IsLandscape: bool
           ShowSystemAppInfo: bool
-          DateViewScrollDir: float }
-
-    //let modelTzolkinDate model =
-    //    match model.ListTzolkinNumber, model.ListTzolkinGlyph with
-    //    | None, Some tz ->
-    //        { TzolkinDate.Number = TzolkinNumber.T.TzolkinNumber 1
-    //          TzolkinDate.Glyph = tz }
-    //    | Some tz, None ->
-    //        { TzolkinDate.Number = tz
-    //          TzolkinDate.Glyph = TzolkinGlyph.T.TzolkinGlyph 1 }
-    //    | Some tzn, Some tzg ->
-    //        { TzolkinDate.Number = tzn
-    //          TzolkinDate.Glyph = tzg }
-    //    | _, _ ->
-    //        { TzolkinDate.Number = TzolkinNumber.T.TzolkinNumber 1
-    //          TzolkinDate.Glyph = TzolkinGlyph.T.TzolkinGlyph 1 }
+          LastFilterListIdx: int }
 
     let modelNumToInt model =
         match model.ListTzolkinNumber with
@@ -137,9 +120,9 @@ module Definitions =
         | SetOrientation of float * float
         | ShowSystemAppInfo of bool
         | CarouselChanged of PositionChangedEventArgs
-        | FilterCarouselChanged of PositionChangedEventArgs
         | OpenURL of string
         | FilterCarouselHeight
+        | FilterCarouselScrolled of ItemsViewScrolledEventArgs
 
 
     // Widget references ===========================================================================
@@ -160,11 +143,14 @@ module Definitions =
         Cmd.ofSub (fun dispatch ->
                    match dateListView.TryValue with
                    | None -> ()
-                   | Some reference -> reference.SizeChanged.Add (fun args ->
-                                                                      dispatch FilterCarouselHeight)
+                   | Some reference ->
+                            reference.SizeChanged.Add (fun args -> dispatch FilterCarouselHeight)
+                            reference.Scrolled.Add (fun args -> dispatch <| FilterCarouselScrolled args)
                    )
 
     // Widget related ==============================================================================
+
+    let filterViewStartingIdx = 50
 
     let tzolkinImageHeight = 67.0
 
@@ -229,7 +215,6 @@ module Definitions =
     let initModel =
         { DateList = []
           Date = System.DateTime.Today
-          ListDate = System.DateTime.Today
           ListTzolkinNumber = Some (TzolkinNumber.T.TzolkinNumber 8)
           ListTzolkinGlyph = Some (TzolkinGlyph.T.TzolkinGlyph 5)
           Filter = { Day = 0; Month = 0; Year = "" }
@@ -241,7 +226,7 @@ module Definitions =
                   false
           IsLandscape = false
           ShowSystemAppInfo = false
-          DateViewScrollDir = 1. }
+          LastFilterListIdx = 50 }
 
     /// Initialize the model and commands.
     let init () = initModel, Cmd.none
@@ -259,84 +244,171 @@ module Definitions =
 
     // Update ======================================================================================
 
+    /// Message `SetCurrentPage`.
+    let setCurrPage model page =
+        let tzolkin = TzolkinDate.fromDate model.Date
+        { model with CurrentPage = page
+                     ListTzolkinGlyph = Some tzolkin.Glyph
+                     ListTzolkinNumber = Some tzolkin.Number
+                     DateList = dateListTzolkin 50 tzolkin model.Date },
+        cmdDateListViewHeight
+
+    /// Message `SetListNumber`.
+    let setListNum model newNum =
+        match newNum, model.ListTzolkinGlyph with
+        | 0, None ->
+            { model with
+                ListTzolkinNumber = None
+                DateList = [ for i in [-50 .. 50] ->
+                                model.Date + TimeSpan.FromDays (float i)] },
+             Cmd.none
+
+        | _, None ->
+            { model with
+                    ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum
+                    DateList = numListTzolkin
+                                    50
+                                    (TzolkinNumber.T.TzolkinNumber newNum)
+                                    model.Date },
+            Cmd.none
+
+        | 0, Some glyph ->
+            { model with
+                    ListTzolkinNumber = None
+                    DateList = glyphListTzolkin 50 glyph model.Date },
+            Cmd.none
+
+        | _, Some glyph ->
+            { model with
+                ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum
+                DateList = dateListTzolkin
+                                50
+                                (TzolkinDate.create (TzolkinNumber.T.TzolkinNumber newNum) glyph)
+                                model.Date },
+            Cmd.none
+
+    /// Message `SetListGlyph`.
+    let setListGly model newGlyph =
+        match newGlyph, model.ListTzolkinNumber with
+        | 0, None ->
+            { model with
+                ListTzolkinGlyph = None
+                DateList = [ for i in [-50 .. 50] -> model.Date + TimeSpan.FromDays (float i)] },
+            Cmd.none
+
+        | _, None ->
+             { model with
+                 ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph
+                 DateList = glyphListTzolkin
+                                 50
+                                 (TzolkinGlyph.T.TzolkinGlyph newGlyph)
+                                 model.Date },
+             Cmd.none
+
+        | 0, Some number ->
+             { model with
+                 ListTzolkinGlyph = None
+                 DateList = numListTzolkin 50 number model.Date },
+             Cmd.none
+
+        | _, Some number ->
+             { model with
+                 ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph
+                 DateList = dateListTzolkin
+                                 50
+                                 (TzolkinDate.create number (TzolkinGlyph.T.TzolkinGlyph newGlyph))
+                                 model.Date },
+             Cmd.none
+
+    /// Message `CarouselChanged`.
+    let carChanged model (args: PositionChangedEventArgs) =
+        let direction = args.CurrentPosition - args.PreviousPosition
+
+        match args.PreviousPosition, args.CurrentPosition with
+        | 0, 2 ->
+            { model with
+                    Date = model.Date + System.TimeSpan.FromDays -1. },
+            Cmd.none
+        | 2, 0 ->
+            { model with
+                    Date = model.Date + System.TimeSpan.FromDays 1. },
+            Cmd.none
+        | _, _ ->
+            { model with
+                    Date = model.Date + System.TimeSpan.FromDays (float direction) },
+            Cmd.none
+
+    /// Message `FilterCarouselChanged`.
+    //let filterCarChanged model (args: PositionChangedEventArgs) =
+    //    let dir = if args.CurrentPosition - args.PreviousPosition > 0 then 1 else -1
+    //    let oldListDate = model.ListDate
+    //    let newDate = oldListDate + TimeSpan.FromDays (260. * model.DateViewScrollDir * 20.)
+    //    //Trace.TraceInformation (sprintf "XXXX  NEED MORE!!! XX %s new: %s"
+    //    //                            (oldListDate.ToLongDateString ())
+    //    //                            (newDate.ToString ())
+    //    //                       )
+    //    match model.ListTzolkinGlyph, model.ListTzolkinNumber with
+    //    | None, None ->
+    //        { model with
+    //                ListDate = oldListDate + TimeSpan.FromDays (float dir)
+    //                DateList = [ for i in [-50 .. 50] ->
+    //                                oldListDate + TimeSpan.FromDays (float (dir + i) )] },
+    //        Cmd.none
+
+    //    | Some glyph, None ->
+    //         { model with
+    //             ListDate = oldListDate + TimeSpan.FromDays (20. * (float dir))
+    //             DateList = glyphListTzolkin
+    //                             50
+    //                             glyph
+    //                             (oldListDate + TimeSpan.FromDays (20. * (float dir) ) ) },
+    //         Cmd.none
+
+    //    | None, Some number ->
+    //         { model with
+    //             ListDate = oldListDate + TimeSpan.FromDays (13. * (float dir))
+    //             DateList = numListTzolkin
+    //                            50
+    //                            number
+    //                            (oldListDate + TimeSpan.FromDays (13. * (float dir) ) ) },
+    //         Cmd.none
+
+
+    //    | Some glyph, Some number ->
+    //         { model with
+    //             ListDate = oldListDate + TimeSpan.FromDays (260. * (float dir) * 10.)
+    //             DateList = dateListTzolkin
+    //                             100
+    //                             (TzolkinDate.create number glyph)
+    //                             (oldListDate + TimeSpan.FromDays (260. * (float dir) * 10. ) ) },
+    //         Cmd.none
+
+    /// Message `FilterCarouselHeight`.
+    let heightCarouselChanged model =
+        match dateListView.TryValue with
+        | None -> model, Cmd.none
+        | Some carousel ->
+                Trace.TraceInformation (sprintf "height + scrollto: %f" (carousel.Height) )
+                carousel.PeekAreaInsets <- Thickness (carousel.Height /
+                                            (setDateCarouselFactors model.IsLandscape))
+                carousel.ScrollTo (
+                                index = filterViewStartingIdx,
+                                position = ScrollToPosition.Center,
+                                animate = false
+                                )
+                model, Cmd.none
+
     /// The update function of MVU.
     let update msg model =
         match msg with
 
-        | SetCurrentPage page ->
-            let tzolkin = TzolkinDate.fromDate model.Date
-            { model with CurrentPage = page
-                         ListDate = model.Date
-                         ListTzolkinGlyph = Some tzolkin.Glyph
-                         ListTzolkinNumber = Some tzolkin.Number
-                         DateList = dateListTzolkin 50 tzolkin model.Date },
-            cmdDateListViewHeight
+        | SetCurrentPage page -> setCurrPage model page
 
-        | SetDate date -> { model with
-                                    Date = date
-                                    ListDate = date }, Cmd.none
+        | SetDate date -> { model with Date = date }, Cmd.none
 
-        | SetListNumber newNum ->
-            match newNum, model.ListTzolkinGlyph with
-            | 0, None -> { model with ListTzolkinNumber = None
-                                      DateList = [ for i in [-50 .. 50] ->
-                                                    model.Date + TimeSpan.FromDays (float i)] },
-                         Cmd.none
+        | SetListNumber newNum -> setListNum model newNum
 
-            | _, None ->
-                { model with
-                      ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum
-                      DateList = numListTzolkin
-                                      50
-                                      (TzolkinNumber.T.TzolkinNumber newNum)
-                                      model.Date },
-                Cmd.none
-
-            | 0, Some glyph ->
-                { model with
-                      ListTzolkinNumber = None
-                      DateList = glyphListTzolkin 50 glyph model.Date },
-                Cmd.none
-
-            | _, Some glyph ->
-                { model with
-                    ListTzolkinNumber = Some <| TzolkinNumber.T.TzolkinNumber newNum
-                    DateList = dateListTzolkin
-                                    50
-                                    (TzolkinDate.create (TzolkinNumber.T.TzolkinNumber newNum) glyph)
-                                    model.Date },
-                Cmd.none
-
-        | SetListGlyph newGlyph ->
-           match newGlyph, model.ListTzolkinNumber with
-           | 0, None -> { model with ListTzolkinGlyph = None
-                                     DateList = [ for i in [-50 .. 50] ->
-                                                        model.Date + TimeSpan.FromDays (float i)] },
-                        Cmd.none
-
-           | _, None ->
-                { model with
-                    ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph
-                    DateList = glyphListTzolkin
-                                    50
-                                    (TzolkinGlyph.T.TzolkinGlyph newGlyph)
-                                    model.Date },
-                Cmd.none
-
-           | 0, Some number ->
-                { model with
-                    ListTzolkinGlyph = None
-                    DateList = numListTzolkin 50 number model.Date },
-                Cmd.none
-
-           | _, Some number ->
-                { model with
-                    ListTzolkinGlyph = Some <| TzolkinGlyph.T.TzolkinGlyph newGlyph
-                    DateList = dateListTzolkin
-                                    50
-                                    (TzolkinDate.create number (TzolkinGlyph.T.TzolkinGlyph newGlyph))
-                                    model.Date },
-                Cmd.none
+        | SetListGlyph newGlyph -> setListGly model newGlyph
 
         | SetFilterDay newday ->
             { model with
@@ -362,9 +434,8 @@ module Definitions =
 
         | SetAppTheme (theme: OSAppTheme) ->
             match theme with
-            | OSAppTheme.Dark -> { model with IsDarkMode = true }
-            | _ -> { model with IsDarkMode = false }
-            , Cmd.none
+            | OSAppTheme.Dark -> { model with IsDarkMode = true }, Cmd.none
+            | _ -> { model with IsDarkMode = false }, Cmd.none
 
         | SetOrientation (x, y) ->
             match x, y with
@@ -376,84 +447,16 @@ module Definitions =
             | true -> { model with ShowSystemAppInfo = true }, Cmd.none
             | false -> { model with ShowSystemAppInfo = false }, Cmd.none
 
-        | CarouselChanged args ->
-            let direction = args.CurrentPosition - args.PreviousPosition
-
-            match args.PreviousPosition, args.CurrentPosition with
-            | 0, 2 ->
-                { model with
-                      ListDate = model.Date + System.TimeSpan.FromDays -1.
-                      Date = model.Date + System.TimeSpan.FromDays -1. },
-                Cmd.none
-            | 2, 0 ->
-                { model with
-                      ListDate = model.Date + System.TimeSpan.FromDays 1.
-                      Date = model.Date + System.TimeSpan.FromDays 1. },
-                Cmd.none
-            | _, _ ->
-                { model with
-                      ListDate = model.Date + System.TimeSpan.FromDays(float direction)
-                      Date = model.Date + System.TimeSpan.FromDays (float direction) },
-                Cmd.none
+        | CarouselChanged args -> carChanged model args
 
         | OpenURL url -> model, cmdOpenUrl url
 
-        //| HasScrolled arg ->
-        //    { model with DateViewScrollDir = if arg.VerticalDelta > 0. then 1. else -1. }, Cmd.none
+        | FilterCarouselHeight -> heightCarouselChanged model
 
-        | FilterCarouselChanged args ->
-            let dir = if args.CurrentPosition - args.PreviousPosition > 0 then 1 else -1
-            let oldListDate = model.ListDate
-            let newDate = oldListDate + TimeSpan.FromDays (260. * model.DateViewScrollDir * 20.)
-            //Trace.TraceInformation (sprintf "XXXX  NEED MORE!!! XX %s new: %s"
-            //                            (oldListDate.ToLongDateString ())
-            //                            (newDate.ToString ())
-            //                       )
-            match model.ListTzolkinGlyph, model.ListTzolkinNumber with
-            | None, None ->
-                { model with
-                        ListDate = oldListDate + TimeSpan.FromDays (float dir)
-                        DateList = [ for i in [-50 .. 50] ->
-                                        oldListDate + TimeSpan.FromDays (float (dir + i) )] },
-                Cmd.none
+        | FilterCarouselScrolled args ->
+            Trace.TraceInformation (sprintf "Scrolled: last: %d idx = %d"
+                model.LastFilterListIdx
+                args.CenterItemIndex)
+            { model with LastFilterListIdx = args.CenterItemIndex }, Cmd.none
 
-            | Some glyph, None ->
-                 { model with
-                     ListDate = oldListDate + TimeSpan.FromDays (20. * (float dir))
-                     DateList = glyphListTzolkin
-                                     50
-                                     glyph
-                                     (oldListDate + TimeSpan.FromDays (20. * (float dir) ) ) },
-                 Cmd.none
-
-            | None, Some number ->
-                 { model with
-                     ListDate = oldListDate + TimeSpan.FromDays (13. * (float dir))
-                     DateList = numListTzolkin
-                                    50
-                                    number
-                                    (oldListDate + TimeSpan.FromDays (13. * (float dir) ) ) },
-                 Cmd.none
-
-
-            | Some glyph, Some number ->
-                 { model with
-                     ListDate = oldListDate + TimeSpan.FromDays (260. * (float dir))
-                     DateList = dateListTzolkin
-                                     50
-                                     (TzolkinDate.create number glyph)
-                                     (oldListDate + TimeSpan.FromDays (260. * (float dir) ) ) },
-                 Cmd.none
-
-            //model, Cmd.none
-
-        | FilterCarouselHeight ->
-            match dateListView.TryValue with
-            | None -> model, Cmd.none
-            | Some carousel ->
-                    //Trace.TraceInformation (sprintf "height + scrollto: %f" (carousel.Height) )
-                    carousel.PeekAreaInsets <- Thickness (carousel.Height /
-                                                (setDateCarouselFactors model.IsLandscape))
-                    carousel.ScrollTo (index = 50, position = ScrollToPosition.MakeVisible, animate = true)
-                    model, Cmd.none
 

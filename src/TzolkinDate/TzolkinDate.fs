@@ -356,6 +356,7 @@ module TzolkinDate =
     let getLastList numDates tzolkinDate start =
         Generics.getLastList referenceDate 260 numDates tzolkinDate start
 
+
     /// Filter the given list of Gregorian dates by the string `filterStr`.
     /// If `filterStr` is contained in the  locale short date ("dd.MM.yyyy" or
     /// "MM/dd/yyyy" or ...), this date is returned in the list.

@@ -74,5 +74,10 @@ module Generics=
 
   /// Return a list of gregorian dates with the given Tzolk’in date.
   let inline internal getLastList referenceDate numElem numDates tzolkinDate start =
-        getList getLast referenceDate numElem numDates tzolkinDate start
+        let lastList = getList getLast referenceDate numElem numDates tzolkinDate start
+        if tzolkinDate = fromDate referenceDate start then
+            start :: lastList
+        else
+            lastList
+
 

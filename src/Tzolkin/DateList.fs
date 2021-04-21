@@ -224,10 +224,8 @@ module DateList =
                                                 itemSpacing = 0.0,
                                                 snapPointsType = SnapPointsType.Mandatory
                                           ),
-                            //peekAreaInsets = Thickness (carouselHeight model /
-                            //                    (setDateCarouselFactors model.IsLandscape)),
                             items = fillListViewFilter model
-                            //positionChanged = (fun args -> dispatch <| FilterCarouselChanged args),
+                            //positionChanged = (fun args -> dispatch <| FilterCarouselChanged args)
                             // position = 20
                       )
                      ]
