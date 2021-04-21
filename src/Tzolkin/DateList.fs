@@ -158,8 +158,6 @@ module DateList =
     let fillListViewFilter (model: Model) =
         fullFilterList model model.DateList
 
-
-
     /// Select a Tzolk’in date.
     let tzolkinSelector model dispatch =
         [ View.Frame (
@@ -225,8 +223,6 @@ module DateList =
                                                 snapPointsType = SnapPointsType.Mandatory
                                           ),
                             items = fillListViewFilter model
-                            //positionChanged = (fun args -> dispatch <| FilterCarouselChanged args)
-                            // position = 20
                       )
                      ]
             )
