@@ -11,18 +11,16 @@ namespace Tzolkin.Android
 
 open System
 open Android.App
-open Android.Content
 open Android.Content.PM
 open Android.Runtime
-open Android.Views
-open Android.Widget
 open Android.OS
 open Xamarin.Forms.Platform.Android
 
 open TzolkinApp
 
 [<Activity(Label = "Tzolkin",
-           Icon = "@drawable/icon",
+           Icon = "@mipmap/icon",
+           RoundIcon = "@mipmap/icon_round",
            Theme = "@style/MainTheme",
            MainLauncher = true,
            ScreenOrientation = ScreenOrientation.User,
