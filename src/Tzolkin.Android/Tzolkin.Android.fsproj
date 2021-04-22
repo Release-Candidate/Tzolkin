@@ -24,9 +24,9 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <SelectedDevice>Nexus_4_API_24</SelectedDevice>
-    <ActiveDebugProfile>Nexus_4_API_24</ActiveDebugProfile>
-    <DefaultDevice>Nexus_4_API_24</DefaultDevice>
+    <SelectedDevice>Pixel_3a_API_30_x86</SelectedDevice>
+    <ActiveDebugProfile>Pixel_3a_API_30_x86</ActiveDebugProfile>
+    <DefaultDevice>Pixel_3a_API_30_x86</DefaultDevice>
     <ReferencePath>
     </ReferencePath>
   </PropertyGroup>
