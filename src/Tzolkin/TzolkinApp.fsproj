@@ -50,6 +50,7 @@
     <Compile Include="AssemblyInfo.fs" />
     <EmbeddedResource Include="Tzolkin.ttf" />
     <Compile Include="Definitions.fs" />
+    <Compile Include="Update.fs" />
     <Compile Include="Style.fs" />
     <Compile Include="TzolkinView.fs" />
     <Compile Include="DateList.fs" />
@@ -74,6 +75,4 @@
   <ItemGroup>
     <ProjectReference Include="..\TzolkinDate\TzolkinDate.fsproj" />
   </ItemGroup>
-
-  <ItemGroup />
 </Project>

@@ -14,7 +14,7 @@ open System
 /// Module holding generic functions to use with all 3 Tzolk’in types.
 module Generics=
 
-  /// Special 'modulo', always returns positive number and `m`, if
+  /// Special 'modulo', always returns a positive number and `m`, if
   /// `n = 0 (mod m)`.
   let internal modulo m n =
       match n with
@@ -42,7 +42,7 @@ module Generics=
         =
         let startTzolkin = fromDate referenceDate start
         let dayDiff = if tzolkinDate - startTzolkin = 0 then numElem else tzolkinDate - startTzolkin
-        start + System.TimeSpan.FromDays (float dayDiff)
+        start + TimeSpan.FromDays (float dayDiff)
 
   /// Add a gregorian date of a Tzolk’in day to the given list, to a length of `length`.
   let rec private addDate getTzolkin length num start list =
@@ -56,10 +56,10 @@ module Generics=
   /// day of `tzolkinDate`.
   let inline internal getLast referenceDate (numElem: int) tzolkinDate start =
       let last =
-        System.TimeSpan.FromDays (float -numElem)
+        TimeSpan.FromDays (float -numElem)
         |> (+) (getNext referenceDate numElem tzolkinDate start)
 
-      if last = start then last + System.TimeSpan.FromDays (float -numElem) else last
+      if last = start then last + TimeSpan.FromDays (float -numElem) else last
 
   /// Helper function.
   let inline private getList getFunc referenceDate numElem numDates tzolkinDate start =
@@ -79,5 +79,3 @@ module Generics=
             start :: lastList
         else
             lastList
-
-

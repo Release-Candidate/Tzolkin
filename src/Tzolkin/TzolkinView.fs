@@ -12,31 +12,48 @@ namespace TzolkinApp
 open Fabulous.XamarinForms
 open Xamarin.Forms
 open System
-open Fabulous.XamarinForms.SkiaSharp
-open Svg.Skia
 
 open RC.Maya
 
-/// All expressions for the upper part of the main page, the date selector and viewer of the
+/// All expressions for the first page, the date selector and viewer of the
 /// Tzolk’in date of the selected day.
 [<AutoOpen>]
 module TzolkinView =
 
-    /// Helper.
+    /// <summary>
+    /// Return the `Span` containing the format for a Tzolk’in day glyph
+    /// description's title.
+    /// </summary>
+    /// <param name="text">The title of the description.</param>
+    /// <returns>A `Span` containing the format for the title of a Tzolk’in day
+    /// glyph description.</returns>
     let formatGlyphTitle text =
         View.Span (text = sprintf "%s:\n" text,
                     fontAttributes = glyphDescFontAttrTitle,
                     textColor = glyphDescTextColorTitle,
                     fontSize = glyphDescFontSizeTitle)
 
-    /// Helper.
+    /// <summary>
+    /// Return the `Span` containing the format for a Tzolk’in day glyph
+    /// description.
+    /// </summary>
+    /// <param name="text">The description of the Tzolk’in day glyph.</param>
+    /// <returns>A `Span` holding the format of a Tzolk’in day glyph
+    /// description.</returns>
     let formatGlyphValue text =
         View.Span (text = sprintf "\t\t\t%s\n" text,
                     fontAttributes = glyphDescFontAttrValue,
                     fontSize = glyphDescFontSizeValue,
                     textColor = glyphDescTextColorValue)
 
-    /// Formats the Glyph description label.
+    /// <summary>
+    /// Format the Tzolk’in day glyph description, to use with a label.
+    /// </summary>
+    /// <param name="glyphDescription">The record holding the Tzolk’in day
+    /// glyph description.</param>
+    /// <param name="dispatch">The message dispatch function</param>
+    /// <returns>A `FormattedString` to use to format a Tzolk’in day glyph
+    /// description on a label.</returns>
     let formatGlypDescription (glyphDescription:TzolkinGlyph.GlyphDescription) dispatch =
         View.FormattedString (
             [   formatGlyphTitle "Significado"
@@ -72,8 +89,15 @@ module TzolkinView =
             ]
         )
 
-    /// UI to show a Tzolk’in date, the Tzolk’in day number and day glyph, as images with the
-    /// text below.
+    /// <summary>
+    /// UI to show a Tzolk’in date, the Tzolk’in day number and day glyph, as
+    /// images with the text below.
+    /// </summary>
+    /// <param name="dispatch">The message dispatch function</param>
+    /// <param name="tzolkinDate">The Tzolk’in date to display.</param>
+    /// <param name="isDark">Is the dark mode enabled?</param>
+    /// <returns>A `Grid` holding the Tzolk’in day number and glyph as images
+    /// and text below.</returns>
     let tzolkinDateView dispatch (tzolkinDate: TzolkinDate.T) isDark =
         View.Grid (
             columnSpacing = 5.,
@@ -128,7 +152,15 @@ module TzolkinView =
                       .Column (1) ]
         )
 
-    /// Select the Gregorian date and display the Tzolk’in date.
+    /// <summary>
+    /// Show the Tzolk’in date on the left and a date picker to select the date
+    /// to display on the right.
+    /// </summary>
+    /// <param name="model">The MVU model.</param>
+    /// <param name="dispatch">The message dispatch function</param>
+    /// <param name="date">The gregorian date to display as a Tzolk’in date.</param>
+    /// <returns>A list of `Frame` to show the Tzolk’in date of the date
+    /// selected in the second Frame.</returns>
     let dateSelector model dispatch date =
         [ View.Frame (
             backgroundColor = backgroundBrownLight,
@@ -159,8 +191,14 @@ module TzolkinView =
                   )
           ) ]
 
-
-    /// The day glyph description.
+    /// <summary>
+    /// Return a label containing the Tzolk’in day glyph description.
+    /// </summary>
+    /// <param name="model">The MVU model.</param>
+    /// <param name="dispatch">The message dispatch function</param>
+    /// <param name="date">The gregorian date to display the Tzolk’in day glyph
+    /// of.</param>
+    /// <returns>A `Label` holding the Tzolk’in day glyph description.</returns>
     let glyphDescription model dispatch date =
         let { TzolkinDate.Glyph = glyph } = TzolkinDate.fromDate date
         let glyphDesc = TzolkinGlyph.getDescription glyph
@@ -170,8 +208,18 @@ module TzolkinView =
                     horizontalOptions = LayoutOptions.Center)
 
 
+    /// <summary>
+    /// Display a `Frame` containing the Tzolk’in date, the gregorian date and
+    /// the Tzolk’in day glyph description of the gregorian date selected with
+    /// the date picker.
+    /// </summary>
+    /// <param name="model">The MVU model.</param>
+    /// <param name="dispatch">The message dispatch function</param>
+    /// <param name="date">The gregorian date to display as Tzolk’in date.</param>
+    /// <returns>A `StackLayout` holding the Tzolk’in date, the gregorian date and
+    /// the Tzolk’in day glyph description of the gregorian date selected with
+    /// the date picker.</returns>
     let tzolkinCard model dispatch date =
-
         View.StackLayout (
             horizontalOptions = LayoutOptions.Center,
             padding = Thickness 5.,
@@ -205,6 +253,13 @@ module TzolkinView =
         )
 
 
+    /// <summary>
+    /// Display the date view page, the Tzolk’in day information in a carousel
+    /// view of consecutive days.
+    /// </summary>
+    /// <param name="model">The MVU model.</param>
+    /// <param name="dispatch">The message dispatch function</param>
+    /// <returns>A list containing the date view page.</returns>
     let tzolkinPage model dispatch =
         [ View.CarouselView (
             peekAreaInsets = Thickness 20.,

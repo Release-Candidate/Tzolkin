@@ -18,9 +18,13 @@ open Xamarin.Essentials
 [<AutoOpen>]
 module View =
 
-    /// The first tab of the app.
+    /// <summary>
+    /// The first page of the app. The date view, in the module `TzolkinView`.
+    /// </summary>
+    /// <param name="model">The MVU model.</param>
+    /// <param name="dispatch">The message dispatch function.</param>
+    /// <returns>The page instance of the first page.</returns>
     let homePage model dispatch =
-
         View
             .ContentPage(title = "Calendario",
                          backgroundColor = Style.backgroundColor model.IsDarkMode,
@@ -35,10 +39,15 @@ module View =
             .HasNavigationBar(true)
             .HasBackButton (false)
 
-    /// The second tab of the app.
+    /// <summary>
+    /// The second tab of the app. The filter view, in the module `DateList`.
+    /// </summary>
+    /// <param name="model">The MVU model.</param>
+    /// <param name="dispatch">The message dispatch function.</param>
+    /// <returns>The page instance of the second page.</returns>
     let calendarFilter model dispatch =
         View
-            .ContentPage(title = "calendarFilter",
+            .ContentPage(title = "Filtrar",
                          backgroundColor = backgroundBrownDark,
                          content = View.StackLayout (
                              padding = Thickness 5.0,
@@ -49,9 +58,13 @@ module View =
             .HasNavigationBar(true)
             .HasBackButton (true)
 
+    /// <summary>
     /// The view of MVU.
+    /// </summary>
+    /// <param name="model">The MVU model.</param>
+    /// <param name="dispatch">The message dispatch function.</param>
+    /// <returns>The app's main navigation page instance.</returns>
     let view model dispatch =
-
         match model.ShowSystemAppInfo with
         | true -> AppInfo.ShowSettingsUI ()
         | false -> ()

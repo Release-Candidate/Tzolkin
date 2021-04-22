@@ -11,7 +11,7 @@ namespace TzolkinApp
 
 open Fabulous.XamarinForms
 open Xamarin.Forms
-open RC.Maya
+
 
 /// Module holding colors, font sizes and other style related constants and functions.
 [<AutoOpen>]
@@ -53,20 +53,36 @@ module Style =
         | true -> backgroundDark
         | false -> backgroundLight
 
+
+    /// <summary>
+    /// Return `StackOrientation` depending on the device's orientation.
+    /// </summary>
+    /// <param name="isL">Is landscape orientation?</param>
+    /// <returns>`Horizontal if landscape, vertical else.</returns>
     let setHorizontalIfLandscape isL =
         if isL then
             StackOrientation.Horizontal
         else
             StackOrientation.Vertical
 
+    /// <summary>
+    /// Return `StackOrientation` depending on the device's orientation.
+    /// </summary>
+    /// <param name="isL">Is landscape orientation?</param>
+    /// <returns>`Vertical if landscape, horizontal else.</returns>
     let setVerticalIfLandscape isL =
         if isL then
             StackOrientation.Vertical
         else
             StackOrientation.Horizontal
 
-
-
+    /// <summary>
+    /// Return a scale factor for the `PeekAreaInsets` if the height of the
+    /// carousel view is unknown and we have to use the device height instead.
+    /// </summary>
+    /// <param name="isL">Is landscape orientation?</param>
+    /// <returns>Scale factor for the `PeekAreaInsets` when using the device
+    /// height instead of the carousel view's height.</returns>
     let setDateHeightCarouselFactors isL =
            if isL then 2.35 * 0.275 else 2.15 * 0.347
 
@@ -98,7 +114,12 @@ module Style =
 
     let dateListFontAttr = FontAttributes.None
 
+    /// <summary>
     /// Separator line.
+    /// </summary>
+    /// <param name="isL">Is landscape orientation?</param>
+    /// <param name="isDark">Is dark mode enabled?</param>
+    /// <returns>A `BoxView` instance to use as a horizontal or vertical separator.</returns>
     let separator isL isDark =
         match isL with
         | false ->
