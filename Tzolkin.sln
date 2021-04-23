@@ -47,16 +47,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C0448E6D-F
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{EA6A6722-8FF9-44D0-8A40-DCC5EC60F557}"
-	ProjectSection(SolutionItems) = preProject
-		.github\workflows\create_packages.yml = .github\workflows\create_packages.yml
-		.github\workflows\fsharplint.yml = .github\workflows\fsharplint.yml
-		.github\workflows\linux.yml = .github\workflows\linux.yml
-		.github\workflows\linux_test.yml = .github\workflows\linux_test.yml
-		.github\workflows\osx.yml = .github\workflows\osx.yml
-		.github\workflows\osx_test.yml = .github\workflows\osx_test.yml
-		.github\workflows\windows.yml = .github\workflows\windows.yml
-		.github\workflows\windows_test.yml = .github\workflows\windows_test.yml
-	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{16744CD7-95E7-44F7-9615-E1BFBED09227}"
 	ProjectSection(SolutionItems) = preProject
