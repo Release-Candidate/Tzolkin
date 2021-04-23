@@ -17,6 +17,7 @@ nav:
       - "Issue Tracker at GitHub": "https://github.com/Release-Candidate/Tzolkin/issues"
   - "Installation & Usage":
       - "Installation & Usage": usage.md
+      - "NuGet Package": nuget_package.md
       - License: license.md
   - Contributing:
       - Contributing: contributing.md
