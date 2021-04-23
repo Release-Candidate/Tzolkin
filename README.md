@@ -5,7 +5,7 @@ If you want to know more about the Maya calendar systems, see [Links](#links).
 
 Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.io/en/latest/)
 
-[![MIT license badge](https://img.shields.io/github/license/Release-Candidate/Tzolkin)](https://github.com/Release-Candidate/Tzolkin/blob/main/LICENSE)
+[![MIT license badge](https://img.shields.io/badge/license-MIT-brightgreen?style=flat)](https://img.shields.io/badge/license-MIT-green?style=flat)
 [![F# 5.0 badge](https://img.shields.io/badge/F%23-5.0-brightgreen?style=flat)](https://fsharp.org/)
 [![.Net 5.0 badge](https://img.shields.io/badge/.Net-5.0-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
 [![OS badge](https://img.shields.io/badge/Runs%20on-Linux%7COS%20X%7CWindows-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
@@ -24,11 +24,7 @@ Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.i
     - [Usage](#usage)
   - [Contributing](#contributing)
   - [License](#license)
-  - [Badges](#badges)
-    - [GitHub Workflows/Actions](#github-workflowsactions)
-      - [Static Code Checkers](#static-code-checkers)
-      - [Tests on various OSes](#tests-on-various-oses)
-    - [External Websites](#external-websites)
+  - [Privacy Policy](#privacy-policy)
 
 ## Links
 
@@ -66,23 +62,6 @@ See page [Contributing](https://tzolkin.readthedocs.io/en/latest/contributing/) 
 
 All content except some images of Tzolkin is licensed under the MIT license, see file [LICENSE](https://github.com/Release-Candidate/Tzolkin/blob/main/LICENSE).
 
-## Badges
+## Privacy Policy
 
-### GitHub Workflows/Actions
-
-#### Static Code Checkers
-
-[![FsharpLint Linter](https://github.com/Release-Candidate/Tzolkin/actions/workflows/fsharplint.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/fsharplint.yml)
-
-#### Tests on various OSes
-
-[![Tests Mac OS X latest](https://github.com/Release-Candidate/Tzolkin/actions/workflows/osx_test.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/osx_test.yml)
-[![Tests Ubuntu 20.04](https://github.com/Release-Candidate/Tzolkin/actions/workflows/linux_test.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/linux_test.yml)
-[![Tests Windows 2019](https://github.com/Release-Candidate/Tzolkin/actions/workflows/windows_test.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/windows_test.yml)
-[![Mac OS X latest](https://github.com/Release-Candidate/Tzolkin/actions/workflows/osx.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/osx.yml)
-[![Ubuntu 20.04](https://github.com/Release-Candidate/Tzolkin/actions/workflows/linux.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/linux.yml)
-[![Windows 2019](https://github.com/Release-Candidate/Tzolkin/actions/workflows/windows.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/windows.yml)
-
-### External Websites
-
-[![codecov](https://codecov.io/gh/Release-Candidate/Tzolkin/branch/main/graph/badge.svg)](https://codecov.io/gh/Release-Candidate/Tzolkin)
+Tzolkin does not collect or share any personal information, it does not contain any ads, trackers or in-app-payments. See: [Privacy Policy](https://github.com/Release-Candidate/Tzolkin/blob/main/privacy_policy.md)
