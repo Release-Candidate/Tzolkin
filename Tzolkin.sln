@@ -37,6 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		run_sharplint.bat = run_sharplint.bat
 		run_sharplint.sh = run_sharplint.sh
+		Tzolkin.ipynb = Tzolkin.ipynb
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C0448E6D-F374-45E9-A37C-2C596643F99D}"
