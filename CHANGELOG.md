@@ -1,5 +1,5 @@
 # Tzolkin Changelog
 
-## Version 0.9.0 (2021-04-01)
+## Version 0.9.16 (2021-04-23)
 
-Release Candidate for the initial release of Tzolkin.
+Initial release of the NuGet package Tzolkin.
