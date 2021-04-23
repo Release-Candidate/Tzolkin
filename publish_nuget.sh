@@ -7,6 +7,6 @@
 #
 ################################################################################
 
-# install dotnet tool install -g dotnet-fsharplint
+# The Nuget token must be saved using `nuget setapikey` to not need to input it.
 
-dotnet fsharplint lint Tzolkin.sln
+dotnet nuget push .\src\TzolkinDate\bin\Release\Tzolkin.*.nupkg --source https://api.nuget.org/v3/index.json

@@ -23,10 +23,19 @@
         <PackageId>Tzolkin</PackageId>
         <PackageLicenseFile></PackageLicenseFile>
         <PackageProjectUrl>https://github.com/Release-Candidate/Tzolkin</PackageProjectUrl>
-        <RepositoryType>Git</RepositoryType>
-        <NeutralLanguage>en</NeutralLanguage>
+        <RepositoryType>git</RepositoryType>
+        <NeutralLanguage>es</NeutralLanguage>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Release-Candidate/Tzolkin</RepositoryUrl>
+        <Version>0.9.16</Version>
+        <Authors>Roland Csaszar</Authors>
+        <Company>Release-Candidate</Company>
+        <Product>Tzolkin</Product>
+        <Copyright>(c) 2021 Roland Csaszar</Copyright>
+        <PackageIcon>nuget_icon.png</PackageIcon>
+        <PackageTags>Maya Tzolkin calendar calculator converter</PackageTags>
+        <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
+        <Description>A library to convert and calculate with MayaTzolk’in dates and gregorian dates.</Description>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Generics.fs" />
@@ -36,5 +45,11 @@
     </ItemGroup>
     <ItemGroup>
         <PackageReference Update="FSharp.Core" Version="5.0.1" />
+    </ItemGroup>
+    <ItemGroup>
+      <None Include="..\..\nuget_icon.png">
+        <Pack>True</Pack>
+        <PackagePath></PackagePath>
+      </None>
     </ItemGroup>
 </Project>

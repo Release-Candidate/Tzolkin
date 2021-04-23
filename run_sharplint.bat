@@ -8,4 +8,4 @@
 
 :: install dotnet tool install -g dotnet-fsharplint
 
-dotnet fsharplint lint FSHARP_Tzolkin.sln
+dotnet fsharplint lint Tzolkin.sln

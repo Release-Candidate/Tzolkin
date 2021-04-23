@@ -31,3 +31,5 @@ paket-files/
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints/
+/src/TzolkinDate/Properties/PublishProfiles
+/src/TzolkinDate/TzolkinDate.fsproj.user
