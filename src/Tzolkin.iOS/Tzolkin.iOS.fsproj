@@ -121,8 +121,8 @@
     <Compile Include="AppDelegate.fs" />
     <None Include="Entitlements.plist" />
     <None Include="Info.plist" />
-    <None Include="packages.config" />
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
+    <Content Include="packages.config" />
     <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json">
       <Visible>false</Visible>
     </ImageAsset>
@@ -149,19 +149,15 @@
     <Reference Include="Fabulous">
       <HintPath>..\..\packages\Fabulous.1.0.1\lib\netstandard2.0\Fabulous.dll</HintPath>
     </Reference>
-    <Reference Include="Fabulous" />
     <Reference Include="Fabulous.LiveUpdate">
       <HintPath>..\..\packages\Fabulous.LiveUpdate.1.0.1\lib\netstandard2.0\Fabulous.LiveUpdate.dll</HintPath>
     </Reference>
-    <Reference Include="Fabulous.LiveUpdate" />
     <Reference Include="Fabulous.XamarinForms">
       <HintPath>..\..\packages\Fabulous.XamarinForms.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.dll</HintPath>
     </Reference>
-    <Reference Include="Fabulous.XamarinForms" />
     <Reference Include="Fabulous.XamarinForms.LiveUpdate">
       <HintPath>..\..\packages\Fabulous.XamarinForms.LiveUpdate.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.LiveUpdate.dll</HintPath>
     </Reference>
-    <Reference Include="Fabulous.XamarinForms.LiveUpdate" />
     <Reference Include="Fabulous.XamarinForms.SkiaSharp">
       <HintPath>..\..\packages\Fabulous.XamarinForms.SkiaSharp.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.SkiaSharp.dll</HintPath>
     </Reference>
@@ -188,11 +184,9 @@
     <Reference Include="SkiaSharp.Views.Forms">
       <HintPath>..\..\packages\SkiaSharp.Views.Forms.2.80.2\lib\xamarinios1.0\SkiaSharp.Views.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.Views.Forms" />
     <Reference Include="SkiaSharp.Views.iOS">
       <HintPath>..\..\packages\SkiaSharp.Views.2.80.2\lib\xamarinios1.0\SkiaSharp.Views.iOS.dll</HintPath>
     </Reference>
-    <Reference Include="SkiaSharp.Views.iOS" />
     <Reference Include="Svg.Custom">
       <HintPath>..\..\packages\Svg.Custom.0.5.0\lib\netstandard2.1\Svg.Custom.dll</HintPath>
     </Reference>
@@ -236,24 +230,22 @@
       <HintPath>..\..\packages\Xamarin.Forms.5.0.0.2012\lib\Xamarin.iOS10\Xamarin.Forms.Xaml.dll</HintPath>
     </Reference>
     <Reference Include="Xamarin.iOS" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Tzolkin\TzolkinApp.fsproj">
       <Name>TzolkinApp</Name>
       <Project>{6ee96c5c-3777-4e75-a69d-298668a430e1}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>
+  <Import Project="..\..\packages\HarfBuzzSharp.2.6.1.7\build\xamarinios1.0\HarfBuzzSharp.targets" Condition="Exists('..\..\packages\HarfBuzzSharp.2.6.1.7\build\xamarinios1.0\HarfBuzzSharp.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\HarfBuzzSharp.2.6.1.7\build\xamarinios1.0\HarfBuzzSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\HarfBuzzSharp.2.6.1.7\build\xamarinios1.0\HarfBuzzSharp.targets'))" />
+    <Error Condition="!Exists('..\..\packages\SkiaSharp.2.80.2\build\xamarinios1.0\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SkiaSharp.2.80.2\build\xamarinios1.0\SkiaSharp.targets'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.props'))" />
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets'))" />
-    <Error Condition="!Exists('..\..\packages\SkiaSharp.2.80.2\build\xamarinios1.0\SkiaSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\SkiaSharp.2.80.2\build\xamarinios1.0\SkiaSharp.targets'))" />
-    <Error Condition="!Exists('..\..\packages\HarfBuzzSharp.2.6.1.7\build\xamarinios1.0\HarfBuzzSharp.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\HarfBuzzSharp.2.6.1.7\build\xamarinios1.0\HarfBuzzSharp.targets'))" />
   </Target>
-  <Import Project="..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets')" />
   <Import Project="..\..\packages\SkiaSharp.2.80.2\build\xamarinios1.0\SkiaSharp.targets" Condition="Exists('..\..\packages\SkiaSharp.2.80.2\build\xamarinios1.0\SkiaSharp.targets')" />
-  <Import Project="..\..\packages\HarfBuzzSharp.2.6.1.7\build\xamarinios1.0\HarfBuzzSharp.targets" Condition="Exists('..\..\packages\HarfBuzzSharp.2.6.1.7\build\xamarinios1.0\HarfBuzzSharp.targets')" />
+  <Import Project="..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.5.0.0.2012\build\Xamarin.Forms.targets')" />
 </Project>
