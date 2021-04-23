@@ -12,7 +12,7 @@ nav:
   - Home: index.md
   - Project Links:
       - "GitHub Project Page": "https://github.com/Release-Candidate/Tzolkin"
-      - "Nuget Package": "https://pypi.org/project/Tzolkin/"
+      - "Nuget Package": "https://www.nuget.org/packages/Tzolkin/"
       - "Report a Bug or a Feature Request": "https://github.com/Release-Candidate/Tzolkin/issues/new/choose"
       - "Issue Tracker at GitHub": "https://github.com/Release-Candidate/Tzolkin/issues"
   - "Installation & Usage":

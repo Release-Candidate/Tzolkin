@@ -22,7 +22,7 @@
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>Tzolkin</PackageId>
         <PackageLicenseFile></PackageLicenseFile>
-        <PackageProjectUrl>https://github.com/Release-Candidate/Tzolkin</PackageProjectUrl>
+        <PackageProjectUrl>https://tzolkin.readthedocs.io/en/latest/nuget_package/</PackageProjectUrl>
         <RepositoryType>git</RepositoryType>
         <NeutralLanguage>es</NeutralLanguage>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
