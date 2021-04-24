@@ -6,45 +6,96 @@
 //
 //==============================================================================
 
-module Tests.TestTzolkinNumber
+namespace TestTzolkin
+
 
 open Expecto
 open Swensen.Unquote
+open System
 
-open RC.Maya.TzolkinNumber
+open RC.Maya
+open Generic
 
-[<Tests>]
-let tests =
-    testList
-        "samples"
-        [ testCase "universe exists (╭ರᴥ•́)"
-          <| fun _ ->
-              let subject = true
-              test <@ subject = true @>
-          //Expect.isTrue subject "I compute, therefore I am."
+[<AutoOpen>]
+module TestTzolkinNumber=
 
-          testCase "when true is not (should fail)"
-          <| fun _ ->
-              let subject = false
-              subject =! true
-          //Expect.isTrue subject "I should fail because the subject is false"
+    let referenceDates = [  ("01.01.1970", 13)
+                            ("01.01.1800", 10)
+                            ("12.12.1926", 4)
+                            ("26.01.1958", 10)
+                            ("15.03.1967", 4)
+                            ("08.05.1975", 3)
+                            ("17.02.1978", 5)
+                            ("25.10.1986", 5)
+                            ("13.05.1992", 4)
+                            ("08.11.1997", 7)
+                            ("01.01.2000", 11)
+                            ("06.07.2005", 9)
+                            ("01.10.2017", 7)
+                            ("20.03.2021", 12)
+                         ]
+                         |> stringList2DateList TzolkinNumber.T.TzolkinNumber
 
-          testCase "I'm skipped (should skip)"
-          <| fun _ -> Tests.skiptest "Yup, waiting for a sunny day..."
+    [<Tests>]
+    let tests =
+        testList
+            "TzolkinNumber"
+            [   testPropertyWithConfig config "addition with int is commutative"
+                <| fun i j ->
+                    testCommutativity TzolkinNumber.create i j
 
-          testCase "I'm always fail (should fail)"
-          <| fun _ -> Tests.failtest "This was expected..."
+                testPropertyWithConfig config "addition with TimeSpan is commutative"
+                <| fun i j ->
+                    testCommutativity TzolkinNumber.create i (TimeSpan.FromDays (float j))
 
-          testCase "contains things"
-          <| fun _ -> Expect.containsAll [| 2; 3; 4 |] [| 2; 4 |] "This is the case; {2,3,4} contains {2,4}"
+                testPropertyWithConfig config "addition with int has neutral element"
+                <| fun i ->
+                    testNeutralElement TzolkinNumber.create i 0
 
-          testCase "contains things (should fail)"
-          <| fun _ -> Expect.containsAll [| 2; 3; 4 |] [| 2; 4; 1 |] "Expecting we have one (1) in there"
+                testPropertyWithConfig config "addition with TimeSpan has neutral element"
+                <| fun i ->
+                    testNeutralElement TzolkinNumber.create i (TimeSpan.FromDays 0.)
 
-          testCase "Sometimes I want to ༼ノಠل͟ಠ༽ノ ︵ ┻━┻"
-          <| fun _ -> Expect.equal "abcdëf" "abcdef" "These should equal"
+                testPropertyWithConfig config "addition is associative with int"
+                <| fun i j k ->
+                    testAssociativity TzolkinNumber.create i j k
 
-          (*test "I am (should fail)" {
-      "╰〳 ಠ 益 ಠೃ 〵╯" |> Expect.equal true false
-    }*)
-          ]
+                testPropertyWithConfig config "addition is associative with TimeSpan"
+                <| fun i j k ->
+                     testAssociativity TzolkinNumber.create
+                        i
+                        (TimeSpan.FromDays (float j))
+                        (TimeSpan.FromDays (float k))
+
+                testPropertyWithConfig config "addition is the same with TimeSpan and int"
+                <| fun i j ->
+                     testIntTimeSpanSame TzolkinNumber.create
+                        i
+                        j
+                        (TimeSpan.FromDays (float j))
+
+                testPropertyWithConfig config "subtraction is same as addition"
+                <| fun i j ->
+                    testSubtraction TzolkinNumber.create i j TzolkinNumber.modulo13
+
+                testCase "fromDate with reference date list"
+                <| fun _ ->
+                    testFromDate TzolkinNumber.fromDate referenceDates
+
+                testCase "getNextDate with a reference date list"
+                <| fun _ ->
+                    testNextDate TzolkinNumber.getNext 13 referenceDates false
+
+                testCase "getLastDate with a reference date list"
+                <| fun _ ->
+                    testNextDate TzolkinNumber.getLast 13 referenceDates true
+
+                testPropertyWithConfig configList "getNextList with a reference date list"
+                <| fun i ->
+                    testNextList TzolkinNumber.getNextList (abs i) 13 referenceDates false
+
+                testPropertyWithConfig configList "getLastList with a reference date list"
+                <| fun i ->
+                    testNextList TzolkinNumber.getLastList (abs i) 13 referenceDates true
+
+            ]

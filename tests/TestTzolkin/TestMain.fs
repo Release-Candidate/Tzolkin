@@ -6,14 +6,16 @@
 //
 //==============================================================================
 
-/// Test module containing the main entry point for the `standalone` tests, when
-/// called by `dotnet run` instead of `dotnet test`.
-module Tests.TestMain
+namespace TestTzolkin
 
 open Expecto
 
-/// Main entry point of the tests, if called by `dotnet run` instead of
-/// `dotnet test`.
-[<EntryPoint>]
-let main argv =
-    Tests.runTestsInAssembly defaultConfig argv
+/// Test module containing the main entry point for the `standalone` tests, when
+/// called by `dotnet run` instead of `dotnet test`.
+module TestMain=
+
+    /// Main entry point of the tests, if called by `dotnet run` instead of
+    /// `dotnet test`.
+    [<EntryPoint>]
+    let main argv =
+        Tests.runTestsInAssembly defaultConfig argv

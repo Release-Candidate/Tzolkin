@@ -27,15 +27,15 @@
         <NeutralLanguage>es</NeutralLanguage>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <RepositoryUrl>https://github.com/Release-Candidate/Tzolkin</RepositoryUrl>
-        <Version>0.9.16</Version>
+        <Version>0.9.17</Version>
         <Authors>Roland Csaszar</Authors>
         <Company>Release-Candidate</Company>
         <Product>Tzolkin</Product>
         <Copyright>(c) 2021 Roland Csaszar</Copyright>
         <PackageIcon>nuget_icon.png</PackageIcon>
-        <PackageTags>Maya Tzolkin calendar calculator converter</PackageTags>
+        <PackageTags>F# Maya Tzolkin calendar calculator converter</PackageTags>
         <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
-        <Description>A library to convert and calculate with MayaTzolk’in dates and gregorian dates.</Description>
+        <Description>A F# library to convert and calculate with MayaTzolk’in dates and gregorian dates.</Description>
     </PropertyGroup>
     <ItemGroup>
         <Compile Include="Generics.fs" />

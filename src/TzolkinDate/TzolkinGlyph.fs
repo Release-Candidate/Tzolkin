@@ -365,7 +365,12 @@ module TzolkinGlyph =
     type T with
         /// Subtract two `TzolkinGlyph`.
         static member ( - ) (tz1:T, tz2:T) =
-            (int tz1) - (int tz2)
+            let day1 = int tz1
+            let day2 = int tz2
+            if day1 > day2 then
+                  day1 - day2
+            else
+                  20 - day2 + day1
 
     /// Convert the given Gregorian date `gregorian` to a Tzolk’in day glyph.
     ///

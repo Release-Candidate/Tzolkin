@@ -149,14 +149,8 @@
     <Reference Include="Fabulous">
       <HintPath>..\..\packages\Fabulous.1.0.1\lib\netstandard2.0\Fabulous.dll</HintPath>
     </Reference>
-    <Reference Include="Fabulous.LiveUpdate">
-      <HintPath>..\..\packages\Fabulous.LiveUpdate.1.0.1\lib\netstandard2.0\Fabulous.LiveUpdate.dll</HintPath>
-    </Reference>
     <Reference Include="Fabulous.XamarinForms">
       <HintPath>..\..\packages\Fabulous.XamarinForms.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.dll</HintPath>
-    </Reference>
-    <Reference Include="Fabulous.XamarinForms.LiveUpdate">
-      <HintPath>..\..\packages\Fabulous.XamarinForms.LiveUpdate.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.LiveUpdate.dll</HintPath>
     </Reference>
     <Reference Include="Fabulous.XamarinForms.SkiaSharp">
       <HintPath>..\..\packages\Fabulous.XamarinForms.SkiaSharp.1.0.1\lib\netstandard2.0\Fabulous.XamarinForms.SkiaSharp.dll</HintPath>

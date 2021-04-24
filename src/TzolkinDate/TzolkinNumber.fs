@@ -126,7 +126,12 @@ module TzolkinNumber =
     type T with
           /// Subtract two `TzolkinNumber`.
           static member ( - ) (tz1:T, tz2:T) =
-              (int tz1) - (int tz2)
+              let day1 = int tz1
+              let day2 = int tz2
+              if day1 > day2 then
+                    day1 - day2
+              else
+                    13 - day2 + day1
 
     /// Convert the given Gregorian date `gregorian` to a Tzolk’in day number.
     ///

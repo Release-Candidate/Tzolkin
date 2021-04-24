@@ -295,7 +295,7 @@ module TzolkinDate =
         ///                         `tzolkinDate1` = 3 Kawak
         ///         returns 250 for `tzolkinDate2` = 8 Chuwen and
         ///                         `tzolkinDate1` = 11 Imix
-        static member (-)(tzolkinDate1, tzolkinDate2) =
+        static member ( - )(tzolkinDate1, tzolkinDate2) =
             let day2 = toInt tzolkinDate2
             let day1 = toInt tzolkinDate1
 

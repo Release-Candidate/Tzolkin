@@ -19,6 +19,7 @@
       <WarningLevel>5</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
+        <Compile Include="Generic.fs" />
         <Compile Include="TestTzolkinNumber.fs" />
         <Compile Include="TestTzolkinGlyph.fs" />
         <Compile Include="TestTzolkinDate.fs" />
