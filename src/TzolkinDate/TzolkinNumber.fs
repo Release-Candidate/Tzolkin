@@ -86,13 +86,13 @@ module TzolkinNumber =
             |> TzolkinNumber
 
         /// Add a `TimeSpan` to a `TzolkinNumber`.
-        static member (+) (tz1:T, days:TimeSpan) =
+        static member ( + ) (tz1:T, days:TimeSpan) =
             int tz1 + days.Days
             |> modulo13
             |> TzolkinNumber
 
         /// Add a `TzolkinNumber` to a `TimeSpan`.
-        static member (+) (days:TimeSpan, tz1:T) =
+        static member ( + ) (days:TimeSpan, tz1:T) =
             days.Days + int tz1
             |> modulo13
             |> TzolkinNumber
@@ -100,7 +100,7 @@ module TzolkinNumber =
         /// Convert the `TzolkinNumber` to a string.
         /// Now you can use `string` with a `TzolkinNumber`, like
         /// `string (TzolkinNumber.create 8)`
-        override this.ToString() =
+        override this.ToString () =
             int this |> string
 
     /// Reference Tzolk’in date. The 1st of January, 1970 is a Tzolk’in date of
@@ -201,6 +201,27 @@ module TzolkinNumber =
     ///          `tzolkinDate`.
     let getLastList numDates tzolkinDate start =
         Generics.getLastList referenceDate 13 numDates tzolkinDate start
+
+
+    /// Convert a `TzolkinNumber` to a string.
+    ///
+    /// Params:
+    ///         `tzolkin` The `TzolkinNumber` to convert to a string.
+    ///
+    /// Returns:
+    ///          The `TzolkinNumber` as a string.
+    let toString tzolkin =
+        tzolkin.ToString ()
+
+    /// Convert a `TzolkinNumber` to an int.
+    ///
+    /// Params:
+    ///         `tzolkin` The `TzolkinNumber` to convert to an int.
+    ///
+    /// Returns:
+    ///          The `TzolkinNumber` as a int.
+    let toInt tzolkin =
+        int tzolkin
 
     /// Return the Tzolk’in day number as a Unicode symbol.
     /// This works as soon as the Tzolk’in day numbers are included in the Unicode

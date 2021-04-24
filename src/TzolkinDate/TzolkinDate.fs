@@ -96,6 +96,17 @@ module TzolkinDate =
     let yearStringMap () =
         Map.map (fun key value -> value.ToString()) yearMap
 
+    /// Convert a `TzolkinDate` to a string, containing the day number and the day
+    /// glyph as a string. Like "1 Imix" or "20 Ajaw".
+    ///
+    /// Params:
+    ///         `tzolkin` The `TzolkinDate` to convert to a string.
+    ///
+    /// Returns:
+    ///         The `TzolkinDate` converted to a string.
+    let toString tzolkin =
+        tzolkin.ToString ()
+
     /// Create a `TzolkinDate` from the `TzolkinNumber`and the
     /// `TzolkinGlyph` of this Tzolk’in day.
     ///

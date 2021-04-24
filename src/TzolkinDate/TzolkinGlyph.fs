@@ -341,7 +341,6 @@ module TzolkinGlyph =
             match this with
             | (TzolkinGlyph i) -> glyphNames.[(modulo20 i) - 1]
 
-
     /// Reference Tzolk’in date. The 1st of January, 1970 is a Tzolk’in date of
     /// 13 Chikchan.
     let referenceDate = ("01.01.1970", TzolkinGlyph 5)
@@ -442,6 +441,16 @@ module TzolkinGlyph =
     let getLastList numDates tzolkinDate start =
        Generics.getLastList referenceDate 20 numDates tzolkinDate start
 
+    /// Convert a `TzolkinGlyph` to an int.
+    ///
+    /// Params:
+    ///         `tzolkin` The `TzolkinGlyph` to convert to an int.
+    ///
+    /// Returns:
+    ///         The `TzolkinGlyph` as a int.
+    let toInt tzolkin =
+        int tzolkin
+
     /// Return the Tzolk’in day glyph's name as a string.
     ///
     /// Params:
@@ -450,8 +459,7 @@ module TzolkinGlyph =
     /// Returns:
     ///         The Tzolk’in day glyph as a string.
     let toString glyph =
-        match glyph with
-        | (TzolkinGlyph i) -> glyphNames.[(modulo20 i) - 1]
+        glyph.ToString ()
 
     /// Return the Tzolk’in day glyph as a Unicode symbol.
     /// This works as soon as the Tzolk’in day glyphs are included in the Unicode

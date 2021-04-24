@@ -36,12 +36,12 @@ module Generics=
   /// Return the next Gregorian date after `start` with a Tzolk’in day type.
   let inline internal getNext
         (referenceDate: string * ^T)
-        (numElem: int)
+        (cycleLength: int)
         (tzolkinDate: ^T)
         (start: DateTime)
         =
         let startTzolkin = fromDate referenceDate start
-        let dayDiff = if tzolkinDate - startTzolkin = 0 then numElem else tzolkinDate - startTzolkin
+        let dayDiff = if tzolkinDate - startTzolkin = 0 then cycleLength else tzolkinDate - startTzolkin
         start + TimeSpan.FromDays (float dayDiff)
 
   /// Add a gregorian date of a Tzolk’in day to the given list, to a length of `length`.
@@ -54,27 +54,27 @@ module Generics=
 
   /// Return the last Gregorian date before or the same as `start` with a Tzolk’in
   /// day of `tzolkinDate`.
-  let inline internal getLast referenceDate (numElem: int) tzolkinDate start =
+  let inline internal getLast referenceDate (cycleLength: int) tzolkinDate start =
       let last =
-        TimeSpan.FromDays (float -numElem)
-        |> (+) (getNext referenceDate numElem tzolkinDate start)
+        TimeSpan.FromDays (float -cycleLength)
+        |> (+) (getNext referenceDate cycleLength tzolkinDate start)
 
-      if last = start then last + TimeSpan.FromDays (float -numElem) else last
+      if last = start then last + TimeSpan.FromDays (float -cycleLength) else last
 
   /// Helper function.
-  let inline private getList getFunc referenceDate numElem numDates tzolkinDate start =
-        let rec getNextTzolkin = addDate (getFunc referenceDate numElem tzolkinDate) numDates
+  let inline private getList getFunc referenceDate cycleLength numDates tzolkinDate start =
+        let rec getNextTzolkin = addDate (getFunc referenceDate cycleLength tzolkinDate) numDates
 
         getNextTzolkin 0 start []
 
   /// Return a list of gregorian dates with the given Tzolk’in date.
-  let inline internal getNextList referenceDate numElem numDates tzolkinDate start =
-        getList getNext referenceDate numElem numDates tzolkinDate start
+  let inline internal getNextList referenceDate cycleLength numDates tzolkinDate start =
+        getList getNext referenceDate cycleLength numDates tzolkinDate start
 
 
   /// Return a list of gregorian dates with the given Tzolk’in date.
-  let inline internal getLastList referenceDate numElem numDates tzolkinDate start =
-        let lastList = getList getLast referenceDate numElem numDates tzolkinDate start
+  let inline internal getLastList referenceDate cycleLength numDates tzolkinDate start =
+        let lastList = getList getLast referenceDate cycleLength numDates tzolkinDate start
         if tzolkinDate = fromDate referenceDate start then
             start :: lastList
         else
