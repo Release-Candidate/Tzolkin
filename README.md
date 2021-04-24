@@ -871,8 +871,6 @@ TzolkinNumber.toUnicode tzolkin.Number
     𕎱
 ```
 
-Should be: ![image Tzolk’in day number 13](./../src/Tzolkin/images/number_13.svg)
-
 ```F#
 TzolkinGlyph.toUnicode tzolkin.Glyph
 ```
@@ -880,8 +878,6 @@ TzolkinGlyph.toUnicode tzolkin.Glyph
 ```ps1con
     𕐖
 ```
-
-Should be: ![image Tzolk’in day glyph Kabʼan](./../src/Tzolkin/images/glyph_17.svg)
 
 ## Contributing
 

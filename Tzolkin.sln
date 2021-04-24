@@ -45,6 +45,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C0448E6D-F
 		docs\contributing.md = docs\contributing.md
 		docs\index.md = docs\index.md
 		docs\license.md = docs\license.md
+		docs\nuget_package.md = docs\nuget_package.md
 		docs\requirements.txt = docs\requirements.txt
 		docs\usage.md = docs\usage.md
 	EndProjectSection
