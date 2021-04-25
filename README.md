@@ -11,6 +11,10 @@ Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.i
 [![Nuget Package badge](https://img.shields.io/nuget/v/Tzolkin)](https://www.nuget.org/packages/Tzolkin/)
 [![Documentation Status](https://readthedocs.org/projects/tzolkin/badge/?version=latest)](https://tzolkin.readthedocs.io/en/latest/)
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/Tzolkin/main?filepath=Tzolkin.ipynb)
+[more badges ...](#badges)
+
+
+
 
 ## Table of Content <!-- omit in toc -->
 
@@ -29,6 +33,9 @@ Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.i
 - [Contributing](#contributing)
 - [License](#license)
 - [Privacy Policy](#privacy-policy)
+- [Badges](#badges)
+  - [Code coverage](#code-coverage)
+  - [GitHub Actions/Workflows](#github-actionsworkflows)
 
 ## Links
 
@@ -890,3 +897,16 @@ All content except some images of Tzolkin is licensed under the MIT license, see
 ## Privacy Policy
 
 Tzolkin does not collect or share any personal information, it does not contain any ads, trackers or in-app-payments. See: [Privacy Policy](https://github.com/Release-Candidate/Tzolkin/blob/main/privacy_policy.md)
+
+
+## Badges
+
+### Code coverage
+
+[![codecov](https://codecov.io/gh/Release-Candidate/Tzolkin/branch/main/graph/badge.svg?token=T42arcziQt)](https://codecov.io/gh/Release-Candidate/Tzolkin)
+
+### GitHub Actions/Workflows
+
+[![Tests Mac OS X latest](https://github.com/Release-Candidate/Tzolkin/actions/workflows/osx_test.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/osx_test.yml)
+[![Tests Ubuntu 20.04](https://github.com/Release-Candidate/Tzolkin/actions/workflows/linux_test.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/linux_test.yml)
+[![Tests Windows 2019](https://github.com/Release-Candidate/Tzolkin/actions/workflows/windows_test.yml/badge.svg)](https://github.com/Release-Candidate/Tzolkin/actions/workflows/windows_test.yml)
