@@ -85,10 +85,10 @@ jobs:
         shell: cmd
         run: |
           cd $GITHUB_WORKSPACE
-          .\bin\TestTzolkin.exe --summary
+          dotnet .\bin\TestTzolkin.dll --summary --nunit-summary .\test_results\nresult.xml --junit-summary .\test_results\jresult.xml
 
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
           name: Test Results
-          path: ./test_results/*.trx
+          path: ./test_results/*.xml

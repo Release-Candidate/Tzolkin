@@ -54,7 +54,7 @@ jobs:
           directory: ./coverage/reports/
           # flags: unittest
           env_vars: OS,PYTHON
-          name: Linux-Test-Src
+          name: OSX-Test-Src
           fail_ci_if_error: false
           path_to_write_report: ./coverage/codecov_report.txt
           verbose: true
@@ -83,10 +83,10 @@ jobs:
       - name: Run Tests
         run: |
           cd $GITHUB_WORKSPACE
-          dotnet ./bin/TestTzolkin.dll --summary
+          dotnet ./bin/TestTzolkin.dll --summary --nunit-summary ./test_results/nresult.xml --junit-summary ./test_results/jresult.xml
 
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
           name: Test Results
-          path: ./test_results/*.trx
+          path: ./test_results/*.xml

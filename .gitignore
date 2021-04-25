@@ -8,7 +8,8 @@ Pipfile.lock
 
 # Coverage data
 *.xml*.acv
-*coverage.*
+*coverage.xml
+*coverage.json
 *.exn
 
 # Fake and Ionide directories
