@@ -19,6 +19,12 @@
       "commands": [
         "fabulous"
       ]
+    },
+    "altcover.visualizer": {
+      "version": "8.1.819",
+      "commands": [
+        "altcover.visualizer"
+      ]
     }
   }
 }

@@ -9,7 +9,6 @@
 namespace TestTzolkin
 
 open Expecto
-open Swensen.Unquote
 open System
 
 open RC.Maya
@@ -18,11 +17,19 @@ open RC.Maya
 [<AutoOpen>]
 module TestTzolkinDate=
 
+    let config = { config with
+                       receivedArgs = fun _ name no args ->
+                            loggerFuncDeb "TestTzolkinDate" name no args }
+
+    let configList = { configList with
+                            receivedArgs = fun _ name no args ->
+                                 loggerFuncInfo "TestTzolkinDate" name no args }
+
     let inline stringList2DateListDate list =
         List.map (fun (date, number, glyph) ->
                         stringToDate date,
-                        {TzolkinDate.Number = TzolkinNumber.T.TzolkinNumber number
-                         TzolkinDate.Glyph = TzolkinGlyph.T.TzolkinGlyph glyph}
+                        { TzolkinDate.Number = TzolkinNumber.T.TzolkinNumber number
+                          TzolkinDate.Glyph = TzolkinGlyph.T.TzolkinGlyph glyph }
                   )
                   list
 
@@ -101,10 +108,22 @@ module TestTzolkinDate=
 
                 testPropertyWithConfig configList "getNextList with a reference date list"
                 <| fun i ->
-                    testNextList TzolkinDate.getNextList (abs i) 260 referenceDates false
+                        testNextList
+                                TzolkinDate.getNextList
+                                TzolkinDate.fromDate
+                                (abs i)
+                                260
+                                referenceDates
+                                false
 
                 testPropertyWithConfig configList "getLastList with a reference date list"
                 <| fun i ->
-                    testNextList TzolkinDate.getLastList (abs i) 260 referenceDates true
+                        testNextList
+                                TzolkinDate.getLastList
+                                TzolkinDate.fromDate
+                                (abs i)
+                                260
+                                referenceDates
+                                true
 
             ]

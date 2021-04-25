@@ -18,21 +18,29 @@ open Expecto.Logging
 [<AutoOpen>]
 module Generic=
 
-    let logger = Log.create "Tzolkin"
+    let private logger = Log.create "Tzolkin"
+
+    let private loggerFunc logFunc moduleName name no args =
+         logFunc (
+            Message.eventX "{module} '{test}' #{no}, generated '{args}'"
+            >> Message.setField "module" moduleName
+            >> Message.setField "test" name
+            >> Message.setField "no" no
+            >> Message.setField "args" args )
+
+    let loggerFuncDeb moduleName name no args =
+        loggerFunc logger.debugWithBP moduleName name no args
+
+    let loggerFuncInfo moduleName name no args =
+        loggerFunc logger.infoWithBP moduleName name no args
 
     let config = { FsCheckConfig.defaultConfig with
-                    maxTest = 100000
-                    endSize = 1000000
-                    receivedArgs = fun _ name no args ->
-                           logger.infoWithBP (
-                             Message.eventX "For {test} {no}, generated {args}"
-                             >> Message.setField "test" name
-                             >> Message.setField "no" no
-                             >> Message.setField "args" args)}
+                        maxTest = 100000
+                        endSize = 1000000 }
 
-    let configList = { config with
+    let configList = { FsCheckConfig.defaultConfig with
                             maxTest = 25
-                            endSize = 10000 }
+                            endSize = 500 }
 
     // Rules to calculate with `TzolkinNumber` and `TzolkinGlyph`. =================================
 
@@ -145,33 +153,33 @@ module Generic=
         |> List.iter (fun elem -> testNextDateHelper1 nextDate cycleLength elem isLast)
 
 
-    let inline testNextList nextDateList numDates cycleLength referenceDates isLast =
-        let rec testList list difference =
+    let inline testNextList nextDateList fromDate numDates cycleLength referenceDates isLast =
+        let rec testList list fromDate tzolkin difference =
             match list with
             | head :: (head2 :: tail) ->
                     test <@ head2 - head = TimeSpan.FromDays difference @>
-                    testList (head2 :: tail) difference
-            | [_] -> ()
+                    test <@ fromDate head = tzolkin @>
+                    testList (head2 :: tail) fromDate tzolkin difference
+            | [head] -> test <@ fromDate head = tzolkin @>
             | [] -> ()
 
-        let testNextListHelper2 numDates nextDateList cycleLength referenceDate days isLast =
+        let testNextListHelper2 fromDate numDates nextDateList cycleLength referenceDate days isLast =
             let (date:DateTime), tzolkin = referenceDate
             let start = date + TimeSpan.FromDays (float days)
             let listToTest: DateTime list = nextDateList numDates tzolkin start
             if isLast then
                 test <@ listToTest.Head = date @>
-                testList listToTest (float -cycleLength)
+                testList listToTest fromDate tzolkin (float -cycleLength)
             else
                 test <@ listToTest.Head = date + TimeSpan.FromDays (float cycleLength) @>
-                testList listToTest (float cycleLength)
+                testList listToTest fromDate tzolkin (float cycleLength)
 
-
-        let testNextListHelper1 numDates nextDateList cycleLength referenceDate isLast =
-            Gen.choose (0, cycleLength - 1) |> Gen.sample 0 10
-            |> List.iter (fun i -> testNextListHelper2 numDates nextDateList cycleLength referenceDate i isLast)
+        let testNextListHelper1 numDates fromDate nextDateList cycleLength referenceDate isLast =
+            Gen.choose (0, cycleLength - 1) |> Gen.sample 0 5
+            |> List.iter (fun i -> testNextListHelper2 fromDate numDates nextDateList cycleLength referenceDate i isLast)
 
         referenceDates
-        |> List.iter (fun elem -> testNextListHelper1 numDates nextDateList cycleLength elem isLast)
+        |> List.iter (fun elem -> testNextListHelper1 numDates fromDate nextDateList cycleLength elem isLast)
 
 
 

@@ -35,8 +35,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		publish_nuget.bat = publish_nuget.bat
 		publish_nuget.sh = publish_nuget.sh
 		README.md = README.md
+		run_coverage.bat = run_coverage.bat
 		run_sharplint.bat = run_sharplint.bat
 		run_sharplint.sh = run_sharplint.sh
+		run_tests.bat = run_tests.bat
+		.vscode\settings.json = .vscode\settings.json
 		Tzolkin.ipynb = Tzolkin.ipynb
 	EndProjectSection
 EndProject

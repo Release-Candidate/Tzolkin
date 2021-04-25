@@ -10,7 +10,6 @@ namespace TestTzolkin
 
 
 open Expecto
-open Swensen.Unquote
 open System
 
 open RC.Maya
@@ -18,6 +17,14 @@ open Generic
 
 [<AutoOpen>]
 module TestTzolkinNumber=
+
+    let config = { config with
+                    receivedArgs = fun _ name no args ->
+                         loggerFuncDeb "TestTzolkinNumber" name no args }
+
+    let configList = { configList with
+                             receivedArgs = fun _ name no args ->
+                                  loggerFuncInfo "TestTzolkinNumber" name no args }
 
     let referenceDates = [  ("01.01.1970", 13)
                             ("01.01.1800", 10)
@@ -92,10 +99,22 @@ module TestTzolkinNumber=
 
                 testPropertyWithConfig configList "getNextList with a reference date list"
                 <| fun i ->
-                    testNextList TzolkinNumber.getNextList (abs i) 13 referenceDates false
+                        testNextList
+                                TzolkinNumber.getNextList
+                                TzolkinNumber.fromDate
+                                (abs i)
+                                13
+                                referenceDates
+                                false
 
                 testPropertyWithConfig configList "getLastList with a reference date list"
                 <| fun i ->
-                    testNextList TzolkinNumber.getLastList (abs i) 13 referenceDates true
+                        testNextList
+                                TzolkinNumber.getLastList
+                                TzolkinNumber.fromDate
+                                (abs i)
+                                13
+                                referenceDates
+                                true
 
             ]

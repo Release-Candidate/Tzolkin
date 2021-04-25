@@ -28,14 +28,15 @@ module TzolkinDate =
     /// Calculate Tzolk’in day in a year 'modulo'.
     /// Calculate `n` % 260 and return 260 if `n` = 0 (mod 260), because a day 0 doesn't
     /// make sense and by returning 260 we still have a mathematical ring.
+    /// For negative integers `n` `260 - (n % 260)` is returned.
     ///
     /// Params:
     ///         `n` The integer to calculate the 'Tzolk’in day modulo' of.
     ///
     /// Returns:
-    ///         260 if `n` = 0 (mod20)
+    ///         260 if `n` = 0 (mod 260)
     ///         `n` % 260 else.
-    let modulo260 n = if n % 260 = 0 then 260 else n % 260
+    let modulo260 = Generics.modulo 260
 
     /// The `TzolkinDate` type, holding the Tzolk’in day number in `number` and day
     /// glyph in `glyph`.
