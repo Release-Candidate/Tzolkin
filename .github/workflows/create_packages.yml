@@ -87,10 +87,10 @@ jobs:
       - name: Upload
         run: |
           cd $GITHUB_WORKSPACE
-          dotnet nuget push ./packages/*.nupkg -k ${{ secrets.NUGET_PACKAGE }} -s https://api.nuget.org/v3/index.json
+          dotnet nuget push ./nuget/*.nupkg -k ${{ secrets.NUGET_PACKAGE }} -s https://api.nuget.org/v3/index.json
 
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
         with:
           name: Nuget Packages
-          path: ./packages/*
+          path: ./nuget/*
