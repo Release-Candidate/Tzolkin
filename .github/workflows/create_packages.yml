@@ -69,7 +69,7 @@ jobs:
         with:
           name: Version ${{ env.GIT_TAG_NAME }}
           body_path: first_changelog.md
-          files: ./packages/*.nupkg
+          files: ./nuget/*.nupkg
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
