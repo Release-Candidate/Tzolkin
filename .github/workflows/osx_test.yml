@@ -83,7 +83,7 @@ jobs:
       - name: Run Tests
         run: |
           cd $GITHUB_WORKSPACE
-          ./bin/TestTzolkin.exe --summary
+          dotnet ./bin/TestTzolkin.exe --summary
 
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}

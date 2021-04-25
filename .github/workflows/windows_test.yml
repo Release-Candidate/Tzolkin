@@ -76,11 +76,13 @@ jobs:
           dotnet paket restore
 
       - name: Publish Tests
+        shell: cmd
         run: |
           cd $GITHUB_WORKSPACE
           dotnet fake run .\build.fsx target Publish
 
       - name: Run Tests
+        shell: cmd
         run: |
           cd $GITHUB_WORKSPACE
           .\bin\TestTzolkin.exe --summary
