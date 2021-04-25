@@ -1,0 +1,24 @@
+source https://api.nuget.org/v3/index.json
+storage: none
+
+group Tests
+	source https://api.nuget.org/v3/index.json
+	storage none
+	framework: net5.0
+
+	nuget FSharp.Core >= 5.0
+
+	nuget AltCover
+	nuget Expecto
+	nuget Expecto.FsCheck
+	nuget Unquote
+	nuget YoloDev.Expecto.TestSdk
+	nuget Microsoft.NET.Test.Sdk
+	
+group DLL
+	source https://api.nuget.org/v3/index.json
+	storage none
+	framework: netstandard2.0
+	
+	nuget FSharp.Core >= 5.0
+	

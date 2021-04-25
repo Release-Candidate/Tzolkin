@@ -26,9 +26,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore
 		.readthedocs.yaml = .readthedocs.yaml
+		build.fsx = build.fsx
+		build.fsx.lock = build.fsx.lock
 		CHANGELOG.md = CHANGELOG.md
 		LICENSE = LICENSE
 		mkdocs.yml = mkdocs.yml
+		paket.dependencies = paket.dependencies
+		paket.lock = paket.lock
 		Pipfile = Pipfile
 		postBuild = postBuild
 		privacy_policy.md = privacy_policy.md
@@ -54,6 +58,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{C0448E6D-F
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "github", "github", "{EA6A6722-8FF9-44D0-8A40-DCC5EC60F557}"
+	ProjectSection(SolutionItems) = preProject
+		.github\workflows\create_packages.yml = .github\workflows\create_packages.yml
+		.github\workflows\linux_test.yml = .github\workflows\linux_test.yml
+		.github\workflows\osx_test.yml = .github\workflows\osx_test.yml
+		.github\workflows\windows_test.yml = .github\workflows\windows_test.yml
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "scripts", "scripts", "{16744CD7-95E7-44F7-9615-E1BFBED09227}"
 	ProjectSection(SolutionItems) = preProject

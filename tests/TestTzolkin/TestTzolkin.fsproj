@@ -9,7 +9,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningLevel>5</WarningLevel>
     <OtherFlags>--warnon:3390</OtherFlags>
-    <OutputPath>$(SolutionDir)\bin\</OutputPath>
+    <OutputPath>.\bin</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OtherFlags>--warnon:3390</OtherFlags>
@@ -20,12 +20,14 @@
     <WarningLevel>5</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <None Include="paket.references" />
     <Compile Include="Generic.fs" />
     <Compile Include="TestTzolkinNumber.fs" />
     <Compile Include="TestTzolkinGlyph.fs" />
     <Compile Include="TestTzolkinDate.fs" />
     <Compile Include="TestMain.fs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="AltCover" Version="8.1.819" />
     <PackageReference Include="Expecto" Version="9.*" />
@@ -40,4 +42,5 @@
   <ItemGroup>
     <PackageReference Update="FSharp.Core" Version="5.0.1" />
   </ItemGroup>
+  <Import Project="..\..\.paket\Paket.Restore.targets" />
 </Project>

@@ -262,7 +262,7 @@ nuget setApiKey API_KEY
 Usage:
 
 ```shell
-dotnet fake build.fsx target TARGET VERSION_STRING
+dotnet fake run build.fsx target TARGET VERSION_STRING
 ```
 
 - `TARGET` is the name of the target to call, see above list for possible targets
@@ -273,7 +273,7 @@ dotnet fake build.fsx target TARGET VERSION_STRING
 Run all default targets (see above):
 
 ```shell
-dotnet fake build.fsx
+dotnet fake run build.fsx
 ```
 
 Which is the same as
