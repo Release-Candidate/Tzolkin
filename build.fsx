@@ -51,8 +51,7 @@ let coverageProjs = testProjs
 let packageProjs = !! "src/TzolkinDate/*.*proj"
 
 // projects to publish (`dotnet publish`)
-let publishProjs =
-    !! "tests/**/*.*proj"
+let publishProjs = !! "tests/**/*.*proj"
 
 // projects that should be linted
 let lintProjs =
@@ -139,7 +138,7 @@ let setUploadOpts (opts: DotNet.NuGetPushOptions) =
     }
 
 // Publish options for Target `Publish` ========================================
-let setPublishOptions rid version (opts: DotNet.PublishOptions) =
+let setPublishOptions rid (opts: DotNet.PublishOptions) =
     { opts with
           NoLogo = true
           NoBuild = false
@@ -330,7 +329,7 @@ Target.create
     "Publish"
     (fun _ ->
         publishProjs
-        |> Seq.iter (DotNet.publish (setPublishOptions (getRID ())))
+        |> Seq.iter (DotNet.publish (setPublishOptions (getRID ()) ) ) )
 
 
 //==============================================================================

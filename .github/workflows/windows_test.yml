@@ -75,9 +75,15 @@ jobs:
           dotnet tool restore
           dotnet paket restore
 
+      - name: Publish Tests
+        run: |
+          cd $GITHUB_WORKSPACE
+          dotnet fake run .\build.fsx target Publish
+
       - name: Run Tests
         run: |
-          dotnet fake run .\build.fsx target Tests
+          cd $GITHUB_WORKSPACE
+          .\bin\TestTzolkin.exe --summary
 
       - uses: actions/upload-artifact@v2
         if: ${{ always() }}
