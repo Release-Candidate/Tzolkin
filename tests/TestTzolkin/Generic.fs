@@ -39,10 +39,30 @@ module Generic=
                         endSize = 1000000 }
 
     let configList = { FsCheckConfig.defaultConfig with
-                            maxTest = 25
+                            maxTest = 15
                             endSize = 500 }
 
+    let configFasterThan = { FsCheckConfig.defaultConfig with
+                                    maxTest = 100
+                                    endSize = 1000000 }
+
     // Rules to calculate with `TzolkinNumber` and `TzolkinGlyph`. =================================
+
+    let inline testCommutativityType constructor i j =
+        let tzolkin1 = constructor i
+        let tzolkin2 = constructor j
+        match tzolkin1, tzolkin2 with
+        | None, _ -> test <@ i < 1 @>
+        | _, None -> test <@ j < 1 @>
+        | Some tz1, Some tz2 -> test <@ tz1 + tz2 = tz2 + tz1 @>
+
+    let inline testCommutativityTypeDate constructor i j k l =
+        let tzolkin1 = constructor i j
+        let tzolkin2 = constructor k l
+        match tzolkin1, tzolkin2 with
+        | None, _ -> test <@ i < 1 || j < 1 @>
+        | _, None -> test <@ k < 1 || l < 1 @>
+        | Some tz1, Some tz2 -> test <@ tz1 + tz2 = tz2 + tz1 @>
 
     let inline testCommutativity constructor i days =
         let tzolkin = constructor i
@@ -125,6 +145,7 @@ module Generic=
     let inline stringList2DateList constructor list =
         List.map (fun (date, tzolkin) -> stringToDate date, constructor tzolkin) list
 
+    // Test fromDate ===============================================================================
     let inline testFromDate fromDate referenceDates =
         let testFromDateHelper (fromDate: DateTime -> 'T) referenceDate date =
             test <@ fromDate date = referenceDate @>
@@ -133,6 +154,7 @@ module Generic=
                         let date, tzolkin = elem
                         testFromDateHelper fromDate tzolkin date) referenceDates
 
+    // Test getNext and getLast ====================================================================
     let inline testNextDate nextDate cycleLength referenceDates isLast =
         let testNextDateHelper2 nextDate cycleLength referenceDate days isLast =
             let (date:DateTime), tzolkin = referenceDate
@@ -152,7 +174,7 @@ module Generic=
         referenceDates
         |> List.iter (fun elem -> testNextDateHelper1 nextDate cycleLength elem isLast)
 
-
+    // Test getNextList and getLastList ============================================================
     let inline testNextList nextDateList fromDate numDates cycleLength referenceDates isLast =
         let rec testList list fromDate tzolkin difference =
             match list with
@@ -167,15 +189,17 @@ module Generic=
             let (date:DateTime), tzolkin = referenceDate
             let start = date + TimeSpan.FromDays (float days)
             let listToTest: DateTime list = nextDateList numDates tzolkin start
-            if isLast then
+            match listToTest, isLast with
+            | [], _ -> test <@ numDates = 0 @>
+            | _, true ->
                 test <@ listToTest.Head = date @>
                 testList listToTest fromDate tzolkin (float -cycleLength)
-            else
+            | _, false ->
                 test <@ listToTest.Head = date + TimeSpan.FromDays (float cycleLength) @>
                 testList listToTest fromDate tzolkin (float cycleLength)
 
         let testNextListHelper1 numDates fromDate nextDateList cycleLength referenceDate isLast =
-            Gen.choose (0, cycleLength - 1) |> Gen.sample 0 5
+            Gen.choose (0, cycleLength - 1) |> Gen.sample 0 10
             |> List.iter (fun i -> testNextListHelper2 fromDate numDates nextDateList cycleLength referenceDate i isLast)
 
         referenceDates

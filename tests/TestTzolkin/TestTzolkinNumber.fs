@@ -47,8 +47,12 @@ module TestTzolkinNumber=
     let tests =
         testList
             "TzolkinNumber"
-            [   testPropertyWithConfig config "addition with int is commutative"
+            [   testPropertyWithConfig config "addition is commutative"
                 <| fun i j ->
+                    testCommutativityType TzolkinNumber.create i j
+
+                testPropertyWithConfig config "addition with int is commutative"
+                <| fun i (j: int) ->
                     testCommutativity TzolkinNumber.create i j
 
                 testPropertyWithConfig config "addition with TimeSpan is commutative"
@@ -64,7 +68,7 @@ module TestTzolkinNumber=
                     testNeutralElement TzolkinNumber.create i (TimeSpan.FromDays 0.)
 
                 testPropertyWithConfig config "addition is associative with int"
-                <| fun i j k ->
+                <| fun i j (k: int) ->
                     testAssociativity TzolkinNumber.create i j k
 
                 testPropertyWithConfig config "addition is associative with TimeSpan"

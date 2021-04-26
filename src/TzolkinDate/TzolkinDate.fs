@@ -59,8 +59,8 @@ module TzolkinDate =
 
         /// Add days to a `TzolkinDate`, order of `int` and `TzolkinDate` changed.
         static member ( + ) (i: int, tzolkinDate) =
-            { Number = tzolkinDate.Number + i
-              Glyph = tzolkinDate.Glyph + i }
+            { Number = i + tzolkinDate.Number
+              Glyph = i + tzolkinDate.Glyph }
 
         /// Add two `TzolkinDate`. Doesn't really make sense, what would that be
         /// conceptually? But define it anyway.
@@ -78,9 +78,8 @@ module TzolkinDate =
         /// `TzolkinDate`.
         /// Only makes sense with (at least) days, not hours, minutes, or seconds.
         static member ( + ) (timeSpan: System.TimeSpan, tzolkinDate) =
-            { Number = tzolkinDate.Number + timeSpan.Days
-              Glyph = tzolkinDate.Glyph + timeSpan.Days }
-
+            { Number = timeSpan.Days + tzolkinDate.Number
+              Glyph = timeSpan.Days + tzolkinDate.Glyph }
 
     /// A map of all 260 Tzolk’in days in a year.
     /// The key is the number of the `TzolkinDate` in the Tzolk’in year, a number

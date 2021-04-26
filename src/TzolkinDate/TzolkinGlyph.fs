@@ -305,31 +305,33 @@ module TzolkinGlyph =
             | (TzolkinGlyph n) -> n
 
         /// Add two `TzolkinGlyph`.
-        static member ( + ) (glyph1:T, glyph2:T) =
+        static member ( + ) (glyph1: T, glyph2: T) =
             int glyph1 + int glyph2
             |> modulo20
             |> TzolkinGlyph
 
         /// Add an int to a `TzolkinGlyph`.
-        static member ( + ) (glyph1:T, i:int) =
-            int glyph1 + i
+        static member ( + ) (glyph1: T, i: int) =
+            let (TzolkinGlyph tz1) = glyph1
+            tz1 + i
             |> modulo20
             |> TzolkinGlyph
 
         /// Add a `TzolkinGlyph` to an int.
-        static member ( + ) (i:int, glyph1:T) =
-            int glyph1 + i
+        static member ( + ) (i: int, glyph1: T) =
+            let (TzolkinGlyph tz1) = glyph1
+            i + tz1
             |> modulo20
             |> TzolkinGlyph
 
         /// Add a `TimeSpan` to a `TzolkinGlyph`.
-        static member ( + ) (glyph1:T, days:TimeSpan) =
+        static member ( + ) (glyph1: T, days: TimeSpan) =
             int glyph1 + days.Days
             |> modulo20
             |> TzolkinGlyph
 
         /// Add a `TzolkinGlyph` to a `TimeSpan`.
-        static member ( + ) (days:TimeSpan, glyph:T) =
+        static member ( + ) (days: TimeSpan, glyph: T) =
             days.Days + int glyph
             |> modulo20
             |> TzolkinGlyph
@@ -364,7 +366,7 @@ module TzolkinGlyph =
 
     type T with
         /// Subtract two `TzolkinGlyph`.
-        static member ( - ) (tz1:T, tz2:T) =
+        static member ( - ) (tz1: T, tz2: T) =
             let day1 = int tz1
             let day2 = int tz2
             if day1 > day2 then

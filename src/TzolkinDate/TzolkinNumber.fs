@@ -81,7 +81,7 @@ module TzolkinNumber =
 
         /// Add a `TzolkinNumber` to an int.
         static member ( + ) (i: int, tz1: T) =
-            int tz1 + i
+            i + int tz1
             |> modulo13
             |> TzolkinNumber
 

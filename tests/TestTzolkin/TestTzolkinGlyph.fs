@@ -10,8 +10,11 @@ namespace TestTzolkin
 
 open Expecto
 open System
+open FsCheck
+open Swensen.Unquote
 
 open RC.Maya
+
 
 
 [<AutoOpen>]
@@ -46,9 +49,28 @@ module TestTzolkinGlyph=
     let tests =
         testList
             "TzolkinGlyph"
-            [   testPropertyWithConfig config "addition with int is commutative"
+            [   testPropertyWithConfig config "addition is commutative"
                 <| fun i j ->
+                    testCommutativityType TzolkinGlyph.create i j
+
+                testPropertyWithConfig config "addition with int is commutative"
+                <| fun i (j: int) ->
                     testCommutativity TzolkinGlyph.create i j
+
+                //testPropertyWithConfig config "addition with int is faster than timespan"
+                //<| fun i j ->
+                //    Expect.isFasterThan (fun () ->
+                //                            Gen.choose (1, 1000) |> Gen.sample 0 10000
+                //                            |> List.iter (fun elem ->
+                //                                            (TzolkinGlyph.T.TzolkinGlyph i) + elem |> ignore)
+                //                        )
+                //                        (fun () ->
+                //                            Gen.choose (1, 1000) |> Gen.sample 0 10000
+                //                            |> List.iter (fun elem ->
+                //                                            (TzolkinGlyph.T.TzolkinGlyph i) +
+                //                                                TimeSpan.FromDays (float elem) |> ignore )
+                //                        )
+                //                        "int is faster than TimeSpan"
 
                 testPropertyWithConfig config "addition with TimeSpan is commutative"
                 <| fun i j ->
@@ -63,7 +85,7 @@ module TestTzolkinGlyph=
                     testNeutralElement TzolkinGlyph.create i (TimeSpan.FromDays 0.)
 
                 testPropertyWithConfig config "addition is associative with int"
-                <| fun i j k ->
+                <| fun i (j: int) (k: int) ->
                     testAssociativity TzolkinGlyph.create i j k
 
                 testPropertyWithConfig config "addition is associative with TimeSpan"

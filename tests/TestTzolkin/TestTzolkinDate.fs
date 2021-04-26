@@ -11,6 +11,7 @@ namespace TestTzolkin
 open Expecto
 open System
 
+
 open RC.Maya
 
 
@@ -54,8 +55,12 @@ module TestTzolkinDate=
     let tests =
         testList
             "TzolkinDate"
-            [   testPropertyWithConfig config "addition with int is commutative"
-                <| fun i j k ->
+            [   testPropertyWithConfig config "addition is commutative"
+                <| fun i j k l ->
+                    testCommutativityTypeDate TzolkinDate.fromInts i j k l
+
+                testPropertyWithConfig config "addition with int is commutative"
+                <| fun i j (k: int) ->
                     testCommutativityDate TzolkinDate.fromInts i j k
 
                 testPropertyWithConfig config "addition with TimeSpan is commutative"
@@ -71,7 +76,7 @@ module TestTzolkinDate=
                     testNeutralElementDate TzolkinDate.fromInts i j (TimeSpan.FromDays 0.)
 
                 testPropertyWithConfig config "addition is associative with int"
-                <| fun i j k l ->
+                <| fun i j (k: int) (l: int) ->
                     testAssociativityDate TzolkinDate.fromInts i j k l
 
                 testPropertyWithConfig config "addition is associative with TimeSpan"
@@ -105,6 +110,23 @@ module TestTzolkinDate=
                 testCase "getLastDate with a reference date list"
                 <| fun _ ->
                     testNextDate TzolkinDate.getLast 260 referenceDates true
+
+                //testPropertyWithConfig config "getNextList2 is faster"
+                //<| fun i ->
+                //        Expect.isFasterThan (fun () ->
+                //                                 let date, tzolkin = referenceDates.Head
+                //                                 TzolkinDate.getNextList2
+                //                                            (abs i)
+                //                                            tzolkin
+                //                                            date )
+                //                            (fun () ->
+                //                                 let date, tzolkin = referenceDates.Head
+                //                                 TzolkinDate.getNextList
+                //                                            (abs i)
+                //                                            tzolkin
+                //                                            date )
+                //
+                //                            "getNextList2 is faster"
 
                 testPropertyWithConfig configList "getNextList with a reference date list"
                 <| fun i ->
