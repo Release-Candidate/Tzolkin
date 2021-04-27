@@ -10,7 +10,6 @@ namespace TestTzolkin
 
 open Expecto
 open System
-open FsCheck
 open Swensen.Unquote
 
 open RC.Maya
