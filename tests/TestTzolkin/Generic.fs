@@ -15,6 +15,8 @@ open System
 open FsCheck
 open Expecto.Logging
 
+open RC.Maya
+
 [<AutoOpen>]
 module Generic=
 
@@ -35,7 +37,7 @@ module Generic=
         loggerFunc logger.infoWithBP moduleName name no args
 
     let config = { FsCheckConfig.defaultConfig with
-                        maxTest = 100000
+                        maxTest = 10000
                         endSize = 1000000 }
 
     let configList = { FsCheckConfig.defaultConfig with
@@ -200,10 +202,40 @@ module Generic=
 
         let testNextListHelper1 numDates fromDate nextDateList cycleLength referenceDate isLast =
             Gen.choose (0, cycleLength - 1) |> Gen.sample 0 10
-            |> List.iter (fun i -> testNextListHelper2 fromDate numDates nextDateList cycleLength referenceDate i isLast)
+            |> List.iter (fun i -> testNextListHelper2
+                                        fromDate
+                                        numDates
+                                        nextDateList
+                                        cycleLength
+                                        referenceDate
+                                        i
+                                        isLast)
 
         referenceDates
-        |> List.iter (fun elem -> testNextListHelper1 numDates fromDate nextDateList cycleLength elem isLast)
+        |> List.iter (fun elem -> testNextListHelper1
+                                        numDates
+                                        fromDate
+                                        nextDateList
+                                        cycleLength
+                                        elem
+                                        isLast)
 
+    // Conversion tests ============================================================================
 
+    let inline testToInt constructor modulo toInt i =
+        let tzolkin = constructor i
+        match tzolkin with
+        | None -> test <@ i < 1 @>
+        | Some tz ->
+                test <@ toInt tz = int tz @>
+                test <@ toInt tz = modulo i @>
 
+    let genGlyphTestString i =
+        let glyphString = TzolkinGlyph.glyphNames.[TzolkinGlyph.modulo20 i - 1]
+        let pointGen num =
+                Gen.elements [" "; "\t"; "."; ","; ";"; "#"; "'"; "´"; "`"; "’" ]
+                |> Gen.sample 0 num
+        Seq.map
+            (fun elem -> sprintf "%c%c" elem (pointGen 1 |> List.head |> Seq.head))
+            glyphString
+        |> String.Concat, glyphString

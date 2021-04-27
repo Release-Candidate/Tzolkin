@@ -225,7 +225,7 @@ module TzolkinNumber =
     ///
     /// Returns:
     ///          The `TzolkinNumber` as a int.
-    let toInt tzolkin =
+    let toInt (tzolkin: T) =
         int tzolkin
 
     /// Return the Tzolk’in day number as a Unicode symbol.

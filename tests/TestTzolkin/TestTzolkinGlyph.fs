@@ -28,6 +28,10 @@ module TestTzolkinGlyph=
                                receivedArgs = fun _ name no args ->
                                     loggerFuncInfo "TestTzolkinGlyph" name no args }
 
+    let configFromString = { configList with
+                                receivedArgs = fun _ name no args ->
+                                     loggerFuncDeb "TestTzolkinGlyph" name no args }
+
     let referenceDates = [  ("01.01.1800", 14)
                             ("12.12.1926", 19)
                             ("26.01.1958", 7)
@@ -137,5 +141,61 @@ module TestTzolkinGlyph=
                                 20
                                 referenceDates
                                 true
+
+                testPropertyWithConfig configFasterThan "toString"
+                <| fun i ->
+                    let tzolkin = TzolkinGlyph.create i
+                    match tzolkin with
+                    | None -> test <@ i < 1 @>
+                    | Some tz ->
+                            test <@ tz.ToString () = TzolkinGlyph.toString tz @>
+                            test <@ tz.ToString () =
+                                TzolkinGlyph.glyphNames.[TzolkinGlyph.modulo20 i - 1] @>
+
+                testPropertyWithConfig configFasterThan "toInt"
+                <| fun i ->
+                    testToInt TzolkinGlyph.create TzolkinGlyph.modulo20 TzolkinGlyph.toInt i
+
+                testPropertyWithConfig config "toUnicode"
+                <| fun i ->
+                    let tzolkin = TzolkinGlyph.create i
+                    match tzolkin with
+                    | None -> test <@ i < 1 @>
+                    | Some tz ->
+                            test <@ TzolkinGlyph.toUnicode tz =
+                                        TzolkinGlyph.glyphUnicode.[TzolkinGlyph.modulo20 i - 1] @>
+
+                testPropertyWithConfig configFasterThan "getDescription"
+                <| fun i ->
+                    let tzolkin = TzolkinGlyph.create i
+                    match tzolkin with
+                    | None -> test <@ i < 1 @>
+                    | Some tz ->
+                            test <@ TzolkinGlyph.getDescription tz =
+                                        TzolkinGlyph.glyphDesc.[TzolkinGlyph.modulo20 i - 1] @>
+
+                testPropertyWithConfig configFromString "fromString"
+                <| fun i (name: string) ->
+                    let tzolkinString = TzolkinGlyph.glyphNames.[TzolkinGlyph.modulo20 i - 1]
+                    let tzolkin = TzolkinGlyph.fromString tzolkinString
+                    match tzolkin with
+                    | None -> test <@ "Should never happen" = "x" @>
+                    | Some tz ->
+                            test <@ tz = TzolkinGlyph.T.TzolkinGlyph (TzolkinGlyph.modulo20 i)  @>
+
+                    let tzolkin1 = TzolkinGlyph.fromString name
+                    match tzolkin1 with
+                    | Some _ -> test <@ "Should never happen" = "x" @>
+                    | None -> test <@ true @>
+
+
+                testPropertyWithConfig configFasterThan  "parseString"
+                <| fun i ->
+                        let testStr, glyphStr = genGlyphTestString i
+                        let tzolkin = TzolkinGlyph.parseString testStr
+                        match tzolkin with
+                        | None -> test <@ "Should never happen" = testStr @>
+                        | Some tz -> test <@ TzolkinGlyph.toString tz = glyphStr @>
+
 
             ]

@@ -455,7 +455,7 @@ module TzolkinGlyph =
     ///
     /// Returns:
     ///         The `TzolkinGlyph` as a int.
-    let toInt tzolkin =
+    let toInt (tzolkin: T) =
         int tzolkin
 
     /// Return the Tzolk’in day glyph's name as a string.

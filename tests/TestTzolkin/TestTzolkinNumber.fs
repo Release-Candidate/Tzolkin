@@ -8,9 +8,9 @@
 
 namespace TestTzolkin
 
-
 open Expecto
 open System
+open Swensen.Unquote
 
 open RC.Maya
 open Generic
@@ -120,5 +120,27 @@ module TestTzolkinNumber=
                                 13
                                 referenceDates
                                 true
+
+                testPropertyWithConfig configFasterThan "toString"
+                <| fun i ->
+                    let tzolkin = TzolkinNumber.create i
+                    match tzolkin with
+                    | None -> test <@ i < 1 @>
+                    | Some tz ->
+                            test <@ tz.ToString () = $"{TzolkinNumber.modulo13 i}" @>
+                            test <@ TzolkinNumber.toString tz = $"{TzolkinNumber.modulo13 i}" @>
+
+                testPropertyWithConfig configFasterThan "toInt"
+                <| fun i ->
+                    testToInt TzolkinNumber.create TzolkinNumber.modulo13 TzolkinNumber.toInt i
+
+                testPropertyWithConfig configFasterThan "toUnicode"
+                <| fun i ->
+                    let tzolkin = TzolkinNumber.create i
+                    match tzolkin with
+                    | None -> test <@ i < 1 @>
+                    | Some tz ->
+                            test <@ TzolkinNumber.toUnicode tz =
+                                        TzolkinNumber.toUnicodeNum (TzolkinNumber.modulo13 i) @>
 
             ]

@@ -118,7 +118,7 @@ module TzolkinDate =
     ///
     /// Returns:
     ///          The `TzolkinDate` with the Tzolk’in day number `tzolkinNumber` and day
-    ///           glyph `tzolkinGlyph` if such a date exists, `None` else.
+    ///           glyph `tzolkinGlyph`.
     let create tzolkinNumber tzolkinGlyph =
         { Number = tzolkinNumber
           Glyph = tzolkinGlyph }

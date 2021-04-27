@@ -10,7 +10,7 @@ namespace TestTzolkin
 
 open Expecto
 open System
-
+open Swensen.Unquote
 
 open RC.Maya
 
@@ -148,4 +148,69 @@ module TestTzolkinDate=
                                 referenceDates
                                 true
 
+                testPropertyWithConfig configFasterThan "toString"
+                <| fun i j ->
+                    let tzolkin = TzolkinDate.create
+                                        (TzolkinNumber.T.TzolkinNumber <| TzolkinNumber.modulo13 i)
+                                        (TzolkinGlyph.T.TzolkinGlyph <| TzolkinGlyph.modulo20 j)
+
+                    test <@ tzolkin.ToString () = TzolkinGlyph.toString tzolkin @>
+                    test <@ tzolkin.ToString () = sprintf "%d %s"
+                                (TzolkinNumber.modulo13 i)
+                                TzolkinGlyph.glyphNames.[TzolkinGlyph.modulo20 j - 1] @>
+
+
+                testPropertyWithConfig configFasterThan "fromStrings"
+                <| fun i j ->
+                        let number = TzolkinNumber.T.TzolkinNumber <| TzolkinNumber.modulo13 i
+                        let glyphStr, glyph = genGlyphTestString j
+                        let tzolkin = TzolkinDate.create
+                                            number
+                                            (TzolkinGlyph.T.TzolkinGlyph <| TzolkinGlyph.modulo20 j)
+                        test <@ TzolkinDate.fromStrings (number.ToString ()) glyphStr = Some tzolkin @>
+                        test <@ TzolkinDate.fromString (sprintf "%d %s" (int number) glyphStr) =
+                                    Some tzolkin @>
+
+                testPropertyWithConfig configFasterThan "fromDate* yield the same"
+                <| fun i j k ->
+                        let day = (abs i) % 28 + 1
+                        let month = (abs j) % 12 + 1
+                        let year = (abs k) % 2000 + 1000
+                        test <@ TzolkinDate.fromDate (DateTime (year, month, day) ) =
+                                    TzolkinDate.fromDateString
+                                            (sprintf "%02d %02d %04d" day month year)
+                                            "dd MM yyyy"
+                                            @>
+                        test <@ TzolkinDate.fromDate (DateTime (year, month, day) ) =
+                            TzolkinDate.fromISOString
+                                    (sprintf "%04d-%02d-%02d" year month day)
+                                    @>
+
+
+                testPropertyWithConfig configFasterThan "dayInYear"
+                <| fun i ->
+                          let tzolkinDay = (abs i) % 260 + 1
+                          let tzolkinMap = TzolkinDate.yearStringMap ()
+                          let tzolkinStr = tzolkinMap.[tzolkinDay]
+                          let tzolkin = TzolkinDate.fromString tzolkinStr
+                          match tzolkin with
+                          | None -> test <@ "Should never happen" = "x" @>
+                          | Some tz -> test <@ TzolkinDate.dayInYear tz = tzolkinDay @>
+
+                testPropertyWithConfig configFasterThan "filterDateList"
+                <| fun i j ->
+                        let start = DateTime (1970, 01, 01)
+                        let tzolkin = TzolkinDate.create
+                                        (TzolkinNumber.T.TzolkinNumber <| TzolkinNumber.modulo13 i)
+                                        (TzolkinGlyph.T.TzolkinGlyph <| TzolkinGlyph.modulo20 j)
+                        let dateList = TzolkinDate.getNextList 5000 tzolkin start
+                        let filterList str =
+                                TzolkinDate.filterDateList str dateList
+                        test <@ filterList "" = List.map
+                                                    (fun (e: DateTime) -> e.ToShortDateString ())
+                                                    dateList @>
+                        let filterStr = "20"
+                        List.iter
+                            (fun (e: string) -> test <@ e.Contains filterStr @>)
+                            (filterList filterStr)
             ]
