@@ -58,9 +58,10 @@ Mayan Glyphs and Unicode: [Roadmap to the SMP](https://www.unicode.org/roadmaps/
 
 ## Download
 
-List of changes: [CHANGELOG.md](https://github.com/Release-Candidate/Tzolkin/blob/main/CHANGELOG.md)
 
 [Link to the latest release](https://github.com/Release-Candidate/Tzolkin/releases/latest)
+
+List of changes: [CHANGELOG.md](https://github.com/Release-Candidate/Tzolkin/blob/main/CHANGELOG.md)
 
 ## Installation and Usage
 
