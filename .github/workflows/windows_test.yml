@@ -93,8 +93,16 @@ jobs:
           name: Test Results
           path: ./test_results/*.xml
 
-      - name: Publish Unit Test Results
+      - name: Publish JUnit Test Results
         uses: EnricoMi/publish-unit-test-result-action/composite@v1
         if: always()
         with:
           files: ./test_results/jresult.xml
+
+      - name: Publish JUnit Test Results
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: JUnit Results
+          path: ./test_results/jresult.xml
+          reporter: java-junit
