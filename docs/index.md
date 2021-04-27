@@ -4,7 +4,7 @@ This cross platform - Linux, Mac OS X and Windows - F# .Net library and program 
 
 If you want to know more about the Maya calendar systems, see [Links](#links).
 
-Information about the smartphone app is at [Usage of the Smartphone App](#usage-of-the-smartphone-app)
+Information about the smartphone app is at [Usage of the Smartphone App](./usage.md)
 
 Information about the usage of the F# NuGet library Tzolkin you find at [NuGet Package](./nuget_package.md).
 To interactively try out the F# NuGet package Tzolkin, go to the Jupyter Notebook at [![Binder badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/Tzolkin/main?filepath=Tzolkin.ipynb)

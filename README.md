@@ -2,6 +2,9 @@
 
 This cross platform - Linux, Mac OS X and Windows - F# .Net library and smartphone app converts Maya Tzolk’in dates to Gregorian dates and vice versa.
 
+![Smartphone app screenshot 1](./docs/images/Screenshot_1619523461.jpg)
+![Smartphone app screenshot 2](./docs/images/Screenshot_1619523505.jpg)
+
 If you want to know more about the Maya calendar systems, see [Links](#links).
 
 Information about the smartphone app is at [Usage of the Smartphone App](#usage-of-the-smartphone-app)

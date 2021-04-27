@@ -11,6 +11,7 @@ site_dir: site
 nav:
   - Home: index.md
   - Project Links:
+      - "Downloads": https://github.com/Release-Candidate/Tzolkin/releases/latest
       - "GitHub Project Page": "https://github.com/Release-Candidate/Tzolkin"
       - "Nuget Package": "https://www.nuget.org/packages/Tzolkin/"
       - "Report a Bug or a Feature Request": "https://github.com/Release-Candidate/Tzolkin/issues/new/choose"

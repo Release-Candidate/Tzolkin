@@ -2,8 +2,10 @@
 
 ## Installation
 
-Install the packages for your smartphone (`.apk` for Android) onto your phone - search the web
+Install the package for your smartphone (`.apk` for Android) onto your phone - search the web
 on how you can do that, this depends on your phone.
+
+Download the latest release: [Release at GitHub](https://github.com/Release-Candidate/Tzolkin/releases/latest)
 
 ## Usage of the Smartphone App
 
