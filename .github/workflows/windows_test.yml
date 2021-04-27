@@ -98,11 +98,3 @@ jobs:
         if: always()
         with:
           files: ./test_results/jresult.xml
-
-      - name: Publish JUnit Test Results
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: JUnit Results
-          path: ./test_results/jresult.xml
-          reporter: java-junit
