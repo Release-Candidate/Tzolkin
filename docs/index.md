@@ -1,4 +1,4 @@
-# Tzolkin
+#![Tzolkin Logo](./images/nuget_icon.png) Tzolkin
 
 This cross platform - Linux, Mac OS X and Windows - F# .Net library and program converts Maya Tzolk’in dates to Gregorian dates and vice versa.
 
@@ -12,6 +12,9 @@ To interactively try out the F# NuGet package Tzolkin, go to the Jupyter Noteboo
 [Contributing](./contributing.md) has information about how to contribute to Tzolkin, by
 filing bug reports or feature requests, to contributing source code, to adding documentation
 or translations or any other way you can help Tzolkin.
+
+![Smartphone app screenshot 1](./images/Screenshot_1619523461.jpg)
+![Smartphone app screenshot 2](./images/Screenshot_1619523505.jpg)
 
 ## Links
 
