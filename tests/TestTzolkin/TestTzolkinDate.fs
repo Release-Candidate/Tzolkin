@@ -154,8 +154,8 @@ module TestTzolkinDate=
                                         (TzolkinNumber.T.TzolkinNumber <| TzolkinNumber.modulo13 i)
                                         (TzolkinGlyph.T.TzolkinGlyph <| TzolkinGlyph.modulo20 j)
 
-                    test <@ tzolkin.ToString () = TzolkinGlyph.toString tzolkin @>
-                    test <@ tzolkin.ToString () = sprintf "%d %s"
+                    test <@ tzolkin.ToString () = TzolkinDate.toString tzolkin @>
+                    test <@ TzolkinDate.toString tzolkin = sprintf "%d %s"
                                 (TzolkinNumber.modulo13 i)
                                 TzolkinGlyph.glyphNames.[TzolkinGlyph.modulo20 j - 1] @>
 
@@ -170,6 +170,10 @@ module TestTzolkinDate=
                         test <@ TzolkinDate.fromStrings (number.ToString ()) glyphStr = Some tzolkin @>
                         test <@ TzolkinDate.fromString (sprintf "%d %s" (int number) glyphStr) =
                                     Some tzolkin @>
+
+                        test <@ TzolkinDate.fromStrings "FOO" "bar" = None @>
+                        test <@ TzolkinDate.fromStrings "6" "bar" = None @>
+                        test <@ TzolkinDate.fromString "bar" = None @>
 
                 testPropertyWithConfig configFasterThan "fromDate* yield the same"
                 <| fun i j k ->

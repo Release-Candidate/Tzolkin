@@ -2,6 +2,8 @@
 
 A F# Maya Tzolk’in date converter and calculator library.
 
+To try the F# NuGet package Tzolkin online, go to the Jupyter Notebook at [![Binder badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/Tzolkin/main?filepath=Tzolkin.ipynb).
+
 ## Install Package & Basic Usage
 
 Download an install the `Tzolkin` Nuget package using your IDE (Visual Studio or JetBrains Rider) or one of the command-line possibilities: [Tzolkin Package at NuGet](https://www.nuget.org/packages/Tzolkin/)

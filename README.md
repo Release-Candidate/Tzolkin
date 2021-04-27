@@ -1,7 +1,12 @@
 # ![Tzolkin Icon](./src/Tzolkin.Android/Resources/mipmap-mdpi/icon.png) Tzolkin <!-- omit in toc -->
 
 This cross platform - Linux, Mac OS X and Windows - F# .Net library and smartphone app converts Maya Tzolk’in dates to Gregorian dates and vice versa.
+
 If you want to know more about the Maya calendar systems, see [Links](#links).
+
+Information about the smartphone app is at [Usage of the Smartphone App](#usage-of-the-smartphone-app)
+
+To interactively try out the F# NuGet package Tzolkin, go to the Jupyter Notebook at [![Binder badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/Tzolkin/main?filepath=Tzolkin.ipynb)
 
 Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.io/en/latest/)
 
@@ -10,11 +15,8 @@ Full documentation can be found at [Read the Docs](https://tzolkin.readthedocs.i
 [![OS badge](https://img.shields.io/badge/Runs%20on-Linux%7COS%20X%7CWindows%7CAndroid%7CIOS-brightgreen?style=flat)](https://dotnet.microsoft.com/download)
 [![Nuget Package badge](https://img.shields.io/nuget/v/Tzolkin)](https://www.nuget.org/packages/Tzolkin/)
 [![Documentation Status](https://readthedocs.org/projects/tzolkin/badge/?version=latest)](https://tzolkin.readthedocs.io/en/latest/)
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/Tzolkin/main?filepath=Tzolkin.ipynb)
+[![Binder badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/Tzolkin/main?filepath=Tzolkin.ipynb)
 [more badges ...](#badges)
-
-
-
 
 ## Table of Content <!-- omit in toc -->
 
@@ -60,6 +62,25 @@ List of changes: [CHANGELOG.md](https://github.com/Release-Candidate/Tzolkin/blo
 ## Installation and Usage
 
 ### Usage of the Smartphone App
+
+See [YouTube video of the smartphone app](https://www.youtube.com/watch?v=os32KCEqGCk) for a video.
+
+![Android Screenshot 1](./docs/images/Screenshot_1619523461.jpg)
+![Android Screenshot 2](./docs/images/Screenshot_1619523478.jpg)
+![Android Screenshot 3](./docs/images/Screenshot_1619523484.jpg)
+![Android Screenshot 4](./docs/images/Screenshot_1619523505.jpg)
+![Android Screenshot 5](./docs/images/Screenshot_1619523510.jpg)
+![Android Screenshot 6](./docs/images/Screenshot_1619523514.jpg)
+![Android Screenshot 7](./docs/images/Screenshot_1619523518.jpg)
+![Android Screenshot 8](./docs/images/Screenshot_1619523521.jpg)
+![Android Screenshot 9](./docs/images/Screenshot_1619523528.jpg)
+![Android Screenshot 10](./docs/images/Screenshot_1619523542.jpg)
+![Android Screenshot 11](./docs/images/Screenshot_1619523546.jpg)
+![Android Screenshot 12](./docs/images/Screenshot_1619523551.jpg)
+![Android Screenshot 13](./docs/images/Screenshot_1619523580.jpg)
+![Android Screenshot 14](./docs/images/Screenshot_1619523588.jpg)
+![Android Screenshot 15](./docs/images/Screenshot_1619523637.jpg)
+![Android Screenshot 16](./docs/images/Screenshot_1619523644.jpg)
 
 ### Tzolkin NuGet Package
 
@@ -888,7 +909,11 @@ TzolkinGlyph.toUnicode tzolkin.Glyph
 
 ## Contributing
 
-See page [Contributing](https://tzolkin.readthedocs.io/en/latest/contributing/) at Read the Docs.
+Any help is welcome!
+
+If you encounter a problem using Tzolkin, a task it not as easy as you'd like it to be or you'd like something added to it: open an issue at GitHub, see section [Report Issues](#report-issues-bugs-and-feature-requests).
+
+See page [Contributing](https://tzolkin.readthedocs.io/en/latest/contributing/) at Read the Docs for a detailed description.
 
 ## License
 
@@ -897,7 +922,6 @@ All content except some images of Tzolkin is licensed under the MIT license, see
 ## Privacy Policy
 
 Tzolkin does not collect or share any personal information, it does not contain any ads, trackers or in-app-payments. See: [Privacy Policy](https://github.com/Release-Candidate/Tzolkin/blob/main/privacy_policy.md)
-
 
 ## Badges
 
