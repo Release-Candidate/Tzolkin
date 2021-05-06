@@ -7,7 +7,9 @@ This cross platform - Linux, Mac OS X and Windows - F# .Net library and smartpho
 
 If you want to know more about the Maya calendar systems, see [Links](#links).
 
-Information about the smartphone app is at [Usage of the Smartphone App](#usage-of-the-smartphone-app)
+Information about the smart-phone app is at [Usage of the Smartphone App](#usage-of-the-smartphone-app)
+
+A video of the smart-phone app is at [YouTube](https://www.youtube.com/watch?v=os32KCEqGCk).
 
 To interactively try out the F# NuGet package Tzolkin, go to the Jupyter Notebook at [![Binder badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/Tzolkin/main?filepath=Tzolkin.ipynb)
 
@@ -58,16 +60,29 @@ Mayan Glyphs and Unicode: [Roadmap to the SMP](https://www.unicode.org/roadmaps/
 
 ## Download
 
-
 [Link to the latest release](https://github.com/Release-Candidate/Tzolkin/releases/latest)
 
 List of changes: [CHANGELOG.md](https://github.com/Release-Candidate/Tzolkin/blob/main/CHANGELOG.md)
+
+### Android
+
+Install the package for your smart-phone (.apk for Android) onto your phone - search the web on how you can do that, this depends on your phone
+
+### iOS
+
+I can’t generate an iPhone package myself, so you have to build the project IOS for yourself and provision the app to your phone. Microsoft has a how-to [here](https://docs.microsoft.com/en-us/xamarin/ios/get-started/installation/device-provisioning/free-provisioning?tabs=macos)
+
+### NuGet Package
+
+Download an install the Tzolkin Nuget package using your IDE (Visual Studio or JetBrains Rider) or one of the command-line possibilities: [Tzolkin Package at NuGet](https://www.nuget.org/packages/Tzolkin/)
+
+In an interactive F# FSI session, you can use the command #r "nuget: Tzolkin" to download and use the NuGet package LunaZodiaco.
 
 ## Installation and Usage
 
 ### Usage of the Smartphone App
 
-See [YouTube video of the smartphone app](https://www.youtube.com/watch?v=os32KCEqGCk) for a video.
+See [YouTube video of the smart-phone app](https://www.youtube.com/watch?v=os32KCEqGCk) for a video.
 
 ![Android Screenshot 1](./docs/images/Screenshot_1619523461.jpg)
 ![Android Screenshot 2](./docs/images/Screenshot_1619523478.jpg)

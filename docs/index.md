@@ -6,6 +6,9 @@ If you want to know more about the Maya calendar systems, see [Links](#links).
 
 Information about the smartphone app is at [Usage of the Smartphone App](./usage.md)
 
+A video of the smart-phone app is at [YouTube](https://www.youtube.com/watch?v=os32KCEqGCk).
+
+
 Information about the usage of the F# NuGet library Tzolkin you find at [NuGet Package](./nuget_package.md).
 To interactively try out the F# NuGet package Tzolkin, go to the Jupyter Notebook at [![Binder badge](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/Release-Candidate/Tzolkin/main?filepath=Tzolkin.ipynb)
 
@@ -15,6 +18,8 @@ or translations or any other way you can help Tzolkin.
 
 ![Smartphone app screenshot 1](./images/Screenshot_1619523461.jpg)
 ![Smartphone app screenshot 2](./images/Screenshot_1619523505.jpg)
+
+
 
 ## Links
 
