@@ -127,7 +127,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Ajaw.
     let private _descAjaw =
-        { Meaning = "señor"
+        { Meaning = "señor, Slnko, Kvet"
           ElementOrAnimal = "Sol"
           Direction = "sur"
           Color = "amarillo"
@@ -136,7 +136,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Etzʼnabʼ.
     let private _descEtznab =
-        { Meaning = "pedernal"
+        { Meaning = "pedernal, Nôž"
           ElementOrAnimal = "pedernal"
           Direction = "norte"
           Color = "blanco"
@@ -145,7 +145,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Kabʼan.
     let private _descKaban =
-        { Meaning = "Tierra"
+        { Meaning = "Tierra, Pohyb"
           ElementOrAnimal = "Tierra y los temblores"
           Direction = "sur"
           Color = "amarillo"
@@ -154,7 +154,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Kʼibʼ.
     let private _descKib =
-        { Meaning = "cera"
+        { Meaning = "cera, Sova, Sup"
           ElementOrAnimal = "venado, insectos"
           Direction = "sur"
           Color = "amarillo"
@@ -172,7 +172,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Bʼen.
     let private _descBen =
-        { Meaning = "maíz verde"
+        { Meaning = "maíz verde, Rákosie"
           ElementOrAnimal = "maíz"
           Direction = "este"
           Color = "rojo"
@@ -181,7 +181,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Ebʼ.
     let private _descEb =
-        { Meaning = "rocío"
+        { Meaning = "rocío, Cesta, Bylina"
           ElementOrAnimal = "-"
           Direction = "sur"
           Color = "amarillo"
@@ -217,7 +217,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Lamat.
     let private _descLamat =
-        { Meaning = "Venus"
+        { Meaning = "Venus, Králik"
           ElementOrAnimal = "conejo"
           Direction = "sur"
           Color = "amarillo"
@@ -226,7 +226,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Manikʼ.
     let private _descManik =
-        { Meaning = "venado"
+        { Meaning = "venado, Jeleň"
           ElementOrAnimal = "venado"
           Direction = "oeste"
           Color = "negro"
@@ -244,7 +244,7 @@ module TzolkinGlyph =
 
     /// Description of Tzolk’in day glyph Kʼan.
     let private _descKan =
-        { Meaning = "maíz maduro"
+        { Meaning = "maíz maduro, Jašterica"
           ElementOrAnimal = "maíz y abundancia"
           Direction = "sur"
           Color = "amarillo"
