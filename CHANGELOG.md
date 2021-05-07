@@ -1,6 +1,6 @@
 # Tzolkin Changelog
 
-## Version 0.9.21 (2021-05-06)
+## Version 0.9.22 (2021-05-07)
 
 - add Slovak words to the glyph significance
 
