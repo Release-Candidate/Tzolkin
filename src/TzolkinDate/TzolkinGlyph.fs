@@ -182,7 +182,7 @@ module TzolkinGlyph =
     /// Description of Tzolk’in day glyph Ebʼ.
     let private _descEb =
         { Meaning = "rocío, Cesta, Bylina"
-          ElementOrAnimal = "-"
+          ElementOrAnimal = "gato del monte"
           Direction = "sur"
           Color = "amarillo"
           God = "dios de las lluvias dañinas"
