@@ -1,4 +1,4 @@
-﻿// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 // Copyright (C) 2021 Roland Csaszar
 //
 // Project:  Tzolkin
@@ -147,8 +147,8 @@ module TzolkinGlyph =
     let private _descKaban =
         { Meaning = "Tierra, Pohyb"
           ElementOrAnimal = "Tierra y los temblores"
-          Direction = "sur"
-          Color = "amarillo"
+          Direction = "este"
+          Color = "rojo"
           God = "diosa I o diosa de la sensualidad y el amor"
           Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
@@ -165,8 +165,8 @@ module TzolkinGlyph =
     let private _descIx =
         { Meaning = "jaguar"
           ElementOrAnimal = "jaguar"
-          Direction = "este"
-          Color = "rojo"
+          Direction = "norte"
+          Color = "blanco"
           God = "dios jaguar"
           Url = "https://arqueologiamexicana.mx/dias-mayas" }
 

@@ -1,5 +1,9 @@
 # Tzolkin Changelog
 
+## Version 0.9.22 (2021-06-15)
+
+- changed the direction and color of Ix and Kabʼan
+
 ## Version 0.9.22 (2021-05-07)
 
 - add Slovak words to the glyph significance
