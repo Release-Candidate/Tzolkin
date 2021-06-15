@@ -28,7 +28,7 @@
     <NeutralLanguage>es</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Release-Candidate/Tzolkin</RepositoryUrl>
-    <Version>0.9.22</Version>
+    <Version>0.9.23</Version>
     <Authors>Roland Csaszar</Authors>
     <Company>Release-Candidate</Company>
     <Product>Tzolkin</Product>
