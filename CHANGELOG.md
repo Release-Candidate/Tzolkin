@@ -1,6 +1,6 @@
 # Tzolkin Changelog
 
-## Version 0.9.22 (2021-06-15)
+## Version 0.9.23 (2021-06-15)
 
 - changed the direction and color of Ix and Kabʼan
 
