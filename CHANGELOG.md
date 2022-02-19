@@ -1,5 +1,9 @@
 # Tzolkin Changelog
 
+## Version 0.9.25 (2022-02-19)
+
+- change the god of Manik to F
+
 ## Version 0.9.24 (2021-06-15)
 
 - change the direction and color of Ix and Kabʼan
