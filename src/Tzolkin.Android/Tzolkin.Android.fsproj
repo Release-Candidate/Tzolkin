@@ -24,9 +24,9 @@
     <AndroidLinkMode>None</AndroidLinkMode>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <SelectedDevice>Pixel_3a_API_30_x86</SelectedDevice>
-    <ActiveDebugProfile>Pixel_3a_API_30_x86</ActiveDebugProfile>
-    <DefaultDevice>Pixel_3a_API_30_x86</DefaultDevice>
+    <SelectedDevice>pixel_2_pie_9_0_-_api_28</SelectedDevice>
+    <ActiveDebugProfile>pixel_2_pie_9_0_-_api_28</ActiveDebugProfile>
+    <DefaultDevice>Pixel_2_API_24</DefaultDevice>
     <ReferencePath>
     </ReferencePath>
   </PropertyGroup>
@@ -72,7 +72,7 @@
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidSupportedAbis />
     <AndroidKeyStore>true</AndroidKeyStore>
-    <AndroidSigningKeyStore>C:\Users\RC\Documents\texte\android_keystore\android_keystore.jks</AndroidSigningKeyStore>
+    <AndroidSigningKeyStore>D:\roland\documents\texte\android_keystore\android_keystore.jks</AndroidSigningKeyStore>
     <AndroidSigningKeyAlias>upload</AndroidSigningKeyAlias>
     <AndroidSigningStorePass>SUEVVWi2lDz0QvS4WVRI</AndroidSigningStorePass>
     <AndroidSigningKeyPass>U4HmqYD77xW3MWweVOea</AndroidSigningKeyPass>
@@ -105,8 +105,12 @@
     <AndroidCreatePackagePerAbi>false</AndroidCreatePackagePerAbi>
     <AndroidLinkTool>r8</AndroidLinkTool>
     <AndroidSupportedAbis />
-    <AndroidKeyStore>false</AndroidKeyStore>
+    <AndroidKeyStore>true</AndroidKeyStore>
     <OutputPath>bin\Release APK\</OutputPath>
+    <AndroidSigningKeyStore>D:\roland\documents\texte\android_keystore\android_keystore.jks</AndroidSigningKeyStore>
+    <AndroidSigningStorePass>SUEVVWi2lDz0QvS4WVRI</AndroidSigningStorePass>
+    <AndroidSigningKeyPass>U4HmqYD77xW3MWweVOea</AndroidSigningKeyPass>
+    <AndroidSigningKeyAlias>upload</AndroidSigningKeyAlias>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.FSharp.targets" />
   <Import Project="..\packages\Xamarin.AndroidX.MultiDex.2.0.1.1\build\monoandroid90\Xamarin.AndroidX.MultiDex.targets" Condition="Exists('..\packages\Xamarin.AndroidX.MultiDex.2.0.1.1\build\monoandroid90\Xamarin.AndroidX.MultiDex.targets')" />

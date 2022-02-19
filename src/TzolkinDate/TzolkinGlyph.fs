@@ -230,7 +230,7 @@ module TzolkinGlyph =
           ElementOrAnimal = "venado"
           Direction = "oeste"
           Color = "negro"
-          God = "dios R o Buluk Ch’Abtan, dios de la Tierra"
+          God = "dios F o Buluk Ch’Abtan"
           Url = "https://arqueologiamexicana.mx/dias-mayas" }
 
     /// Description of Tzolk’in day glyph Kimi.

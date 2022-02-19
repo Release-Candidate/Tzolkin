@@ -28,11 +28,11 @@
     <NeutralLanguage>es</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/Release-Candidate/Tzolkin</RepositoryUrl>
-    <Version>0.9.24</Version>
+    <Version>0.9.25</Version>
     <Authors>Roland Csaszar</Authors>
     <Company>Release-Candidate</Company>
     <Product>Tzolkin</Product>
-    <Copyright>(c) 2021 Roland Csaszar</Copyright>
+    <Copyright>(c) 2022 Roland Csaszar</Copyright>
     <PackageIcon>nuget_icon.png</PackageIcon>
     <PackageTags>F# Maya Tzolkin calendar calculator converter</PackageTags>
     <PackageReleaseNotes>Initial Release</PackageReleaseNotes>
