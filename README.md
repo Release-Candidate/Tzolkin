@@ -1,3 +1,7 @@
+> [!WARNING]
+> This repository has been moved to [Codeberg: Tzolkin](https://codeberg.org/Release-Candidate/Tzolkin)
+
+
 # ![Tzolkin Icon](./src/Tzolkin.Android/Resources/mipmap-mdpi/icon.png) Tzolkin <!-- omit in toc -->
 
 This cross platform - Linux, Mac OS X and Windows - F# .Net library and smartphone app converts Maya Tzolk’in dates to Gregorian dates and vice versa.
